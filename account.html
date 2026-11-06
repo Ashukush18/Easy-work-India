@@ -1,0 +1,2924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>My Account — Easy Work India</title>
+  <meta name="description" content="Easy Work India user profile and account management">
+  <meta name="theme-color" content="#0f1f3d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles.css?v=20261103_v3">
+  <link rel="stylesheet" href="admin-styles.css?v=20261103_v3">
+  <style>
+    :root { --user-nav-h: 60px; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+    body.user-body {
+      background: #f0f4ff;
+      font-family: var(--font);
+      min-height: 100vh;
+      max-width: 100%;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── HEADER ── */
+    .user-header {
+      background: linear-gradient(135deg, #0f1f3d, #1a3260);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 4px 20px rgba(0,0,0,.25);
+    }
+    .user-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      max-width: 1100px;
+      margin: 0 auto;
+      gap: 10px;
+    }
+    .user-header .brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .user-header .brand-icon { width: 34px; height: 34px; background: linear-gradient(135deg,#2563eb,#0d9488); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .78rem; color: #fff; flex-shrink: 0; }
+    .user-header .brand-text { font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: #fff; white-space: nowrap; }
+    .user-header .brand-india { color: #2dd4bf; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .header-uname { font-size: .82rem; color: rgba(255,255,255,.75); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 130px; }
+    .header-uname strong { color: #fff; }
+    .header-logout {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      color: #fff;
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .header-logout:hover { background: rgba(220,38,38,.35); border-color: rgba(220,38,38,.5); }
+
+    /* ── MOBILE BOTTOM NAV ── */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #fff;
+      border-top: 1px solid #e2e8f0;
+      z-index: 190;
+      padding: 6px 0 env(safe-area-inset-bottom, 6px);
+      box-shadow: 0 -4px 20px rgba(0,0,0,.08);
+    }
+    .mobile-nav-inner { display: flex; }
+    .mobile-nav-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 6px 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: .65rem;
+      font-weight: 600;
+      position: relative;
+      transition: color .2s;
+      text-decoration: none;
+    }
+    .mobile-nav-btn i { font-size: 1.2rem; }
+    .mobile-nav-btn.active { color: #2563eb; }
+    .mobile-nav-btn .mob-badge {
+      position: absolute;
+      top: 4px; right: calc(50% - 14px);
+      background: #f97316;
+      color: #fff;
+      font-size: .58rem;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800;
+    }
+
+    /* ── PAGE LAYOUT ── */
+    .user-page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 18px 80px;
+      display: grid;
+      grid-template-columns: 268px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .user-sidebar {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      position: sticky;
+      top: 74px;
+    }
+    .user-profile-summary {
+      background: linear-gradient(135deg, #0f1f3d, #1e3a5f);
+      padding: 24px 18px;
+      text-align: center;
+    }
+    .user-avatar-wrap { position: relative; display: inline-block; margin-bottom: 12px; }
+    .user-avatar {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #0d9488);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.5rem; color: #fff;
+      margin: 0 auto; overflow: hidden; position: relative;
+      border: 3px solid rgba(255,255,255,.2);
+    }
+    .user-avatar img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+    .avatar-edit-btn {
+      position: absolute; bottom: 0; right: 0;
+      width: 26px; height: 26px;
+      background: #2563eb; border: 2px solid #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #fff; font-size: .7rem; transition: background .2s;
+    }
+    .avatar-edit-btn:hover, .avatar-edit-btn:active { background: #1d4ed8; }
+    .user-name-display { font-weight: 700; font-size: .95rem; color: #fff; margin-bottom: 2px; }
+    .user-phone-display { font-size: .78rem; color: rgba(255,255,255,.55); margin-bottom: 10px; }
+    .user-verify-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 999px; font-size: .72rem; font-weight: 700; }
+    .badge-verified   { background: rgba(34,197,94,.2);  color: #4ade80;  border: 1px solid rgba(34,197,94,.3); }
+    .badge-unverified { background: rgba(251,191,36,.2); color: #fbbf24;  border: 1px solid rgba(251,191,36,.3); }
+    .badge-pending    { background: rgba(37,99,235,.2);  color: #60a5fa;  border: 1px solid rgba(37,99,235,.3); }
+    .sidebar-divider { height: 1px; background: #f1f5f9; margin: 4px 0; }
+    .user-nav { padding: 6px 0; }
+    .user-nav-item {
+      display: flex; align-items: center; gap: 11px;
+      padding: 12px 18px; font-size: .875rem; font-weight: 500;
+      color: #64748b; cursor: pointer; transition: all .2s;
+      border: none; background: none; width: 100%; text-align: left; position: relative;
+      text-decoration: none;
+    }
+    .user-nav-item i { width: 18px; text-align: center; font-size: .95rem; }
+    .user-nav-item:hover  { color: #2563eb; background: #f0f7ff; }
+    .user-nav-item.active { color: #2563eb; background: #eff6ff; font-weight: 700; }
+    .user-nav-item.active::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: linear-gradient(180deg,#2563eb,#0d9488); border-radius: 0 2px 2px 0;
+    }
+    .user-nav-item .nav-alert {
+      margin-left: auto; background: #f97316; color: #fff;
+      font-size: .62rem; font-weight: 800; padding: 2px 6px; border-radius: 999px; min-width: 16px; text-align: center;
+    }
+
+    /* ── MAIN ── */
+    .user-main {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .user-section { display: none; }
+    .user-section.active {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* ── CARDS ── */
+    .u-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      min-width: 0;
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .u-card-header {
+      padding: 16px 22px; border-bottom: 1px solid #f1f5f9;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .u-card-header h3 { font-family: var(--font-display); font-size: .95rem; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px; margin: 0; }
+    .u-card-header h3 i { color: var(--blue); }
+    .u-card-body {
+      padding: 20px 22px;
+      min-width: 0;
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+
+    /* ── BANNERS ── */
+    .info-banner {
+      border-radius: 14px; padding: 16px 18px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .info-banner.warn    { background: #fff8ec; border: 1.5px solid #fcd34d; }
+    .info-banner.info    { background: #eff6ff; border: 1.5px solid #93c5fd; }
+    .info-banner.success { background: #f0fdf4; border: 1.5px solid #86efac; }
+    .info-banner.danger  { background: #fff1f2; border: 1.5px solid #fca5a5; }
+    .ib-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .ib-icon.warn    { background: #fef3c7; color: #d97706; }
+    .ib-icon.info    { background: #dbeafe; color: #2563eb; }
+    .ib-icon.success { background: #dcfce7; color: #16a34a; }
+    .ib-icon.danger  { background: #fee2e2; color: #dc2626; }
+    .ib-title { font-weight: 700; font-size: .88rem; color: var(--navy); margin-bottom: 4px; }
+    .ib-desc  { font-size: .82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── FORMS ── */
+    .u-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .u-field { display: flex; flex-direction: column; gap: 5px; }
+    .u-field label { font-size: .8rem; font-weight: 600; color: var(--text); }
+    .u-field input, .u-field select, .u-field textarea {
+      border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 11px 13px;
+      font-family: inherit; font-size: .9rem; outline: none;
+      transition: border-color .2s; color: var(--text); background: #fff;
+      -webkit-appearance: none; appearance: none;
+      min-height: 44px; /* touch-friendly */
+    }
+    .u-field input:focus, .u-field select:focus { border-color: #2563eb; }
+    .u-field input:disabled { background: #f8fafc; color: var(--text-muted); cursor: not-allowed; }
+    .u-field-full { grid-column: 1 / -1; }
+
+    /* ── UPLOAD ZONE ── */
+    .upload-zone {
+      border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px 16px;
+      text-align: center; cursor: pointer; transition: all .2s; position: relative;
+      min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .upload-zone:hover, .upload-zone:focus { border-color: #2563eb; background: #eff6ff; outline: none; }
+    .upload-zone:active { transform: scale(.99); }
+    .upload-zone input[type=file] { display: none; }
+    .upload-zone.has-file      { border-color: #16a34a; background: #f0fdf4; }
+    .upload-zone.pending-review{ border-color: #f97316; background: #fff7ed; cursor: default; pointer-events: none; }
+    .upload-zone.approved      { border-color: #16a34a; background: #f0fdf4; cursor: default; pointer-events: none; }
+    .upload-zone.rejected      { border-color: #dc2626; background: #fff1f2; }
+    .upload-icon { font-size: 1.8rem; color: #94a3b8; margin-bottom: 8px; }
+    .upload-zone.has-file .upload-icon       { color: #16a34a; }
+    .upload-zone.pending-review .upload-icon { color: #f97316; }
+    .upload-zone.approved .upload-icon       { color: #16a34a; }
+    .upload-zone.rejected .upload-icon       { color: #dc2626; }
+    .upload-title { font-weight: 700; font-size: .88rem; color: var(--text); margin-bottom: 4px; }
+    .upload-hint  { font-size: .76rem; color: var(--text-muted); }
+
+    /* ── IMAGE QUALITY NOTICE (shown before / during upload) ── */
+    .img-quality-notice {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: #fff8ec; border: 1.5px solid #fcd34d;
+      border-radius: 10px; padding: 11px 13px; margin-bottom: 12px;
+    }
+    .img-quality-notice i { color: #d97706; font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .img-quality-notice p { font-size: .79rem; color: #78350f; line-height: 1.55; margin: 0; }
+    .img-quality-notice strong { color: #92400e; }
+
+    /* ── SIGNATURE ── */
+    .sig-canvas-wrap {
+      border: 2px dashed #cbd5e1; border-radius: 12px;
+      overflow: hidden; background: #fff; position: relative;
+    }
+    .sig-canvas-wrap.has-sig      { border-color: #2563eb; border-style: solid; }
+    .sig-canvas-wrap.pending-review{ border-color: #f97316; border-style: solid; }
+    .sig-canvas-wrap.approved     { border-color: #16a34a; border-style: solid; }
+    .sig-canvas-wrap.rejected     { border-color: #dc2626; border-style: solid; }
+    #userSigCanvas { width: 100%; height: 130px; display: block; cursor: crosshair; touch-action: none; }
+    .sig-placeholder {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none; color: #cbd5e1; font-size: .85rem; font-style: italic;
+    }
+    .sig-status-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: rgba(255,255,255,.92); gap: 8px; text-align: center; padding: 10px;
+    }
+    .sig-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+
+    /* ── STATUS PILLS ── */
+    .status-pill { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; font-size: .72rem; font-weight: 700; white-space: nowrap; }
+    .pill-pending  { background: #fef3c7; color: #92400e; }
+    .pill-review   { background: #dbeafe; color: #1e40af; }
+    .pill-approved { background: #dcfce7; color: #14532d; }
+    .pill-rejected { background: #fee2e2; color: #991b1b; }
+
+    /* ── EARNINGS ── */
+    .earnings-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .earn-stat { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 12px; text-align: center; }
+    .earn-stat-val { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .earn-stat-val.green { color: #16a34a; }
+    .earn-stat-label { font-size: .74rem; color: var(--text-muted); font-weight: 500; }
+
+    /* ── PROGRESS STEPS ── */
+    .verify-steps { display: flex; align-items: center; gap: 0; margin: 14px 0; overflow-x: auto; padding-bottom: 4px; }
+    .v-step { flex: 1; text-align: center; position: relative; min-width: 72px; }
+    .v-step-dot { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 700; margin: 0 auto 6px; position: relative; z-index: 2; }
+    .v-step-dot.done   { background: #16a34a; color: #fff; }
+    .v-step-dot.active { background: #2563eb; color: #fff; }
+    .v-step-dot.idle   { background: #e2e8f0; color: #94a3b8; }
+    .v-step-label { font-size: .65rem; color: var(--text-muted); font-weight: 600; line-height: 1.3; }
+    .v-step-connector { flex: 1; height: 2px; background: #e2e8f0; margin-top: -18px; position: relative; z-index: 1; min-width: 20px; }
+    .v-step-connector.done { background: #16a34a; }
+
+    /* ── BUTTONS ── */
+    .u-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: .86rem; cursor: pointer; border: none; transition: all .2s; min-height: 42px; white-space: nowrap; }
+    .u-btn-primary { background: linear-gradient(135deg,#2563eb,#1d4ed8); color: #fff; box-shadow: 0 4px 12px rgba(37,99,235,.28); }
+    .u-btn-primary:hover, .u-btn-primary:active { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,99,235,.4); }
+    .u-btn-outline { background: transparent; border: 1.5px solid #e2e8f0; color: var(--text-muted); }
+    .u-btn-outline:hover, .u-btn-outline:active { border-color: #2563eb; color: #2563eb; }
+    .u-btn-sm { padding: 7px 12px; font-size: .8rem; min-height: 36px; }
+    .u-btn:active { transform: scale(.97); }
+
+    /* ── TOAST ── */
+    .u-toast {
+      position: fixed; bottom: 80px; left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: #0f1f3d; color: #fff;
+      padding: 10px 20px; border-radius: 999px;
+      font-size: .84rem; font-weight: 600; z-index: 9999;
+      box-shadow: 0 8px 30px rgba(0,0,0,.35); max-width: 90vw;
+      text-align: center;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease, visibility .25s;
+    }
+    .u-toast.show {
+      opacity: 1; visibility: visible; pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── REJECT REASON ── */
+    .reject-reason-box {
+      background: #fff1f2; border: 1.5px solid #fca5a5;
+      border-radius: 10px; padding: 12px 14px; margin-top: 10px;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .reject-reason-box i { color: #dc2626; font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .reject-reason-box p { font-size: .8rem; color: #991b1b; margin: 0; line-height: 1.55; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .user-page-wrap {
+        grid-template-columns: minmax(0, 1fr) !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        padding: 14px 12px 100px !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+      }
+      .user-sidebar { display: none !important; }   /* hidden — mobile nav used instead */
+      .mobile-bottom-nav { display: block !important; }
+      .u-form-grid { grid-template-columns: 1fr !important; }
+      .earnings-row { grid-template-columns: repeat(3, 1fr); }
+      .u-card {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .u-card-body {
+        padding: 14px !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .u-card-header {
+        padding: 12px 14px !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .tracker-top-row {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        gap: 12px !important;
+      }
+      .tracker-timer-controls {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        gap: 8px !important;
+      }
+      .timer-badge {
+        flex: 1 !important;
+        justify-content: center !important;
+        padding: 7px 10px !important;
+        font-size: .78rem !important;
+        white-space: nowrap !important;
+      }
+      .tracker-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+        width: 100% !important;
+      }
+      .session-tracker-card {
+        padding: 14px 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+      }
+      .t-stat {
+        min-width: 0 !important;
+        width: 100% !important;
+        padding: 8px 6px !important;
+        box-sizing: border-box !important;
+      }
+      .t-stat-val {
+        font-size: 1.15rem !important;
+      }
+      .t-stat-label {
+        font-size: .65rem !important;
+        line-height: 1.2 !important;
+      }
+      .task-queue-nav {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .doc-viewer-box {
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+    }
+    @media (max-width: 480px) {
+      .earnings-row { grid-template-columns: 1fr 1fr; }
+      .earn-stat:last-child { grid-column: 1 / -1; }
+      .header-uname { display: none; }
+      .sig-actions { flex-direction: column; }
+    }
+    @media (max-width: 380px) {
+      .tracker-stats-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 6px !important;
+      }
+      .t-stat {
+        padding: 6px 4px !important;
+      }
+      .t-stat-val {
+        font-size: 1rem !important;
+      }
+      .t-stat-label {
+        font-size: .6rem !important;
+      }
+    }
+
+    /* ── WORK SESSION TRACKER & TERMINAL ── */
+    .session-tracker-card {
+      background: linear-gradient(135deg, #0f1f3d, #1e3a5f);
+      color: #fff;
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 20px rgba(15,31,61,.18);
+      max-width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    .tracker-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      padding-bottom: 12px;
+    }
+    .tracker-timer-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .timer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34,197,94,.18);
+      border: 1px solid rgba(34,197,94,.35);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 700;
+      color: #4ade80;
+      white-space: nowrap;
+    }
+    .timer-badge.paused {
+      background: rgba(234,179,8,.18);
+      border-color: rgba(234,179,8,.35);
+      color: #fde047;
+    }
+    .live-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulseDot 1.5s infinite;
+      flex-shrink: 0;
+    }
+    .timer-badge.paused .live-dot {
+      background: #eab308;
+      box-shadow: none;
+      animation: none;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(.85); }
+    }
+    .tracker-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .t-stat {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+      min-width: 0;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    .t-stat-val {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .t-stat-label {
+      font-size: .68rem;
+      color: rgba(255,255,255,.7);
+      font-weight: 600;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .progress-bar-track {
+      background: rgba(255,255,255,.15);
+      border-radius: 999px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 14px;
+    }
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #22c55e, #10b981);
+      height: 100%;
+      width: 0%;
+      transition: width .4s ease;
+      border-radius: 999px;
+    }
+
+    /* Task Queue Tabs */
+    .task-queue-nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      max-width: 100%;
+    }
+    .task-pill-btn {
+      background: #f1f5f9;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all .2s;
+    }
+    .task-pill-btn.active {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #fff;
+    }
+
+
+
+    /* Source Document Viewer */
+    .doc-viewer-box {
+      background: #fafaf9;
+      border: 1.5px solid #e7e5e4;
+      border-radius: 10px;
+      padding: 18px 20px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: .88rem;
+      line-height: 1.75;
+      color: #292524;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-x: hidden;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      -webkit-touch-callout: none !important;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,.03);
+      max-height: 360px;
+      overflow-y: auto;
+    }
+    .doc-viewer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: .8rem;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    /* Form Filling Cards */
+    .form-master-sheet {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      max-width: 100%;
+      box-sizing: border-box;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
+    .f-sheet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (max-width: 480px) {
+      .f-sheet-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 6px !important;
+      }
+    }
+    @media (max-width: 360px) {
+      .f-sheet-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    .f-sheet-item {
+      background: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #fef3c7;
+    }
+    .f-sheet-item label {
+      display: block;
+      font-size: .7rem;
+      font-weight: 700;
+      color: #92400e;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .f-sheet-item span {
+      font-size: .88rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+  </style>
+</head>
+<body class="user-body">
+
+  <!-- ─── HEADER ─── -->
+  <header class="user-header">
+    <div class="user-header-inner">
+      <a class="brand" href="index.html">
+        <div class="brand-icon">EW</div>
+        <span class="brand-text">Easy Work <span class="brand-india">India</span></span>
+      </a>
+      <div class="header-right">
+        <span class="header-uname" id="headerNameEl">Welcome, <strong id="headerNameText">User</strong></span>
+        <button class="header-logout" id="userLogoutBtn">
+          <i class="bi bi-box-arrow-right"></i><span>Logout</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── MOBILE BOTTOM NAV ─── -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <div class="mobile-nav-inner">
+      <a href="index.html" class="mobile-nav-btn">
+        <i class="bi bi-house-door-fill"></i><span>Home</span>
+      </a>
+      <button class="mobile-nav-btn active" data-tab="overview">
+        <i class="bi bi-grid-1x2"></i><span>Overview</span>
+      </button>
+      <button class="mobile-nav-btn" data-tab="project">
+        <i class="bi bi-briefcase"></i><span>My Work</span>
+      </button>
+      <button class="mobile-nav-btn" data-tab="earnings">
+        <i class="bi bi-currency-rupee"></i><span>Earnings</span>
+      </button>
+      <button class="mobile-nav-btn" data-tab="profile">
+        <i class="bi bi-person-check"></i><span>Profile &amp; Docs</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── PAGE LAYOUT ─── -->
+  <div class="user-page-wrap">
+
+    <!-- Sidebar (desktop only) -->
+    <aside class="user-sidebar">
+      <div class="user-profile-summary">
+        <div class="user-avatar-wrap">
+          <div class="user-avatar" id="sidebarAvatar" style="position:relative">
+            <span id="sidebarAvatarInitials">U</span>
+            <img id="sidebarAvatarImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%">
+            <span style="position:absolute;bottom:-2px;right:-2px;background:#2563eb;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:.7rem;border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.2)" title="Profile photo verified &amp; locked by Admin">
+              <i class="bi bi-shield-lock-fill"></i>
+            </span>
+          </div>
+        </div>
+        <div class="user-name-display" id="sidebarName">Loading...</div>
+        <div class="user-phone-display" id="sidebarPhone">---</div>
+        <div id="sidebarVerifyBadge" class="user-verify-badge badge-verified">
+          <i class="bi bi-shield-fill-check"></i> Verified Account
+        </div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <nav class="user-nav">
+        <a href="index.html" class="user-nav-item"><i class="bi bi-house-door-fill"></i> Home</a>
+        <button class="user-nav-item active" data-tab="overview"><i class="bi bi-grid-1x2"></i> Overview</button>
+        <button class="user-nav-item" data-tab="project"><i class="bi bi-briefcase"></i> My Work &amp; Tasks</button>
+        <button class="user-nav-item" data-tab="earnings"><i class="bi bi-currency-rupee"></i> Earnings</button>
+        <button class="user-nav-item" data-tab="profile"><i class="bi bi-person-check"></i> Profile &amp; Verified Docs</button>
+      </nav>
+    </aside>
+
+    <!-- ─── MAIN ─── -->
+    <main class="user-main">
+
+      <!-- Worker Permission Notice Banner (Syncs with Admin Permissions) -->
+      <div id="workerPermissionBanner" style="display:none;margin-bottom:20px;"></div>
+
+      <!-- ══════════ OVERVIEW ══════════ -->
+      <div class="user-section active" id="tab-overview">
+        <!-- Verified Success Banner -->
+        <div class="info-banner success">
+          <div class="ib-icon success"><i class="bi bi-patch-check-fill"></i></div>
+          <div>
+            <div class="ib-title">Account Active &amp; Verified by Admin ✓</div>
+            <div class="ib-desc">Your worker credentials, Aadhaar identity, and signature are verified by Easy Work India Admin. You are ready to start working immediately with no pending verification requirements.</div>
+          </div>
+        </div>
+
+        <div class="u-card">
+          <div class="u-card-header">
+            <h3><i class="bi bi-bar-chart-line"></i> Account Overview</h3>
+          </div>
+          <div class="u-card-body">
+            <div class="earnings-row">
+              <div class="earn-stat">
+                <div class="earn-stat-val green" id="overviewEarnings">₹0</div>
+                <div class="earn-stat-label">Total Earnings</div>
+              </div>
+              <div class="earn-stat">
+                <div class="earn-stat-val" id="overviewProject" style="font-size:1rem">—</div>
+                <div class="earn-stat-label">Assigned Project</div>
+              </div>
+              <div class="earn-stat">
+                <div class="earn-stat-val green" id="overviewStatus" style="font-size:1rem;color:#16a34a">
+                  <i class="bi bi-check-circle-fill"></i> Active
+                </div>
+                <div class="earn-stat-label">Account Status</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Launch Package Card -->
+        <div class="u-card">
+          <div class="u-card-header">
+            <h3><i class="bi bi-rocket-takeoff-fill"></i> Active Work Package</h3>
+            <span class="status-pill pill-approved"><i class="bi bi-shield-check"></i> Pre-Approved</span>
+          </div>
+          <div class="u-card-body">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px">
+              <div>
+                <strong style="color:var(--navy);font-size:1rem;display:block" id="overviewPkgTitle">Data Entry Project</strong>
+        <span style="font-size:.82rem;color:var(--text-muted);display:block;margin-top:2px" id="overviewPkgSubtitle">Rate: ₹60/form · Maximum: 350 pages/week · Weekly Salary</span>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="u-btn u-btn-primary" onclick="switchTab('project')">
+                  <i class="bi bi-play-circle-fill"></i> Start Working Now
+                </button>
+                <button class="u-btn u-btn-outline" onclick="switchTab('profile')">
+                  <i class="bi bi-file-earmark-person"></i> View Verified Docs
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ DAILY TASKS & WORK TERMINAL ══════════ -->
+      <div class="user-section" id="tab-project">
+
+        <!-- Live Work Session & Time Tracker -->
+        <div class="session-tracker-card">
+          <div class="tracker-top-row">
+            <div>
+              <div style="font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);font-weight:700">Active Work Shift</div>
+              <strong style="font-size:1.15rem;color:#fff" id="workProjectTitle">Daily Task Terminal</strong>
+            </div>
+            <div class="tracker-timer-controls">
+              <div class="timer-badge" id="sessionTimerBadge">
+                <span class="live-dot"></span>
+                <span>Time Spent: <strong id="liveTimerText">00:00:00</strong></span>
+              </div>
+              <button class="u-btn u-btn-sm" id="btnToggleTimer" onclick="toggleWorkSessionTimer()" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff">
+                <i class="bi bi-pause-fill" id="timerBtnIcon"></i> <span id="timerBtnText">Pause</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="tracker-stats-grid">
+            <div class="t-stat">
+              <div class="t-stat-val" id="statCompletedUnits">0</div>
+              <div class="t-stat-label">Units Done Today</div>
+            </div>
+            <div class="t-stat">
+              <div class="t-stat-val" id="statDailyTarget">30</div>
+              <div class="t-stat-label">Daily Target Quota</div>
+            </div>
+            <div class="t-stat">
+              <div class="t-stat-val" style="color:#4ade80" id="statTodayEarned">₹0</div>
+              <div class="t-stat-label">Earned Today</div>
+            </div>
+            <div class="t-stat">
+              <div class="t-stat-val" style="color:#60a5fa" id="statUnitRate">₹150</div>
+              <div class="t-stat-label">Rate Per Unit</div>
+            </div>
+          </div>
+
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="quotaProgressBar"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:.74rem;color:rgba(255,255,255,.6)">
+            <span id="quotaProgressText">0 of 30 units completed (0%)</span>
+            <span><i class="bi bi-shield-check" style="color:#4ade80"></i> Automated Daily Quota</span>
+          </div>
+        </div>
+
+        <!-- Task Selector Tabs (Loaded from Admin ewi_tasks_db) -->
+        <div class="u-card">
+          <div class="u-card-header">
+            <h3><i class="bi bi-list-task"></i> Assigned Daily Tasks from Admin</h3>
+            <span style="font-size:.78rem;color:var(--text-muted)"><i class="bi bi-cloud-check-fill" style="color:#16a34a"></i> Filtered by your plan</span>
+          </div>
+          <div class="u-card-body" style="padding:14px 18px">
+            <div class="task-queue-nav" id="taskQueueNav">
+              <!-- Rendered by JS -->
+            </div>
+            <div id="activeTaskMetaInfo" style="font-size:.82rem;color:var(--text-muted);display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Active Task Workspace Terminal -->
+        <div class="u-card" id="taskWorkspaceContainer">
+          <!-- Rendered by JS for Data Entry / Form Filling -->
+        </div>
+
+        <!-- Work Activity & Session History Log -->
+        <div class="u-card">
+          <div class="u-card-header">
+            <h3><i class="bi bi-clock-history"></i> Today's Completed Work Log</h3>
+            <span class="status-pill pill-approved"><i class="bi bi-shield-check"></i> Automatically Verified</span>
+          </div>
+          <div class="u-card-body" style="padding:0">
+            <div style="overflow-x:auto">
+              <table style="width:100%;border-collapse:collapse;font-size:.84rem;text-align:left">
+                <thead>
+                  <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-size:.75rem;text-transform:uppercase">
+                    <th style="padding:12px 18px">Task ID</th>
+                    <th style="padding:12px 14px">Plan</th>
+                    <th style="padding:12px 14px">Completed At</th>
+                    <th style="padding:12px 14px">Time Spent</th>
+                    <th style="padding:12px 14px">Amount Earned</th>
+                    <th style="padding:12px 18px">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="workSessionLogBody">
+                  <!-- Filled by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══════════ EARNINGS ══════════ -->
+      <div class="user-section" id="tab-earnings">
+
+        <!-- Earnings Summary Card -->
+        <div class="u-card">
+          <div class="u-card-header">
+            <h3><i class="bi bi-currency-rupee"></i> Earnings Summary</h3>
+            <span class="status-pill pill-approved"><i class="bi bi-check-circle"></i> Weekly Payout Active</span>
+          </div>
+          <div class="u-card-body">
+            <div class="earnings-row" style="margin-bottom:20px">
+              <div class="earn-stat"><div class="earn-stat-val green" id="earnTotalVal">₹0</div><div class="earn-stat-label">Total Earned</div></div>
+              <div class="earn-stat"><div class="earn-stat-val" style="color:#2563eb" id="earnPendingVal">₹0</div><div class="earn-stat-label">Pending Payout</div></div>
+            </div>
+
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;text-align:center">
+              <i class="bi bi-calendar2-check-fill" style="font-size:2rem;color:#16a34a;display:block;margin-bottom:8px"></i>
+              <strong style="color:var(--navy);font-size:1rem;display:block;margin-bottom:4px">Weekly Payout Schedule</strong>
+              <p style="font-size:.84rem;color:var(--text-muted);max-width:540px;margin:0 auto 14px;line-height:1.55">
+                Complete your weekly task quota and request withdrawal every Saturday. Payout is processed via Bank Transfer, UPI, or Paytm.
+              </p>
+              <button class="u-btn u-btn-primary u-btn-sm" onclick="openWithdrawalFlow()">
+                <i class="bi bi-bank2"></i> Request Withdrawal
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wallet Balance Card (hidden — balance shown in Total Earned) -->
+        <div class="u-card" id="walletCard" style="display:none">
+          <div class="u-card-header">
+            <h3><i class="bi bi-wallet2"></i> My Wallet</h3>
+            <span class="status-pill" style="background:#f0fdf4;color:#16a34a;border:1px solid #86efac"><i class="bi bi-shield-lock-fill"></i> Admin Managed</span>
+          </div>
+          <div class="u-card-body">
+            <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:16px">
+              <div style="background:linear-gradient(135deg,#0f1f3d,#1a3260);border-radius:14px;padding:20px 28px;text-align:center;min-width:150px">
+                <div style="font-size:.74rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Wallet Balance</div>
+                <div style="font-size:2rem;font-weight:800;color:#4ade80" id="walletBalanceDisplay">₹0</div>
+                <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:4px">Credited by Admin</div>
+              </div>
+              <div style="flex:1;min-width:180px">
+                <div style="font-size:.82rem;color:var(--text-muted);line-height:1.6">Your wallet balance is credited by the Administrator after your work is verified. This balance reflects your approved weekly salary and can be withdrawn after Premium activation and KYC verification.</div>
+                <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+                  <span id="kycStatusBadge" class="status-pill" style="background:#fff8ec;color:#d97706;border:1px solid #fcd34d"><i class="bi bi-hourglass-split"></i> KYC Pending</span>
+                  <span id="premiumStatusBadge" class="status-pill" style="background:#f5f3ff;color:#7c3aed;border:1px solid #c4b5fd"><i class="bi bi-gem"></i> Premium: Not Active</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Wallet Transaction History -->
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px">
+              <div style="font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:6px">
+                <i class="bi bi-clock-history" style="color:#2563eb"></i> Wallet Transaction History
+              </div>
+              <div id="walletHistoryList">
+                <div style="text-align:center;padding:14px 0;font-size:.84rem;color:var(--text-muted)">No wallet transactions yet. Transactions are added by Admin.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Withdrawal Flow Container (shown dynamically) -->
+        <div id="withdrawalFlowContainer" style="display:none"></div>
+
+      </div>
+
+      <!-- ══════════ PROFILE & VERIFIED DOCS ══════════ -->
+      <div class="user-section" id="tab-profile">
+        <!-- Notice: locked fields -->
+        <div class="info-banner info">
+          <div class="ib-icon info"><i class="bi bi-lock-fill"></i></div>
+          <div>
+            <div class="ib-title">Permanent Profile Record — Managed Exclusively by Admin</div>
+            <div class="ib-desc">All worker details (Profile Photo, Full Name, User ID/Phone, Email, Username, Project, and Address) were registered and verified by the Super Administrator at account creation. <strong>Workers cannot edit or modify profile details directly.</strong> For any corrections, please contact your Administrator.</div>
+          </div>
+        </div>
+
+        <!-- Worker Profile Photo (Verified & Locked by Admin) -->
+        <div class="u-card">
+          <div class="u-card-header">
+            <h3><i class="bi bi-person-badge"></i> Worker Profile Photo</h3>
+            <span class="status-pill pill-approved"><i class="bi bi-lock-fill"></i> Verified by Admin (Locked)</span>
+          </div>
+          <div class="u-card-body">
+            <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+              <div style="position:relative;width:82px;height:82px;border-radius:50%;overflow:hidden;border:3px solid #2563eb;background:#eff6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(37,99,235,.2)">
+                <img id="profilePhotoDisplay" src="" alt="Profile Photo" style="width:100%;height:100%;object-fit:cover;display:none">
+                <span id="profilePhotoFallback" style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:#2563eb">U</span>
+              </div>
+              <div style="flex:1;min-width:200px">
+                <div style="font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:4px" id="profilePhotoName">Official Worker Portrait</div>
+                <div style="font-size:.8rem;color:var(--text-muted);line-height:1.55">
+                  This official profile portrait was verified and provisioned by the Administrator. Re-upload and editing are strictly restricted to maintain legal authentication.
+                </div>
+                <div style="margin-top:8px">
+                  <span class="status-pill pill-approved"><i class="bi bi-patch-check-fill"></i> Photo Verified &amp; Secured</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal Information (100% Read-Only) -->
+        <div class="u-card">
+          <div class="u-card-header">
+            <h3><i class="bi bi-person-circle"></i> Personal Information</h3>
+            <span class="status-pill pill-approved"><i class="bi bi-lock-fill"></i> Locked &amp; Verified</span>
+          </div>
+          <div class="u-card-body">
+            <div class="u-form-grid">
+              <div class="u-field">
+                <label>Full Name</label>
+                <input type="text" id="pFullName" disabled style="border-color:#e2e8f0;background:#f8fafc;color:#1e293b;font-weight:600">
+                <span style="font-size:.72rem;color:#16a34a"><i class="bi bi-lock-fill"></i> Verified legal name (Locked)</span>
+              </div>
+              <div class="u-field">
+                <label>User ID / Mobile Number</label>
+                <input type="text" id="pPhone" disabled style="border-color:#e2e8f0;background:#f8fafc;color:#1e293b;font-weight:600">
+                <span style="font-size:.72rem;color:#16a34a"><i class="bi bi-lock-fill"></i> Primary Login ID (Locked)</span>
+              </div>
+              <div class="u-field">
+                <label>Username</label>
+                <input type="text" id="pUsername" disabled style="border-color:#e2e8f0;background:#f8fafc;color:#1e293b;font-weight:600">
+                <span style="font-size:.72rem;color:#16a34a"><i class="bi bi-lock-fill"></i> System Username (Locked)</span>
+              </div>
+              <div class="u-field">
+                <label>Email Address</label>
+                <input type="email" id="pEmail" disabled style="border-color:#e2e8f0;background:#f8fafc;color:#1e293b;font-weight:600">
+                <span style="font-size:.72rem;color:#16a34a"><i class="bi bi-lock-fill"></i> Registered Gmail / Email (Locked)</span>
+              </div>
+              <div class="u-field">
+                <label>Assigned Work Project</label>
+                <input type="text" id="pProject" disabled style="border-color:#e2e8f0;background:#f8fafc;color:#1e293b;font-weight:600">
+                <span style="font-size:.72rem;color:#16a34a"><i class="bi bi-lock-fill"></i> Active Work Plan (Locked)</span>
+              </div>
+              <div class="u-field">
+                <label>Home Address</label>
+                <input type="text" id="pAddress" disabled style="border-color:#e2e8f0;background:#f8fafc;color:#1e293b;font-weight:600">
+                <span style="font-size:.72rem;color:#16a34a"><i class="bi bi-lock-fill"></i> Address on File (Locked)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verified Documents on File -->
+        <div class="u-card">
+          <div class="u-card-header">
+            <h3><i class="bi bi-shield-lock-fill"></i> Verified Documents on File</h3>
+            <span class="status-pill pill-approved"><i class="bi bi-check-circle-fill"></i> Approved by Admin</span>
+          </div>
+          <div class="u-card-body">
+            <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:16px">
+              Your identity proof and digital signature have already been submitted and approved directly by the administrator. No further action or manual verification is required.
+            </p>
+            <div class="u-form-grid">
+              <div class="u-field">
+                <label>Aadhaar Number on File</label>
+                <input type="text" id="docAadhaarNum" disabled style="background:#f8fafc;font-family:monospace;letter-spacing:1px;font-weight:700">
+                <span style="font-size:.72rem;color:#16a34a"><i class="bi bi-check-circle-fill"></i> Identity Verified by Admin</span>
+              </div>
+              <div class="u-field">
+                <label>Account Status</label>
+                <input type="text" value="Active &amp; Fully Verified" disabled style="background:#f0fdf4;color:#15803d;font-weight:700">
+                <span style="font-size:.72rem;color:#16a34a"><i class="bi bi-patch-check-fill"></i> Zero Pending Steps</span>
+              </div>
+              <div class="u-field">
+                <label>Aadhaar Card Record</label>
+                <div id="userAadhaarThumbWrap" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px;text-align:center;min-height:70px;display:flex;align-items:center;justify-content:center">
+                  <img id="userAadhaarThumb" style="max-height:80px;max-width:100%;border-radius:4px" alt="Aadhaar Preview">
+                </div>
+              </div>
+              <div class="u-field">
+                <label>Digital Signature Record</label>
+                <div id="userSigThumbWrap" style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:8px;text-align:center;min-height:70px;display:flex;align-items:center;justify-content:center">
+                  <img id="userSigThumb" style="height:55px;max-width:100%;object-fit:contain" alt="Signature Preview">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logout / Sign Out Card -->
+        <div class="u-card" style="margin-top:20px;border:1px solid #fecaca;background:#fff5f5">
+          <div class="u-card-body" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:16px 20px;">
+            <div>
+              <div style="font-weight:700;color:#991b1b;font-size:0.95rem;">
+                <i class="bi bi-box-arrow-right me-1"></i>Sign Out of Account
+              </div>
+              <div style="font-size:0.8rem;color:#b91c1c;margin-top:2px;">
+                End your session safely on this device. You will need your User ID and Password to sign back in.
+              </div>
+            </div>
+            <button type="button" class="u-btn" style="background:#dc2626;color:#fff;border:none;padding:9px 22px;border-radius:8px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;" onclick="performWorkerLogout()">
+              <i class="bi bi-box-arrow-right"></i> Logout Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main><!-- end user-main -->
+  </div><!-- end user-page-wrap -->
+
+  <div class="u-toast" id="uToast"></div>
+
+  <script src="cloud_sync.js"></script>
+  <script>
+  /* ==============================================
+     USER ACCOUNT — Inline Script
+     ============================================== */
+  const PROFILE_KEY = 'ewi_user_profile';
+  const VERIFY_KEY  = 'ewi_user_verify';
+
+  function uToast(msg) {
+    const t = document.getElementById('uToast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window._ut);
+    window._ut = setTimeout(() => t.classList.remove('show'), 3500);
+  }
+  function saveData(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch(_){} }
+  function loadData(key) { try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch(_){ return null; } }
+
+  // ── Load state ──
+  let profile = loadData(PROFILE_KEY) || {};
+  let verify  = loadData(VERIFY_KEY)  || { aadhaar: { status: 'none' }, sig: { status: 'none' } };
+  if (!verify.aadhaar) verify.aadhaar = { status: 'none' };
+  if (!verify.sig)     verify.sig     = { status: 'none' };
+
+  // Guard: if no local profile, try re-auth from server using sessionStorage credentials
+  // This enables cross-device access — worker logs in on phone, desktop, laptop etc.
+  async function tryReAuthFromServer() {
+    const loginId   = sessionStorage.getItem('ewi_login_id');
+    const loginPass = sessionStorage.getItem('ewi_login_pass');
+    if (!loginId || !loginPass) {
+      window.location.href = 'index.html';
+      return;
+    }
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: loginId, phone: loginId, password: loginPass })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.ok && data.user) {
+          applyServerProfile(data.user);
+          initAccountDashboard();
+          return;
+        }
+      }
+    } catch(_) {}
+
+    // Fallback to Universal Cloud Sync (supports static hosts)
+    if (window.EWI_CloudSync) {
+      try {
+        const cloudUser = await window.EWI_CloudSync.findUser(loginId);
+        if (cloudUser) {
+          applyServerProfile(cloudUser);
+          initAccountDashboard();
+          return;
+        }
+      } catch(_) {}
+    }
+
+    window.location.href = 'index.html';
+  }
+
+  // Guard: redirect if not logged in
+  if (!profile || !profile.name) {
+    // Try server re-auth before giving up (new device cross-device support)
+    tryReAuthFromServer();
+  }
+
+  // ── Check & show disabled account banner ──
+  function checkAccountDisabled() {
+    const isDisabled = (profile.status === 'disabled' || profile.status === 'inactive');
+    let banner = document.getElementById('accountDisabledBanner');
+    if (isDisabled) {
+      if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'accountDisabledBanner';
+        banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#dc2626;color:#fff;text-align:center;padding:14px 20px;font-size:.95rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 16px rgba(0,0,0,.3)';
+        banner.innerHTML = '<i class="bi bi-exclamation-triangle-fill" style="font-size:1.2rem"></i> <span>⚠️ This account has been <u>deactivated</u> by administration. You cannot submit tasks or withdraw earnings. Please contact Admin.</span>';
+        document.body.prepend(banner);
+        // Push page content down
+        const wrap = document.querySelector('.user-header');
+        if (wrap) wrap.style.marginTop = '52px';
+      }
+    } else {
+      if (banner) { banner.remove(); }
+      const wrap = document.querySelector('.user-header');
+      if (wrap) wrap.style.marginTop = '';
+    }
+  }
+  checkAccountDisabled();
+
+  // ── Complete Logout ──
+  function performWorkerLogout() {
+    if (confirm('Are you sure you want to logout?')) {
+      // 1. Remove all session & credentials
+      sessionStorage.removeItem('ewi_user_logged_in');
+      sessionStorage.removeItem('ewi_login_id');
+      sessionStorage.removeItem('ewi_login_pass');
+
+      // 2. Remove stored profile & verify records from localStorage and sessionStorage
+      localStorage.removeItem(PROFILE_KEY);
+      localStorage.removeItem(VERIFY_KEY);
+      sessionStorage.removeItem(PROFILE_KEY);
+      sessionStorage.removeItem(VERIFY_KEY);
+
+      // 3. Clear permission popup flags and temporary session state
+      try {
+        Object.keys(sessionStorage).forEach(k => {
+          if (k.startsWith('ewi_seen_perm_') || k.startsWith('ewi_user_')) {
+            sessionStorage.removeItem(k);
+          }
+        });
+      } catch(_) {}
+
+      // 4. Invalidate memory references
+      profile = {};
+      verify = { aadhaar: { status: 'none' }, sig: { status: 'none' } };
+
+      // 5. Clean redirect replacing history so Back button cannot return to dashboard
+      window.location.replace('index.html');
+    }
+  }
+
+  const userLogoutBtn = document.getElementById('userLogoutBtn');
+  if (userLogoutBtn) {
+    userLogoutBtn.addEventListener('click', performWorkerLogout);
+  }
+
+  // ── Tab switching (sidebar + mobile nav) ──
+  function switchTab(tabName, pushHistory = true) {
+    if (tabName === 'home') {
+      window.location.href = 'index.html';
+      return;
+    }
+    // Sidebar
+    document.querySelectorAll('.user-nav-item[data-tab]').forEach(b => b.classList.toggle('active', b.dataset.tab === tabName));
+    // Mobile nav
+    document.querySelectorAll('.mobile-nav-btn[data-tab]').forEach(b => b.classList.toggle('active', b.dataset.tab === tabName));
+    // Sections
+    document.querySelectorAll('.user-section').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById('tab-' + tabName);
+    if (el) el.classList.add('active');
+
+    if (pushHistory && window.history && window.history.pushState) {
+      history.pushState({ ewiWorker: true, tab: tabName }, '', '#' + tabName);
+    }
+
+    // Scroll to top on mobile
+    if (window.innerWidth <= 860) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.querySelectorAll('[data-tab]').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  // Handle phone Back button so it smoothly navigates tabs instead of kicking user out
+  if (window.history && window.history.replaceState) {
+    history.replaceState({ ewiWorker: true, tab: 'overview' }, '', '#overview');
+    history.pushState({ ewiWorker: true, tab: 'overview' }, '', '#overview');
+  }
+  window.addEventListener('popstate', () => {
+    const noticeModal = document.getElementById('adminNoticePopupModal');
+    if (noticeModal && noticeModal.style.display !== 'none') {
+      noticeModal.style.display = 'none';
+      history.pushState({ ewiWorker: true, tab: 'overview' }, '', '#overview');
+      return;
+    }
+
+    const currentActive = document.querySelector('.mobile-nav-btn.active');
+    const currentTab = currentActive ? currentActive.dataset.tab : 'overview';
+    if (currentTab !== 'overview') {
+      switchTab('overview', false);
+      history.pushState({ ewiWorker: true, tab: 'overview' }, '', '#overview');
+      return;
+    }
+
+    history.pushState({ ewiWorker: true, tab: 'overview' }, '', '#overview');
+    showToast('Click Logout at top right to sign out.');
+  });
+
+  // ── Populate sidebar ──
+  function populateSidebar() {
+    document.getElementById('sidebarName').textContent = profile.name || 'User';
+    // Show User ID if available, otherwise phone
+    const displayId = profile.username || profile.userId || profile.phone || '---';
+    document.getElementById('sidebarPhone').textContent = displayId;
+    document.getElementById('headerNameText').textContent = (profile.name || 'User').split(' ')[0];
+    document.getElementById('sidebarAvatarInitials').textContent = (profile.name || 'U').slice(0, 2).toUpperCase();
+    const photo = profile.photoUrl || profile.photo_url || profile.avatarSrc;
+    if (photo) {
+      const img = document.getElementById('sidebarAvatarImg');
+      if (img) { img.src = photo; img.style.display = 'block'; }
+      const init = document.getElementById('sidebarAvatarInitials');
+      if (init) init.style.display = 'none';
+      const pPhoto = document.getElementById('profilePhotoDisplay');
+      if (pPhoto) { pPhoto.src = photo; pPhoto.style.display = 'block'; }
+      const pFallback = document.getElementById('profilePhotoFallback');
+      if (pFallback) pFallback.style.display = 'none';
+    }
+    const badge = document.getElementById('sidebarVerifyBadge');
+    if (badge) {
+      const isDisabled = (profile.status === 'disabled' || profile.status === 'inactive');
+      if (isDisabled) {
+        badge.className = 'user-verify-badge badge-unverified';
+        badge.innerHTML = '<i class="bi bi-slash-circle-fill"></i> Account Disabled';
+      } else {
+        badge.className = 'user-verify-badge badge-verified';
+        badge.innerHTML = '<i class="bi bi-shield-fill-check"></i> Verified Account';
+      }
+    }
+  }
+
+  // ── Profile form & Verified Docs ──
+  function populateProfileForm() {
+    const fn = document.getElementById('pFullName'); if (fn) fn.value = profile.name || '';
+    const un = document.getElementById('pUsername'); if (un) un.value = profile.username || profile.userId || (profile.name || 'user').toLowerCase().replace(/\s/g, '_');
+    const em = document.getElementById('pEmail');    if (em) em.value = profile.email || '';
+    // Show User ID as the Primary Login ID field
+    const ph = document.getElementById('pPhone');    if (ph) ph.value = profile.username || profile.userId || profile.phone || '';
+    const ad = document.getElementById('pAddress');  if (ad) ad.value = profile.address || 'Maharashtra, India';
+
+    let projectsDb = [];
+    try { projectsDb = JSON.parse(localStorage.getItem('ewi_projects_db') || '[]'); } catch(_) {}
+    let pKey = profile.projectKey || profile.project || 'data_entry';
+    if (pKey === 'captcha') { pKey = 'data_entry'; profile.projectKey = 'data_entry'; profile.project = 'data_entry'; }
+    const activeProj = projectsDb.find(p => p.key === pKey || (pKey === 'form_filling' && p.id === 3) || (pKey === 'data_entry' && p.id === 1));
+
+    const projName = (activeProj && activeProj.name) ? activeProj.name : (pKey === 'form_filling' ? 'Form Filling Project' : 'Data Entry Project');
+    const projRate = (activeProj && activeProj.perUnit) ? activeProj.perUnit : (pKey === 'form_filling' ? '\u20B950/form' : '\u20B960/form');
+    const projWeekly = (activeProj && (activeProj.weeklyWork || activeProj.daily)) ? (activeProj.weeklyWork || activeProj.daily) : '350 pages';
+    const projPot = (activeProj && (activeProj.weeklyEarnings || activeProj.potential)) ? (activeProj.weeklyEarnings || activeProj.potential) : (pKey === 'form_filling' ? '\u20B919,500/week' : '\u20B921,000/week');
+
+    const pj = document.getElementById('pProject');  if (pj) pj.value = projName;
+
+    // Total Earned = task earnings + admin wallet credits
+    const taskEarnNum  = parseInt((profile.earnings  || '0').replace(/[^\d]/g, ''), 10) || 0;
+    const walletNum    = parseInt((profile.walletBalance || '0').replace(/[^\d]/g, ''), 10) || 0;
+    const combinedNum  = taskEarnNum + walletNum;
+    const totalEarn    = '\u20B9' + combinedNum.toLocaleString('en-IN');
+    document.getElementById('overviewEarnings').textContent = totalEarn;
+    document.getElementById('overviewProject').textContent  = projName.split(' ')[0] + ' ' + (projName.split(' ')[1] || '');
+    document.getElementById('overviewStatus').innerHTML    = '<i class="bi bi-check-circle-fill"></i> Active &amp; Verified';
+
+    const pkgTitle = document.getElementById('overviewPkgTitle');
+    if (pkgTitle) pkgTitle.textContent = projName;
+    const pkgSub = document.getElementById('overviewPkgSubtitle');
+    if (pkgSub) {
+      pkgSub.textContent = `Rate: ${projRate} · Maximum: ${projWeekly} · Potential: ${projPot}`;
+    }
+
+    // Work tab project title
+    const workProj = document.getElementById('workProjectTitle');
+    if (workProj) workProj.textContent = projName + ' Terminal';
+
+    // Earnings tab stats — Total Earned = task earnings + admin wallet credits
+    const earnTot = document.getElementById('earnTotalVal');
+    if (earnTot) earnTot.textContent = totalEarn;
+    const earnPend = document.getElementById('earnPendingVal');
+    if (earnPend) earnPend.textContent = totalEarn;
+
+    // Verified Aadhaar on file
+    const docAadhaar = document.getElementById('docAadhaarNum');
+    const aadhaarVal = profile.aadhaar || (verify.aadhaar ? verify.aadhaar.num : '') || 'XXXX XXXX 5678';
+    if (docAadhaar) docAadhaar.value = aadhaarVal;
+
+    // Aadhaar Document Thumbnail
+    const aadhaarThumb = document.getElementById('userAadhaarThumb');
+    if (aadhaarThumb) {
+      if (verify.aadhaar && verify.aadhaar.file) {
+        aadhaarThumb.src = verify.aadhaar.file;
+      } else {
+        aadhaarThumb.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="160" viewBox="0 0 300 160"><rect width="100%" height="100%" rx="8" fill="%23f1f5f9" stroke="%23cbd5e1" stroke-width="2"/><rect width="100%" height="32" fill="%231e3a8a" rx="8"/><text x="14" y="21" font-family="sans-serif" font-weight="bold" font-size="11" fill="%23ffffff">AADHAAR CARD - GOVT OF INDIA</text><text x="14" y="65" font-family="sans-serif" font-weight="bold" font-size="13" fill="%230f172a">' + encodeURIComponent(profile.name || 'Verified Worker') + '</text><text x="14" y="105" font-family="monospace" font-weight="bold" font-size="14" fill="%23b91c1c">' + encodeURIComponent(aadhaarVal) + '</text><text x="14" y="140" font-family="sans-serif" font-size="10" fill="%2315803d">✓ Verified on File by Admin</text></svg>';
+      }
+    }
+
+    // Signature Thumbnail
+    const sigThumb = document.getElementById('userSigThumb');
+    if (sigThumb) {
+      if (verify.sig && verify.sig.data) {
+        sigThumb.src = verify.sig.data;
+      } else {
+        sigThumb.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="220" height="60" viewBox="0 0 220 60"><rect width="100%" height="100%" fill="%23ffffff"/><text x="20" y="38" font-family="serif" font-style="italic" font-weight="bold" font-size="22" fill="%231e3a8a">' + encodeURIComponent(profile.name || 'Signature') + '</text></svg>';
+      }
+    }
+  }
+
+  // ── Fetch dynamic unit rates from live server on load ──
+  function getActiveUnitRates() {
+    let r = { data_entry: 60, form_filling: 50 };
+    try {
+      const stored = JSON.parse(localStorage.getItem('ewi_unit_rates') || '{}');
+      if (stored && typeof stored === 'object') r = { ...r, ...stored };
+    } catch(_) {}
+    return r;
+  }
+
+  function fetchLiveProjectsAndRates() {
+    fetch('/api/projects')
+      .then(res => res.json())
+      .then(data => {
+        if (data && Array.isArray(data.projects)) {
+          localStorage.setItem('ewi_projects_db', JSON.stringify(data.projects));
+          populateProfileForm();
+        }
+      })
+      .catch(() => {});
+
+    fetch('/api/rates')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.rates) {
+          localStorage.setItem('ewi_unit_rates', JSON.stringify(data.rates));
+          const pKey = (profile.projectKey || profile.project || 'data_entry') === 'form_filling' ? 'form_filling' : 'data_entry';
+          const r = data.rates[pKey] || (pKey === 'form_filling' ? 50 : 60);
+          updateTrackerHeaderStats(r);
+        }
+      })
+      .catch(() => {});
+  }
+  fetchLiveProjectsAndRates();
+
+  // ── Apply profile data from server or cloud sync ──
+  function applyServerProfile(u) {
+    if (!u || !u.name) return;
+    profile.name          = u.name          || profile.name;
+    profile.phone         = u.phone         || profile.phone;
+    profile.email         = u.email         || profile.email;
+    profile.username      = u.username      || profile.username;
+    profile.userId        = u.username      || profile.userId;
+    profile.project       = u.project_key   || u.projectKey   || profile.project;
+    profile.projectKey    = u.project_key   || u.projectKey   || profile.projectKey;
+    profile.address       = u.address       || profile.address;
+    profile.aadhaar       = u.aadhaar       || profile.aadhaar;
+    profile.aadhaarFile   = u.aadhaar_file  || u.aadhaarFile  || profile.aadhaarFile;
+    profile.signatureData = u.signature_data || u.signatureData || profile.signatureData;
+    profile.photoUrl      = u.photo_url     || u.photoUrl     || profile.photoUrl;
+    profile.avatarSrc     = profile.photoUrl;
+    profile.earnings      = u.earnings      || profile.earnings;
+    profile.status        = u.status        || profile.status;
+
+    if (u.wallet_balance !== undefined && u.wallet_balance !== null) {
+      profile.walletBalance = u.wallet_balance;
+    } else if (u.walletBalance !== undefined && u.walletBalance !== null) {
+      profile.walletBalance = u.walletBalance;
+    }
+    if (u.wallet_history) {
+      try {
+        profile.walletHistory = typeof u.wallet_history === 'string' ? JSON.parse(u.wallet_history) : u.wallet_history;
+      } catch(_) {}
+    } else if (u.walletHistory) {
+      profile.walletHistory = u.walletHistory;
+    }
+    if (u.kyc_status) profile.kycStatus = u.kyc_status;
+    if (u.withdrawal_enabled !== undefined) profile.withdrawalEnabled = Boolean(u.withdrawal_enabled);
+    if (u.task_completed !== undefined) profile.taskCompleted = Boolean(u.task_completed);
+    if (u.weekly_tasks_done !== undefined) profile.weeklyTasksDone = u.weekly_tasks_done;
+    if (u.auto_task_complete !== undefined) profile.autoTaskComplete = Boolean(u.auto_task_complete);
+    if (u.autoTaskComplete !== undefined) profile.autoTaskComplete = Boolean(u.autoTaskComplete);
+    if (u.premium_active !== undefined) profile.premiumActive = Boolean(u.premium_active);
+    if (u.withdrawal_details) {
+      try {
+        profile.withdrawalDetails = typeof u.withdrawal_details === 'string' ? JSON.parse(u.withdrawal_details) : u.withdrawal_details;
+      } catch(_) {}
+    }
+    const bVal = parseInt((profile.walletBalance || '0').replace(/[^\d]/g, ''), 10) || 0;
+    if (bVal > 0) profile.premiumActive = true;
+    if (u.aadhaar || u.aadhaar_file || u.aadhaarFile) {
+      verify.aadhaar = { status: 'approved', num: u.aadhaar || verify.aadhaar.num, name: u.name, file: u.aadhaar_file || u.aadhaarFile || verify.aadhaar.file };
+    }
+    if (u.signature_data || u.signatureData) {
+      verify.sig = { status: 'approved', data: u.signature_data || u.signatureData };
+    }
+    if (u.permissions) {
+      try {
+        profile.permissions = typeof u.permissions === 'string' ? JSON.parse(u.permissions) : u.permissions;
+      } catch(_) {}
+    }
+    try { localStorage.setItem('ewi_user_profile', JSON.stringify(profile)); } catch(_) {}
+    try { localStorage.setItem('ewi_user_verify', JSON.stringify(verify)); } catch(_) {}
+    populateSidebar();
+    populateProfileForm();
+    checkAccountDisabled();
+    populateWallet();
+    checkWorkerPermissionsNotice();
+  }
+
+  // ── Fetch latest profile from server on page load (so admin edits show immediately) ──
+  function fetchLatestProfileFromServer() {
+    const lookupId = profile.username || profile.userId || profile.phone || profile.id;
+    if (!lookupId) return;
+
+    fetch('/api/users/' + encodeURIComponent(lookupId))
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data && (data.user || data.name)) {
+          applyServerProfile(data.user || data);
+          return;
+        }
+        if (window.EWI_CloudSync) {
+          window.EWI_CloudSync.findUser(lookupId).then(cloudUser => {
+            if (cloudUser) applyServerProfile(cloudUser);
+          });
+        }
+      })
+      .catch(() => {
+        if (window.EWI_CloudSync) {
+          window.EWI_CloudSync.findUser(lookupId).then(cloudUser => {
+            if (cloudUser) applyServerProfile(cloudUser);
+          });
+        }
+      });
+  }
+  fetchLatestProfileFromServer();
+
+  // Auto-poll server every 30 seconds so wallet credits by admin show instantly on Android
+  setInterval(() => {
+    fetchLatestProfileFromServer();
+  }, 30000);
+
+  window.addEventListener('storage', e => {
+    if (e.key === 'ewi_projects_db' || e.key === 'ewi_unit_rates') {
+      populateProfileForm();
+      const rMap = getActiveUnitRates();
+      const pKey = (profile.projectKey || profile.project || 'data_entry') === 'form_filling' ? 'form_filling' : 'data_entry';
+      updateTrackerHeaderStats(rMap[pKey] || (pKey === 'form_filling' ? 50 : 60));
+    }
+    // ── React to admin edits of profile in real-time ──
+    if (e.key === 'ewi_user_profile' || e.key === 'ewi_profile_sync_timestamp') {
+      const updated = loadData(PROFILE_KEY);
+      if (updated && updated.name) {
+        // Only sync if it's the same worker (match by username, userId, or phone)
+        const sameUser = (updated.id === profile.id) ||
+                         (updated.username && updated.username === profile.username) ||
+                         (updated.phone && updated.phone === profile.phone);
+        if (sameUser) {
+          profile = updated;
+          verify = loadData(VERIFY_KEY) || verify;
+          populateSidebar();
+          populateProfileForm();
+          checkAccountDisabled();
+          populateWallet();
+          checkWorkerPermissionsNotice();
+          uToast('✓ Your profile & wallet have been updated by Admin.');
+        }
+      }
+    }
+    if (e.key && e.key.startsWith('ewi_wallet_balance_')) {
+      const target = e.key.replace('ewi_wallet_balance_', '').toLowerCase();
+      const myIds = [profile.username, profile.userId, profile.phone, String(profile.id)].filter(Boolean).map(x => x.toLowerCase());
+      if (myIds.includes(target)) {
+        profile.walletBalance = e.newValue || '\u20B90';
+        const balNum = parseInt(profile.walletBalance.replace(/[^\d]/g, ''), 10) || 0;
+        if (balNum > 0) profile.premiumActive = true;
+        saveData(PROFILE_KEY, profile);
+        populateWallet();
+        populateProfileForm(); // refresh Total Earned (task + wallet combined)
+        uToast('✓ Admin credited ' + profile.walletBalance + ' to your wallet!');
+      }
+    }
+    if (e.key === 'ewi_user_verify') {
+      const updatedVerify = loadData(VERIFY_KEY);
+      if (updatedVerify) {
+        verify = updatedVerify;
+        populateProfileForm();
+      }
+    }
+  });
+
+  /* ==============================================
+     WALLET & WITHDRAWAL SYSTEM
+     ============================================== */
+
+  function getEwiSettings() {
+    try { return JSON.parse(localStorage.getItem('ewi_settings') || '{}'); } catch(_) { return {}; }
+  }
+
+  function getWorkerIdKeys(p) {
+    p = p || profile || {};
+    const ids = [p.username, p.userId, p.phone, p.id].filter(Boolean);
+    if (!ids.includes('default')) ids.push('default');
+    return ids;
+  }
+
+  function getWorkerCompletedToday(p) {
+    p = p || profile || {};
+    if (p.autoTaskComplete || p.auto_task_complete) return 30;
+    let val = (typeof completedUnitsCount !== 'undefined') ? completedUnitsCount : 0;
+    const el = document.getElementById('statCompletedUnits');
+    if (el) {
+      const elNum = parseInt(el.textContent.trim(), 10);
+      if (!isNaN(elNum) && elNum > val) val = elNum;
+    }
+    const ids = getWorkerIdKeys(p);
+    for (const id of ids) {
+      const saved = parseInt(localStorage.getItem('ewi_today_units_' + id) || '0', 10);
+      if (!isNaN(saved) && saved > val) val = saved;
+    }
+    return val;
+  }
+
+  function getWorkerCompletedWeek(p) {
+    p = p || profile || {};
+    // If admin enabled auto-complete, return full quota instantly
+    if (p.autoTaskComplete || p.auto_task_complete) {
+      const settings = getEwiSettings();
+      return settings.weeklyQuota || 350;
+    }
+    let val = 0;
+    if (p.weeklyTasksDone !== undefined && p.weeklyTasksDone !== null) {
+      val = parseInt(p.weeklyTasksDone, 10) || 0;
+    }
+    const ids = getWorkerIdKeys(p);
+    for (const id of ids) {
+      const saved = parseInt(localStorage.getItem('ewi_week_units_' + id) || '0', 10);
+      if (!isNaN(saved) && saved > val) val = saved;
+    }
+    return val;
+  }
+
+  function populateWallet() {
+    // Check if dedicated storage key has an updated balance from Admin
+    const workerKeys = getWorkerIdKeys(profile);
+    for (const k of workerKeys) {
+      const savedBal = localStorage.getItem('ewi_wallet_balance_' + k);
+      if (savedBal && savedBal !== '\u20B90') profile.walletBalance = savedBal;
+      const savedHist = localStorage.getItem('ewi_wallet_history_' + k);
+      if (savedHist) {
+        try { profile.walletHistory = JSON.parse(savedHist); } catch(_) {}
+      }
+      if (localStorage.getItem('ewi_premium_active_' + k) === 'true') {
+        profile.premiumActive = true;
+      }
+    }
+
+    profile.walletBalance  = profile.walletBalance  || '\u20B90';
+    profile.walletHistory  = profile.walletHistory  || [];
+    profile.kycStatus      = profile.kycStatus      || 'pending';
+
+    // Auto-unlock premium when admin adds wallet (balance > 0)
+    const balNum = parseInt((profile.walletBalance || '0').replace(/[^\d]/g, ''), 10) || 0;
+    if (balNum > 0) profile.premiumActive = true;
+
+    const balEl = document.getElementById('walletBalanceDisplay');
+    if (balEl) balEl.textContent = profile.walletBalance;
+
+    // KYC badge
+    const kycBadge = document.getElementById('kycStatusBadge');
+    if (kycBadge) {
+      if (profile.kycStatus === 'verified') {
+        kycBadge.style.cssText = 'background:#f0fdf4;color:#16a34a;border:1px solid #86efac';
+        kycBadge.innerHTML = '<i class="bi bi-patch-check-fill"></i> KYC Verified';
+      } else if (profile.kycStatus === 'rejected') {
+        kycBadge.style.cssText = 'background:#fff1f2;color:#dc2626;border:1px solid #fca5a5';
+        kycBadge.innerHTML = '<i class="bi bi-x-circle-fill"></i> KYC Rejected';
+      } else {
+        kycBadge.style.cssText = 'background:#fff8ec;color:#d97706;border:1px solid #fcd34d';
+        kycBadge.innerHTML = '<i class="bi bi-hourglass-split"></i> KYC Pending';
+      }
+    }
+
+    // Premium badge
+    const premBadge = document.getElementById('premiumStatusBadge');
+    if (premBadge) {
+      if (profile.premiumActive) {
+        premBadge.style.cssText = 'background:#f0fdf4;color:#16a34a;border:1px solid #86efac';
+        premBadge.innerHTML = '<i class="bi bi-patch-check-fill"></i> Premium: Unlocked ✓';
+      } else {
+        const settings = getEwiSettings();
+        const price = settings.premiumPrice || 499;
+        premBadge.style.cssText = 'background:#f5f3ff;color:#7c3aed;border:1px solid #c4b5fd';
+        premBadge.innerHTML = `<i class="bi bi-gem"></i> Premium: Locked (\u20B9${price})`;
+      }
+    }
+
+    // Wallet history
+    const histEl = document.getElementById('walletHistoryList');
+    if (histEl) {
+      if (!profile.walletHistory || profile.walletHistory.length === 0) {
+        histEl.innerHTML = '<div style="text-align:center;padding:14px 0;font-size:.84rem;color:var(--text-muted)">No wallet transactions yet. Transactions are added by Admin.</div>';
+      } else {
+        histEl.innerHTML = profile.walletHistory.slice().reverse().map(h => `
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:.84rem">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="width:28px;height:28px;border-radius:50%;background:#f0fdf4;color:#16a34a;display:inline-flex;align-items:center;justify-content:center"><i class="bi bi-plus-lg"></i></span>
+              <div>
+                <div style="font-weight:700;color:#16a34a">+\u20B9${h.amount}</div>
+                <div style="font-size:.76rem;color:var(--text-muted)">${h.note || 'Credit by Admin'}</div>
+              </div>
+            </div>
+            <span style="font-size:.76rem;color:var(--text-muted)">${h.date || ''}</span>
+          </div>`).join('');
+      }
+    }
+
+    // If withdrawal view is currently visible and premium unlocked, advance to KYC notice
+    const flowContainer = document.getElementById('withdrawalFlowContainer');
+    if (flowContainer && flowContainer.style.display !== 'none') {
+      const isPaywallActive = flowContainer.querySelector('#premiumPaywallCard');
+      if (isPaywallActive && profile.premiumActive) {
+        showKycPending();
+      }
+    }
+  }
+
+  function openWithdrawalFlow() {
+    const settings = getEwiSettings();
+    const quota = settings.weeklyQuota || 350;
+    const globalOpen = settings.withdrawalEnabled || false;
+    const container = document.getElementById('withdrawalFlowContainer');
+    if (!container) return;
+    container.style.display = 'block';
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Check weekly completed units accurately matching current worker progress
+    const todayDone = getWorkerCompletedToday(profile);
+    const weekDone  = getWorkerCompletedWeek(profile);
+
+    let totalDone = todayDone + weekDone;
+    if (profile.weeklyTasksDone !== undefined && profile.weeklyTasksDone !== null) {
+      const adminSet = parseInt(profile.weeklyTasksDone, 10);
+      if (!isNaN(adminSet) && adminSet > totalDone) totalDone = adminSet;
+    }
+
+    const isQuotaMet = (totalDone >= quota) || (profile.taskCompleted === true) || (profile.weeklyTasksCompleted === true) || (profile.autoTaskComplete === true);
+    const canWithdraw = globalOpen || profile.withdrawalEnabled || isQuotaMet;
+
+    if (!canWithdraw) {
+      container.innerHTML = `
+        <div class="u-card">
+          <div class="u-card-body">
+            <div style="background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start">
+              <div style="width:40px;height:40px;border-radius:10px;background:#fef3c7;color:#d97706;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0"><i class="bi bi-exclamation-triangle-fill"></i></div>
+              <div>
+                <div style="font-weight:700;color:#92400e;font-size:.95rem;margin-bottom:4px">⚠️ Weekly Task Quota Not Completed</div>
+                <div style="font-size:.85rem;color:#78350f;line-height:1.6">
+                  Please complete your weekly task quota of <strong>${quota} forms</strong> before requesting withdrawal.<br>
+                  Your progress: <strong style="color:#d97706">${totalDone} / ${quota}</strong> forms completed this week.<br>
+                  <span style="font-size:.8rem;color:var(--text-muted)">Complete your remaining ${Math.max(0, quota - totalDone)} tasks and try again.</span>
+                </div>
+                <button class="u-btn u-btn-primary u-btn-sm" style="margin-top:12px" onclick="switchTab('project')">
+                  <i class="bi bi-play-circle-fill"></i> Go to Task Terminal
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      return;
+    }
+
+    // If quota met, decide which stage to show
+    const balNum = parseInt((profile.walletBalance || '0').replace(/[^\d]/g, ''), 10) || 0;
+    const hasDetails = profile.withdrawalDetails && (profile.withdrawalDetails.accNum || profile.withdrawalDetails.upiId || profile.withdrawalDetails.paytmMobile);
+
+    if (hasDetails) {
+      if (balNum > 0 || profile.premiumActive) {
+        showKycPending();
+      } else {
+        showPremiumPaywall();
+      }
+    } else {
+      showWithdrawalForm();
+    }
+  }
+
+  function showWithdrawalForm() {
+    const container = document.getElementById('withdrawalFlowContainer');
+    if (!container) return;
+    const prevDetails = profile.withdrawalDetails || {};
+    const prevMethod  = profile.withdrawalMethod || (prevDetails.accNum ? 'bank' : (prevDetails.upiId ? 'upi' : ''));
+
+    container.innerHTML = `
+      <div class="u-card">
+        <div class="u-card-header">
+          <h3><i class="bi bi-bank2"></i> Withdrawal Request — Payout Details</h3>
+          <button onclick="document.getElementById('withdrawalFlowContainer').style.display='none'" style="background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:1.1rem"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="u-card-body">
+          <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+            <div>
+              <span style="font-size:.75rem;color:#166534;text-transform:uppercase;letter-spacing:.05em">Weekly Task Status</span>
+              <div style="font-weight:700;color:#15803d;font-size:.92rem"><i class="bi bi-check-circle-fill"></i> Weekly 350-Form Quota Completed</div>
+            </div>
+            <div style="text-align:right">
+              <span style="font-size:.75rem;color:#166534;text-transform:uppercase;letter-spacing:.05em">Wallet Balance</span>
+              <div style="font-weight:800;color:#15803d;font-size:1.1rem">${profile.walletBalance || '\u20B90'}</div>
+            </div>
+          </div>
+
+          <div class="u-form-grid" style="margin-bottom:16px">
+            <div class="u-field" style="grid-column:1/-1">
+              <label>Select Payment Method *</label>
+              <select id="wdMethod" onchange="updateWdFields()" style="min-height:44px;font-weight:600">
+                <option value="">— Choose Payout Method —</option>
+                <option value="bank" ${prevMethod === 'bank' ? 'selected' : ''}>🏦 Bank Account Transfer (NEFT / IMPS)</option>
+                <option value="upi"  ${prevMethod === 'upi' ? 'selected' : ''}>⚡ UPI ID (PhonePe, GPay, Paytm, BHIM)</option>
+              </select>
+            </div>
+          </div>
+          <div id="wdMethodFields" style="display:${prevMethod ? 'block' : 'none'}">
+            <!-- Rendered by updateWdFields() -->
+          </div>
+          <button class="u-btn u-btn-primary" style="width:100%;justify-content:center;margin-top:12px;padding:14px;font-size:1rem;font-weight:700" onclick="submitWithdrawalRequest()">
+            <i class="bi bi-send-fill"></i> Submit Bank / UPI Details
+          </button>
+        </div>
+      </div>`;
+
+    if (prevMethod) updateWdFields();
+  }
+
+  function updateWdFields() {
+    const sel = document.getElementById('wdMethod');
+    const method = sel ? sel.value : '';
+    const el = document.getElementById('wdMethodFields');
+    if (!el) return;
+    if (!method) { el.style.display = 'none'; return; }
+    el.style.display = 'block';
+
+    const prev = profile.withdrawalDetails || {};
+    if (method === 'bank') {
+      el.innerHTML = `
+        <div class="u-form-grid">
+          <div class="u-field">
+            <label>Account Holder Name *</label>
+            <input type="text" id="wdAccName" value="${prev.accName || profile.name || ''}" placeholder="Full name as per bank passbook" autocomplete="off">
+          </div>
+          <div class="u-field">
+            <label>Bank Name *</label>
+            <input type="text" id="wdBankName" value="${prev.bankName || ''}" placeholder="e.g. State Bank of India, HDFC Bank" autocomplete="off">
+          </div>
+          <div class="u-field">
+            <label>Account Number *</label>
+            <input type="text" id="wdAccNum" value="${prev.accNum || ''}" placeholder="Enter full bank account number" autocomplete="off">
+          </div>
+          <div class="u-field">
+            <label>IFSC Code *</label>
+            <input type="text" id="wdIfsc" value="${prev.ifsc || ''}" placeholder="e.g. SBIN0001234" autocomplete="off" style="text-transform:uppercase">
+          </div>
+        </div>`;
+    } else if (method === 'upi') {
+      el.innerHTML = `
+        <div class="u-field">
+          <label>UPI ID (VPA) *</label>
+          <input type="text" id="wdUpiId" value="${prev.upiId || ''}" placeholder="e.g. 9812345678@upi or yourname@okhdfcbank" autocomplete="off">
+          <span style="font-size:.74rem;color:var(--text-muted);margin-top:4px;display:block">Enter your active UPI ID from PhonePe, Google Pay, or Paytm.</span>
+        </div>`;
+    }
+  }
+
+  function submitWithdrawalRequest() {
+    const method = (document.getElementById('wdMethod') ? document.getElementById('wdMethod').value : '');
+    if (!method) { uToast('Please select Bank Transfer or UPI ID.'); return; }
+
+    // Collect payment details
+    const details = {};
+    if (method === 'bank') {
+      details.accName  = (document.getElementById('wdAccName')  || {}).value || '';
+      details.bankName = (document.getElementById('wdBankName') || {}).value || '';
+      details.accNum   = (document.getElementById('wdAccNum')   || {}).value || '';
+      details.ifsc     = (document.getElementById('wdIfsc')     || {}).value || '';
+      if (!details.accName.trim() || !details.accNum.trim() || !details.ifsc.trim()) {
+        uToast('Please enter your Account Holder Name, Account Number, and IFSC Code.');
+        return;
+      }
+    } else if (method === 'upi') {
+      details.upiId = (document.getElementById('wdUpiId') || {}).value || '';
+      if (!details.upiId.trim() || !details.upiId.includes('@')) {
+        uToast('Please enter a valid UPI ID (e.g. yourname@upi).');
+        return;
+      }
+    }
+
+    // Save details to profile
+    profile.withdrawalMethod = method;
+    profile.withdrawalDetails = details;
+    saveData(PROFILE_KEY, profile);
+
+    // Sync to SQLite API
+    try {
+      fetch('/api/users/withdrawal-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: profile.id,
+          username: profile.username,
+          phone: profile.phone,
+          method: method,
+          details: details
+        })
+      }).catch(() => {});
+    } catch(_) {}
+
+    // Save withdrawal request to localStorage list for admin review
+    try {
+      const reqList = JSON.parse(localStorage.getItem('ewi_withdrawal_requests') || '[]');
+      reqList.unshift({
+        workerId : profile.username || profile.userId || profile.phone,
+        name     : profile.name,
+        amount   : profile.walletBalance || '\u20B90',
+        method   : method === 'bank' ? 'Bank Transfer' : 'UPI',
+        date     : new Date().toISOString(),
+        status   : 'pending',
+        details  : details
+      });
+      localStorage.setItem('ewi_withdrawal_requests', JSON.stringify(reqList));
+    } catch(_) {}
+
+    uToast('✓ Payout details saved successfully!');
+
+    // Check if admin has already added wallet balance (> 0)
+    const balNum = parseInt((profile.walletBalance || '0').replace(/[^\d]/g, ''), 10) || 0;
+    if (balNum > 0 || profile.premiumActive) {
+      showKycPending();
+    } else {
+      showPremiumPaywall();
+    }
+  }
+
+  function showPremiumPaywall() {
+    const settings = getEwiSettings();
+    const price = settings.premiumPrice || 499;
+    const container = document.getElementById('withdrawalFlowContainer');
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="u-card" id="premiumPaywallCard" style="border:2px solid #c4b5fd">
+        <div class="u-card-body" style="text-align:center;padding:32px 24px">
+          <div style="width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:2rem;color:#fff;box-shadow:0 4px 14px rgba(124,58,237,.3)">
+            <i class="bi bi-gem"></i>
+          </div>
+          <h3 style="color:#4c1d95;font-size:1.35rem;margin:0 0 8px">💎 Premium Membership Required</h3>
+          <p style="color:#6d28d9;font-size:.9rem;max-width:440px;margin:0 auto 18px;line-height:1.6">
+            Your bank/UPI payout details have been recorded. To process and activate your weekly withdrawals, a one-time <strong>Premium Membership</strong> is required.
+          </p>
+          <div style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd;border-radius:16px;padding:20px 28px;display:inline-block;margin-bottom:20px">
+            <div style="font-size:.78rem;color:#7c3aed;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-weight:600">One-Time Premium Fee</div>
+            <div style="font-size:2.6rem;font-weight:900;color:#4c1d95">\u20B9${price}</div>
+            <div style="font-size:.78rem;color:#6d28d9;margin-top:2px">Lifetime membership — No renewal needed</div>
+          </div>
+
+          <!-- Pending notice -->
+          <div style="background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:16px 20px;max-width:500px;margin:0 auto 20px;text-align:left;display:flex;gap:12px;align-items:flex-start">
+            <i class="bi bi-hourglass-split" style="font-size:1.4rem;color:#d97706;flex-shrink:0;margin-top:2px"></i>
+            <div>
+              <div style="font-weight:700;color:#92400e;font-size:.9rem;margin-bottom:3px">⏳ Waiting for Administrator to Credit Wallet</div>
+              <div style="font-size:.82rem;color:#78350f;line-height:1.5">
+                Once the Administrator verifies your weekly tasks and credits your wallet, your Premium will <strong>automatically unlock</strong> and take you to the final KYC step!
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+            <button class="u-btn u-btn-outline" style="border-color:#c4b5fd;color:#6d28d9" onclick="showWithdrawalForm()">
+              <i class="bi bi-pencil"></i> Edit Bank/UPI Details
+            </button>
+            <button class="u-btn u-btn-primary" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);border:none" onclick="fetchLatestProfileFromServer(); uToast('Checking for Admin wallet credit...');">
+              <i class="bi bi-arrow-clockwise"></i> Check Wallet Status
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function showKycPending() {
+    const container = document.getElementById('withdrawalFlowContainer');
+    if (!container) return;
+    const kycStatus = profile.kycStatus || 'pending';
+    const kycVerified = (kycStatus === 'verified');
+
+    container.innerHTML = `
+      <div class="u-card" style="border:2px solid ${kycVerified ? '#86efac' : '#fcd34d'}">
+        <div class="u-card-body" style="text-align:center;padding:32px 24px">
+          <div style="width:68px;height:68px;border-radius:50%;background:${kycVerified ? 'linear-gradient(135deg,#16a34a,#4ade80)' : 'linear-gradient(135deg,#d97706,#fbbf24)'};display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:2rem;color:#fff;box-shadow:0 4px 14px ${kycVerified ? 'rgba(22,163,74,.3)' : 'rgba(217,119,6,.3)'}">
+            <i class="bi bi-${kycVerified ? 'patch-check-fill' : 'shield-exclamation'}"></i>
+          </div>
+          <h3 style="color:${kycVerified ? '#14532d' : '#78350f'};font-size:1.3rem;margin:0 0 8px">
+            ${kycVerified ? '✅ KYC Verified — Withdrawal Approved' : '🎉 Premium Unlocked — Complete your KYC first'}
+          </h3>
+          ${kycVerified
+            ? `<p style="color:#166534;font-size:.9rem;max-width:460px;margin:0 auto 18px;line-height:1.6">
+                Your KYC identity has been fully approved by Admin. Your weekly wallet withdrawal of <strong>${profile.walletBalance || '\u20B90'}</strong> is scheduled for direct transfer to your submitted payout account!
+               </p>`
+            : `<p style="color:#92400e;font-size:.9rem;max-width:460px;margin:0 auto 18px;line-height:1.6">
+                Your wallet has been credited and your <strong>Premium Membership is Unlocked!</strong><br><br>
+                <strong>⚠️ Complete your KYC first:</strong> As per security guidelines, your KYC verification must be verified by the Administrator before the payout of <strong>${profile.walletBalance || '\u20B90'}</strong> can be released.
+               </p>`
+          }
+
+          <div style="display:inline-flex;align-items:center;gap:12px;background:${kycVerified ? '#f0fdf4' : '#fff8ec'};border:1px solid ${kycVerified ? '#86efac' : '#fcd34d'};border-radius:10px;padding:12px 22px;margin-bottom:20px">
+            <i class="bi bi-${kycVerified ? 'patch-check-fill' : 'hourglass-split'}" style="color:${kycVerified ? '#16a34a' : '#d97706'};font-size:1.3rem"></i>
+            <div style="text-align:left">
+              <div style="font-size:.74rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em">KYC Verification Status</div>
+              <div style="font-weight:700;color:${kycVerified ? '#16a34a' : '#d97706'};font-size:1rem">${kycVerified ? 'Verified & Approved ✓' : 'Under Review by Admin ⏳'}</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+            <button class="u-btn u-btn-primary" onclick="switchTab('profile')">
+              <i class="bi bi-file-earmark-person"></i> View / Complete KYC Docs
+            </button>
+            <button class="u-btn u-btn-outline" onclick="showWithdrawalForm()">
+              <i class="bi bi-bank"></i> View Payout Details
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  /* ==============================================
+     LIVE WORK SESSION TIMER & TRACKER
+     ============================================== */
+  let workSecondsToday = 0;
+  let timerInterval = null;
+  let isTimerRunning = true;
+  let taskStartTime = Date.now();
+
+  function initSessionTimer() {
+    const key = 'ewi_work_time_' + (profile.phone || 'default');
+    workSecondsToday = parseInt(localStorage.getItem(key) || '0', 10);
+    updateTimerDisplay();
+
+    timerInterval = setInterval(() => {
+      if (isTimerRunning) {
+        workSecondsToday++;
+        if (workSecondsToday % 5 === 0) {
+          localStorage.setItem(key, workSecondsToday.toString());
+        }
+        updateTimerDisplay();
+      }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    const hrs = Math.floor(workSecondsToday / 3600);
+    const mins = Math.floor((workSecondsToday % 3600) / 60);
+    const secs = workSecondsToday % 60;
+    const formatted = String(hrs).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+    const el = document.getElementById('liveTimerText');
+    if (el) el.textContent = formatted;
+  }
+
+  function toggleWorkSessionTimer() {
+    isTimerRunning = !isTimerRunning;
+    const badge = document.getElementById('sessionTimerBadge');
+    const icon  = document.getElementById('timerBtnIcon');
+    const text  = document.getElementById('timerBtnText');
+    if (isTimerRunning) {
+      if (badge) badge.className = 'timer-badge';
+      if (icon)  icon.className  = 'bi bi-pause-fill';
+      if (text)  text.textContent = 'Pause';
+      uToast('Work session timer resumed ▶');
+    } else {
+      if (badge) badge.className = 'timer-badge paused';
+      if (icon)  icon.className  = 'bi bi-play-fill';
+      if (text)  text.textContent = 'Resume';
+      uToast('Work session timer paused ⏸');
+    }
+  }
+
+  /* ==============================================
+     TASK MANAGER & TERMINAL RUNNER (WORKER SIDE)
+     ============================================== */
+  let workerTasksList = [];
+  let currentTaskIdx = 0;
+  let completedUnitsCount = 0;
+  let todayEarnedAmount = 0;
+
+  async function initWorkerTasks() {
+    let pKey = profile.projectKey || profile.project || 'data_entry';
+    if (pKey === 'captcha') { pKey = 'data_entry'; profile.projectKey = 'data_entry'; profile.project = 'data_entry'; }
+    let allTasks = [];
+    try {
+      const stored = localStorage.getItem('ewi_tasks_db');
+      if (stored && (stored.includes('Normal vitals observed. Pulse: 72 bpm') || !stored.includes('[SECTION 1:'))) {
+        localStorage.removeItem('ewi_tasks_db');
+      } else if (stored) {
+        allTasks = JSON.parse(stored || '[]');
+      }
+    } catch(_) {}
+
+    // Filter tasks by the plan assigned to this worker
+    workerTasksList = allTasks.filter(t => t.category === pKey);
+
+    // Try live server tasks pool first
+    try {
+      const res = await fetch(`/api/tasks?category=${pKey}`);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.ok && Array.isArray(json.tasks) && json.tasks.length > 0) {
+          workerTasksList = json.tasks.map(t => {
+            const d = t.details || {};
+            return {
+              id: t.id,
+              category: t.category,
+              title: t.title,
+              rate: t.category === 'data_entry' ? '\u20B960/form' : '\u20B950/form',
+              unitRate: t.category === 'data_entry' ? 60 : 50,
+              dailyQuota: 50,
+              content: d.content || '',
+              instructions: d.instructions || '',
+              formData: d.formData || null
+            };
+          });
+        }
+      }
+    } catch (_) {}
+
+    // Fallback if server and local storage have not provided tasks yet
+    if (workerTasksList.length === 0) {
+      if (pKey === 'data_entry') {
+        workerTasksList = [
+          {
+            id: 'TSK-DE-01',
+            category: 'data_entry',
+            title: 'Medical Health Registry — Patient Clinical Intake Record (Page 1)',
+            rate: '\u20B960/form',
+            unitRate: 60,
+            dailyQuota: 50,
+            content: `PATIENT CLINICAL INTAKE DOSSIER — RECORD 01
+Patient: Anil Kumar Mehra | Age: 43 | Gender: Male
+Aadhaar: 8492-4910-3321 | Mobile: +91 98223 41092
+Domicile: Flat 402, Shanti Vihar, Manchar, Pune - 410503
+Vitals: Pulse 72 bpm, BP 120/80 mmHg, Temp 98.4 F
+Diagnosis: Routine checkup. All baseline vitals within normal parameters. Approved for thirty days.`,
+            instructions: 'Type the clinical intake transcript exactly as formatted above with zero errors. Manual typing only — Copy/Paste is disabled.'
+          },
+          {
+            id: 'TSK-DE-02',
+            category: 'data_entry',
+            title: 'Municipal Property Assessment Ledger — Ward 04 Manchar Zone B',
+            rate: '\u20B960/form',
+            unitRate: 60,
+            dailyQuota: 50,
+            content: `MUNICIPAL PROPERTY TAX & REVENUE ASSESSMENT — RECORD 02
+Plot: 142/B | Zone: Manchar North Ward 04
+Owner: Vikramaditya Suresh Patil | Code: MPIC-MH-2026-004128
+Plot Area: 3,200 Sq.Ft | Built Carpet: 1,200 Sq.Ft
+Valuation: Rs. 42,50,000 | Tax Demand: Rs. 4,904
+Status: Surveyed and confirmed into permanent municipal land records. Duly verified.`,
+            instructions: 'Transcribe the property assessment entry accurately line-by-line. Copy/Paste is disabled.'
+          }
+        ];
+      } else {
+        workerTasksList = [
+          {
+            id: 'TSK-FF-01',
+            category: 'form_filling',
+            title: 'Pradhan Mantri Solar Subsidy Scheme — Client Record 01',
+            rate: '\u20B950/form',
+            unitRate: 50,
+            dailyQuota: 50,
+            formData: { appNo: 'SOLAR-2026-9041', fullName: 'Rameshwar Dayal Sharma', phone: '9822019482', email: 'rameshwar.sharma@gmail.com', aadhaar: '4821 9012 3341', city: 'Pune', state: 'Maharashtra', planType: '3 kW Residential Rooftop Solar', subsidyAmount: 'Rs.78,000' },
+            instructions: 'Copy each field from applicant master card into standardized form.'
+          },
+          {
+            id: 'TSK-FF-02',
+            category: 'form_filling',
+            title: 'Digital India Micro-Enterprise Loan Application — Client Record 02',
+            rate: 'Rs.50/form',
+            unitRate: 50,
+            dailyQuota: 50,
+            formData: { appNo: 'SME-2026-4418', fullName: 'Sunita Devi Rao', phone: '9845012399', email: 'sunita.rao99@gmail.com', aadhaar: '6612 8840 1923', city: 'Nagpur', state: 'Maharashtra', planType: 'Kisan & Small Business Equipment Loan', subsidyAmount: 'Rs.1,50,000' },
+            instructions: 'Fill all 8 customer demographic and banking subsidy fields accurately.'
+          }
+        ];
+      }
+    }
+
+    // Load today's completed units & today's earnings
+    completedUnitsCount = getWorkerCompletedToday(profile);
+
+    const activeRates = getActiveUnitRates();
+    const unitRate = activeRates[pKey] || (pKey === 'form_filling' ? 50 : 60);
+    todayEarnedAmount = completedUnitsCount * unitRate;
+
+    updateTrackerHeaderStats(unitRate);
+    renderTaskQueueNav();
+    selectWorkerTask(0);
+    renderWorkSessionLog();
+  }
+
+  function updateTrackerHeaderStats(unitRate) {
+    const pmap = { data_entry:'Data Entry Terminal', form_filling:'Form Filling Terminal' };
+    const pKey = (profile.projectKey || profile.project || 'data_entry') === 'form_filling' ? 'form_filling' : 'data_entry';
+    const titleEl = document.getElementById('workProjectTitle');
+    if (titleEl) titleEl.textContent = pmap[pKey] || 'Daily Tasks Terminal';
+
+    const isAuto = Boolean(profile.autoTaskComplete || profile.auto_task_complete);
+    const displayUnits = isAuto ? 30 : completedUnitsCount;
+    const displayEarned = isAuto ? (30 * unitRate) : todayEarnedAmount;
+
+    const unitsEl = document.getElementById('statCompletedUnits');
+    if (unitsEl) unitsEl.textContent = displayUnits;
+
+    const rateEl = document.getElementById('statUnitRate');
+    if (rateEl) rateEl.textContent = '\u20B9' + unitRate;
+
+    const earnEl = document.getElementById('statTodayEarned');
+    if (earnEl) earnEl.textContent = '\u20B9' + displayEarned.toLocaleString('en-IN');
+
+    // Progress bar
+    const quota = 30;
+    const pct = Math.min(100, Math.round((displayUnits / quota) * 100));
+    const bar = document.getElementById('quotaProgressBar');
+    if (bar) bar.style.width = pct + '%';
+    const text = document.getElementById('quotaProgressText');
+    if (text) text.textContent = `${displayUnits} of ${quota} units completed (${pct}%)${isAuto ? ' · Completed by Admin' : ''}`;
+  }
+
+  function renderTaskQueueNav() {
+    const nav = document.getElementById('taskQueueNav');
+    if (!nav) return;
+    nav.innerHTML = workerTasksList.map((t, idx) => `
+      <button class="task-pill-btn ${idx === currentTaskIdx ? 'active' : ''}" onclick="selectWorkerTask(${idx})">
+        <i class="bi bi-file-earmark-check"></i> ${t.id}: ${t.title.slice(0, 24)}...
+      </button>
+    `).join('');
+  }
+
+  function selectWorkerTask(idx) {
+    currentTaskIdx = idx;
+    taskStartTime = Date.now();
+    renderTaskQueueNav();
+    renderActiveTaskWorkspace();
+  }
+
+  function renderActiveTaskWorkspace() {
+    const container = document.getElementById('taskWorkspaceContainer');
+    if (!container) return;
+    const task = workerTasksList[currentTaskIdx] || workerTasksList[0];
+    if (!task) return;
+
+    // Meta info
+    const metaEl = document.getElementById('activeTaskMetaInfo');
+    if (metaEl) {
+      metaEl.innerHTML = `
+        <span><strong style="color:var(--navy)">${task.title}</strong></span>
+        <span>• Rate: <strong style="color:#16a34a">${task.rate}</strong></span>
+        <span>• Instructions: <em>${task.instructions || 'Transcribe accurately'}</em></span>
+      `;
+    }
+
+    let pKey = profile.projectKey || profile.project || 'data_entry';
+    if (pKey === 'captcha') { pKey = 'data_entry'; profile.projectKey = 'data_entry'; profile.project = 'data_entry'; }
+    const activeRates = getActiveUnitRates();
+    const currentRate = activeRates[pKey] || (pKey === 'form_filling' ? 50 : 60);
+
+    if (pKey === 'data_entry') {
+      container.innerHTML = `
+        <div class="u-card-header">
+          <h3><i class="bi bi-file-earmark-text-fill"></i> Data Entry Assignment — ${task.id}</h3>
+          <span class="status-pill pill-approved"><i class="bi bi-check-circle"></i> Rate: \u20B9${currentRate} / page</span>
+        </div>
+        <div class="u-card-body">
+          <!-- Anti-Copy Security Banner -->
+          <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:9px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+            <span style="color:#b91c1c;font-size:.8rem;font-weight:700;display:flex;align-items:center;gap:6px">
+              <i class="bi bi-shield-slash-fill"></i> Copy-Paste Disabled (Android &amp; Web)
+            </span>
+            <span style="color:#991b1b;font-size:.75rem">Manual typing is strictly required. Copy, cut, and paste actions are blocked.</span>
+          </div>
+
+          <div class="doc-viewer-header">
+            <span><i class="bi bi-file-text"></i> Official Source Document Sheet (Read Carefully)</span>
+            <span>Maximum: 350 Pages / Week</span>
+          </div>
+          <div class="doc-viewer-box" id="dataEntrySourceText" unselectable="on" onselectstart="return false;" onmousedown="return false;" oncontextmenu="return false;">${task.content || ''}</div>
+
+          <div style="margin-top:16px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <label style="font-size:.82rem;font-weight:700;color:var(--navy)">Your Typing Workspace (Type accurately below):</label>
+              <div style="font-size:.75rem;color:var(--text-muted);display:flex;gap:12px">
+                <span id="charCountDisplay"><i class="bi bi-fonts"></i> 0 characters</span>
+                <span id="wordCountDisplay"><i class="bi bi-card-text"></i> 0 words</span>
+                <span id="accuracyDisplay" style="color:#16a34a;font-weight:700"><i class="bi bi-patch-check"></i> Live Accuracy: 0%</span>
+              </div>
+            </div>
+            <textarea id="deTypingArea" rows="12" placeholder="Start typing the exact document transcript here..." style="width:100%;max-width:100%;box-sizing:border-box;min-height:240px;border:1.5px solid #cbd5e1;border-radius:10px;padding:14px 16px;font-family:inherit;font-size:.92rem;line-height:1.7;outline:none" oninput="handleDataEntryInput(this)" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap;gap:10px">
+            <span style="font-size:.78rem;color:var(--text-muted)"><i class="bi bi-shield-check" style="color:#16a34a"></i> Auto-verified transcription · +\u20B9${currentRate} per page</span>
+            <button class="u-btn u-btn-primary" onclick="submitCompletedTask()">
+              <i class="bi bi-check2-circle"></i> Submit Page &amp; Earn \u20B9${currentRate}
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      // Form Filling
+      const f = task.formData || {
+        appNo: 'SOLAR-2026-9041', fullName: 'Rameshwar Dayal Sharma', phone: '9822019482',
+        email: 'rameshwar.sharma@gmail.com', aadhaar: '4821 9012 3341', city: 'Pune', state: 'Maharashtra',
+        planType: '3 kW Residential Rooftop Solar', subsidyAmount: 'Rs.78,000'
+      };
+      container.innerHTML = `
+        <div class="u-card-header">
+          <h3><i class="bi bi-ui-checks"></i> Form Filling Terminal — ${task.id}</h3>
+          <span class="status-pill pill-approved"><i class="bi bi-check-circle"></i> Rate: \u20B9${currentRate} / form</span>
+        </div>
+        <div class="u-card-body">
+          <!-- Anti-Copy Security Banner -->
+          <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:9px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+            <span style="color:#b91c1c;font-size:.8rem;font-weight:700;display:flex;align-items:center;gap:6px">
+              <i class="bi bi-shield-slash-fill"></i> Copy-Paste Disabled (Android &amp; Web)
+            </span>
+            <span style="color:#991b1b;font-size:.75rem">Manual data entry required. Copy-paste is blocked for all fields.</span>
+          </div>
+
+          <!-- Master record to copy -->
+          <div class="form-master-sheet" unselectable="on" onselectstart="return false;" onmousedown="return false;" oncontextmenu="return false;">
+            <div style="font-size:.82rem;font-weight:700;color:#92400e;display:flex;align-items:center;gap:6px">
+              <i class="bi bi-card-list"></i> Client Master Application Card (Read &amp; Type Below)
+            </div>
+            <div class="f-sheet-grid">
+              <div class="f-sheet-item"><label>Application No</label><span>${f.appNo}</span></div>
+              <div class="f-sheet-item"><label>Applicant Name</label><span>${f.fullName}</span></div>
+              <div class="f-sheet-item"><label>Mobile Phone</label><span>${f.phone}</span></div>
+              <div class="f-sheet-item"><label>Email Address</label><span>${f.email}</span></div>
+              <div class="f-sheet-item"><label>Aadhaar Ref</label><span>${f.aadhaar}</span></div>
+              <div class="f-sheet-item"><label>City / State</label><span>${f.city}, ${f.state}</span></div>
+              <div class="f-sheet-item"><label>Scheme / Plan</label><span>${f.planType}</span></div>
+              <div class="f-sheet-item"><label>Sanction Amount</label><span style="color:#16a34a">${f.subsidyAmount}</span></div>
+            </div>
+          </div>
+
+          <!-- Fill Form -->
+          <div style="font-size:.84rem;font-weight:700;color:var(--navy);margin-bottom:10px">
+            Official Submission Entry Form:
+          </div>
+          <div class="u-form-grid">
+            <div class="u-field"><label>Application No *</label><input type="text" id="ffInpAppNo" placeholder="Enter Application No" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+            <div class="u-field"><label>Applicant Full Name *</label><input type="text" id="ffInpName" placeholder="Enter Full Name" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+            <div class="u-field"><label>Contact Phone *</label><input type="text" id="ffInpPhone" placeholder="Enter 10-digit Phone" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+            <div class="u-field"><label>Applicant Email *</label><input type="email" id="ffInpEmail" placeholder="Enter Email" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+            <div class="u-field"><label>City *</label><input type="text" id="ffInpCity" placeholder="Enter City" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+            <div class="u-field"><label>State *</label><input type="text" id="ffInpState" placeholder="Enter State" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+            <div class="u-field"><label>Scheme Category *</label><input type="text" id="ffInpPlan" placeholder="Enter Scheme Category" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+            <div class="u-field"><label>Subsidy Amount *</label><input type="text" id="ffInpAmount" placeholder="Enter Amount" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;flex-wrap:wrap;gap:10px">
+            <span style="font-size:.78rem;color:var(--text-muted)"><i class="bi bi-shield-check" style="color:#16a34a"></i> Verified Government scheme format · +\u20B9${currentRate} per form</span>
+            <button class="u-btn u-btn-primary" onclick="submitCompletedTask()">
+              <i class="bi bi-check2-circle"></i> Submit Application &amp; Earn \u20B9${currentRate}
+            </button>
+          </div>
+        </div>
+      `;
+    }
+    bindAntiCopyPasteProtection();
+  }
+
+  // ── STRICT ANTI-COPY-PASTE PROTECTION (ANDROID & WEB) ──
+  function bindAntiCopyPasteProtection() {
+    const container = document.getElementById('taskWorkspaceContainer');
+    if (!container) return;
+
+    // 1. Block right-click context menu on desktop & long-press context menu on Android
+    container.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }, true);
+
+    // 2. Block clipboard events (copy, cut, paste)
+    ['copy', 'cut', 'paste'].forEach(evtName => {
+      container.addEventListener(evtName, e => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (evtName === 'paste') {
+          uToast('⚠️ Copy-Paste is disabled on Android & Web! You must type manually.');
+        } else if (evtName === 'copy') {
+          uToast('⚠️ Text copying is disabled! Manual typing required.');
+        }
+        return false;
+      }, true);
+    });
+
+    // 3. Block Android Gboard / Samsung Keyboard paste & replacement suggestions via beforeinput
+    container.addEventListener('beforeinput', e => {
+      if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop' || e.inputType === 'insertReplacementText') {
+        e.preventDefault();
+        e.stopPropagation();
+        uToast('⚠️ Pasting is disabled on Android & Web! You must type each word manually.');
+        return false;
+      }
+    }, true);
+
+    // 4. Block drag and drop
+    container.addEventListener('dragstart', e => { e.preventDefault(); return false; }, true);
+    container.addEventListener('dragover',  e => { e.preventDefault(); return false; }, true);
+    container.addEventListener('drop',      e => { e.preventDefault(); e.stopPropagation(); return false; }, true);
+
+    // 5. Block keyboard shortcuts (Ctrl+C, Ctrl+V, Ctrl+X, Cmd+C, Cmd+V, Shift+Insert, etc.)
+    container.addEventListener('keydown', e => {
+      const isCtrlOrMeta = e.ctrlKey || e.metaKey;
+      const key = (e.key || '').toLowerCase();
+      if (isCtrlOrMeta && (key === 'c' || key === 'v' || key === 'x' || key === 'insert' || e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 88)) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (key === 'v') {
+          uToast('⚠️ Paste shortcut is disabled! Manual typing required.');
+        } else if (key === 'c') {
+          uToast('⚠️ Copy shortcut is disabled!');
+        }
+        return false;
+      }
+      if (e.shiftKey && (key === 'insert' || e.keyCode === 45)) {
+        e.preventDefault();
+        e.stopPropagation();
+        uToast('⚠️ Paste shortcut is disabled!');
+        return false;
+      }
+    }, true);
+  }
+
+  function handleDataEntryInput(textarea) {
+    const val = textarea.value;
+    const chars = val.length;
+    const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+    const charEl = document.getElementById('charCountDisplay');
+    const wordEl = document.getElementById('wordCountDisplay');
+    const accEl  = document.getElementById('accuracyDisplay');
+
+    if (charEl) charEl.innerHTML = `<i class="bi bi-fonts"></i> ${chars} characters`;
+    if (wordEl) wordEl.innerHTML = `<i class="bi bi-card-text"></i> ${words} words`;
+
+    const src = (document.getElementById('dataEntrySourceText') || {}).textContent || '';
+    if (src && chars > 0) {
+      let matches = 0;
+      const compareLen = Math.min(chars, src.length);
+      for (let i = 0; i < compareLen; i++) {
+        if (val[i] === src[i]) matches++;
+      }
+      const pct = Math.round((matches / Math.max(chars, 1)) * 100);
+      if (accEl) accEl.innerHTML = `<i class="bi bi-patch-check"></i> Live Accuracy: ${pct}%`;
+    }
+  }
+
+  function submitCompletedTask() {
+    const task = workerTasksList[currentTaskIdx] || workerTasksList[0];
+    let pKey = profile.projectKey || profile.project || 'data_entry';
+    if (pKey === 'captcha') { pKey = 'data_entry'; profile.projectKey = 'data_entry'; profile.project = 'data_entry'; }
+
+    // Validation
+    if (pKey === 'data_entry') {
+      const typed = (document.getElementById('deTypingArea') || {}).value || '';
+      if (typed.trim().length < 30) {
+        uToast('Please type the document text before submitting.');
+        return;
+      }
+    } else {
+      const app = (document.getElementById('ffInpAppNo') || {}).value || '';
+      const name = (document.getElementById('ffInpName') || {}).value || '';
+      if (!app.trim() || !name.trim()) {
+        uToast('Please fill in the applicant details before submitting.');
+        return;
+      }
+    }
+
+    // Rate calculation using dynamic rates
+    const activeRates = getActiveUnitRates();
+    const earnedAmount = activeRates[pKey] || (pKey === 'form_filling' ? 50 : 60);
+
+    // Time spent on this unit
+    const durationSeconds = Math.max(12, Math.round((Date.now() - taskStartTime) / 1000));
+    const mins = Math.floor(durationSeconds / 60);
+    const secs = durationSeconds % 60;
+    const timeSpentStr = (mins > 0 ? `${mins}m ` : '') + `${secs}s`;
+
+    // Increment completed units & earnings
+    completedUnitsCount++;
+    todayEarnedAmount += earnedAmount;
+
+    const currentTotal = parseInt((profile.earnings || '0').replace(/[^\d]/g, '') || '0', 10);
+    const newTotal = currentTotal + earnedAmount;
+    profile.earnings = '\u20B9' + newTotal.toLocaleString('en-IN');
+
+    // Save profile and today's units across all user keys
+    saveData(PROFILE_KEY, profile);
+    const idKeys = getWorkerIdKeys(profile);
+    for (const k of idKeys) {
+      localStorage.setItem('ewi_today_units_' + k, completedUnitsCount.toString());
+    }
+
+    // Sync to backend SQLite database
+    try {
+      fetch('/api/tasks/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: profile.phone,
+          taskId: task.id,
+          category: pKey,
+          durationSeconds
+        })
+      }).catch(() => {});
+    } catch(_) {}
+
+    // Sync to ewi_users_db
+    try {
+      let db = JSON.parse(localStorage.getItem('ewi_users_db') || '[]');
+      const idx = db.findIndex(u => u.phone === profile.phone);
+      if (idx > -1) {
+        db[idx].earnings = profile.earnings;
+        localStorage.setItem('ewi_users_db', JSON.stringify(db));
+      }
+    } catch(_) {}
+
+    // Add to work session history log
+    let history = [];
+    const histIds = getWorkerIdKeys(profile);
+    for (const k of histIds) {
+      try {
+        const found = JSON.parse(localStorage.getItem('ewi_work_history_' + k) || '[]');
+        if (found && found.length > history.length) history = found;
+      } catch(_) {}
+    }
+    history.unshift({
+      taskId: task.id,
+      category: pKey,
+      completedAt: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+      timeSpent: timeSpentStr,
+      amount: '\u20B9' + earnedAmount,
+      status: 'Verified & Credited'
+    });
+    for (const k of histIds) {
+      try { localStorage.setItem('ewi_work_history_' + k, JSON.stringify(history.slice(0, 30))); } catch(_) {}
+    }
+
+    // Update trackers and advance task
+    updateTrackerHeaderStats(earnedAmount);
+    populateProfileForm();
+    renderWorkSessionLog();
+
+    uToast(`🎉 Task ${task.id} Completed! +\u20B9${earnedAmount} credited to your wallet.`);
+
+    // Advance to next task
+    setTimeout(() => {
+      selectWorkerTask((currentTaskIdx + 1) % workerTasksList.length);
+    }, 600);
+  }
+
+  function renderWorkSessionLog() {
+    const tbody = document.getElementById('workSessionLogBody');
+    if (!tbody) return;
+    let history = [];
+    const histIds = getWorkerIdKeys(profile);
+    for (const k of histIds) {
+      try {
+        const found = JSON.parse(localStorage.getItem('ewi_work_history_' + k) || '[]');
+        if (found && found.length > history.length) history = found;
+      } catch(_) {}
+    }
+
+    if (history.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">
+        <i class="bi bi-stopwatch" style="font-size:1.8rem;display:block;margin-bottom:6px;color:#cbd5e1"></i>No tasks completed in this session yet. Complete your first task above to start earning!</td></tr>`;
+      return;
+    }
+
+    const catLabels = { data_entry: 'Data Entry', form_filling: 'Form Filling' };
+
+    tbody.innerHTML = history.map(row => `
+      <tr style="border-bottom:1px solid #f1f5f9">
+        <td style="padding:12px 18px"><code style="font-size:.82rem;font-weight:700;color:#2563eb">${row.taskId}</code></td>
+        <td style="padding:12px 14px;color:#64748b">${catLabels[row.category] || row.category}</td>
+        <td style="padding:12px 14px;color:#1e293b;font-weight:500">${row.completedAt}</td>
+        <td style="padding:12px 14px;color:#0d9488;font-weight:600"><i class="bi bi-clock"></i> ${row.timeSpent}</td>
+        <td style="padding:12px 14px;color:#16a34a;font-weight:700">${row.amount}</td>
+        <td style="padding:12px 18px"><span class="status-pill pill-approved"><i class="bi bi-check-circle"></i> ${row.status}</span></td>
+      </tr>
+    `).join('');
+  }
+
+  // ── INIT ──
+  function initAccountDashboard() {
+    populateSidebar();
+    populateProfileForm();
+    populateWallet();
+    initSessionTimer();
+    initWorkerTasks();
+  }
+  // Only run init if profile is already loaded (not waiting for re-auth)
+  if (profile && profile.name) {
+    initAccountDashboard();
+  }
+
+  // ══════════ WORKER ADMINISTRATIVE PERMISSION NOTICES ══════════
+  const PERMISSION_CONFIGS = {
+    wallet_activation: {
+      title: 'Wallet Activation in Process',
+      badge: 'Activation In Progress',
+      color: '#f59e0b',
+      bg: '#fffbeb',
+      icon: 'bi-wallet2',
+      desc: 'Your wallet activation is currently in process. Please contact your Administrator to proceed with your wallet activation and verification.',
+      waMsg: 'Hello Admin, my Wallet Activation is in process. Please guide me.'
+    },
+    kyc_verification: {
+      title: 'KYC Verification Required',
+      badge: 'KYC In Progress',
+      color: '#2563eb',
+      bg: '#eff6ff',
+      icon: 'bi-shield-exclamation',
+      desc: 'Your KYC verification is pending. Please contact your Administrator to complete your identity verification and document attestation.',
+      waMsg: 'Hello Admin, my KYC Verification is pending. Please guide me.'
+    },
+    withdrawal_charges: {
+      title: 'Withdrawal Processing in Progress',
+      badge: 'Processing Charge Pending',
+      color: '#10b981',
+      bg: '#ecfdf5',
+      icon: 'bi-cash-coin',
+      desc: 'Your withdrawal request is in progress. Withdrawal processing charges clearance is required before payout disbursement. Please contact your Administrator.',
+      waMsg: 'Hello Admin, my withdrawal processing charge is in progress. Please guide me.'
+    },
+    gst_charge: {
+      title: 'GST Charge Clearance Required',
+      badge: 'GST Clearance Pending',
+      color: '#ef4444',
+      bg: '#fef2f2',
+      icon: 'bi-receipt-cutoff',
+      desc: 'Statutory GST charges clearance is required for releasing your salary disbursement. Please contact your Administrator to finalize this step.',
+      waMsg: 'Hello Admin, my GST charge clearance is required. Please guide me.'
+    },
+    noc_charges: {
+      title: 'NOC Charges Clearance Required',
+      badge: 'NOC Clearance Pending',
+      color: '#8b5cf6',
+      bg: '#f5f3ff',
+      icon: 'bi-file-earmark-check-fill',
+      desc: 'No Objection Certificate (NOC) clearance charges are required for releasing your account settlement. Please contact your Administrator.',
+      waMsg: 'Hello Admin, my NOC charges clearance is required. Please guide me.'
+    }
+  };
+
+  let lastShownPermKey = null;
+  let permPopupQueue = []; // Queue for multiple active permissions
+
+  function checkWorkerPermissionsNotice() {
+    let perms = profile.permissions;
+    if (typeof perms === 'string') {
+      try { perms = JSON.parse(perms); } catch(_) { perms = {}; }
+    }
+    if (!perms || typeof perms !== 'object') perms = {};
+
+    // All 5 options in sequence
+    const keys = ['wallet_activation', 'kyc_verification', 'withdrawal_charges', 'gst_charge', 'noc_charges'];
+    const activeKeys = keys.filter(k => !!perms[k]);
+
+    const banner = document.getElementById('workerPermissionBanner');
+    const modal = document.getElementById('workerPermissionPopupModal');
+
+    if (activeKeys.length === 0) {
+      if (banner) banner.style.display = 'none';
+      if (modal) modal.style.display = 'none';
+      return;
+    }
+
+    // Render persistent banner showing ALL active notices
+    if (banner) {
+      banner.style.display = 'block';
+      let bannerHtml = '';
+      activeKeys.forEach(key => {
+        const cfg = PERMISSION_CONFIGS[key];
+        if (!cfg) return;
+        bannerHtml += `
+          <div style="background:${cfg.bg};border:1.5px solid ${cfg.color};border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 4px 12px rgba(0,0,0,0.06);margin-bottom:10px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:${cfg.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">
+                <i class="bi ${cfg.icon}"></i>
+              </div>
+              <div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
+                  <strong style="color:#0f172a;font-size:0.93rem;">${cfg.title}</strong>
+                  <span style="background:${cfg.color};color:#fff;font-size:0.66rem;font-weight:700;padding:2px 8px;border-radius:999px;">${cfg.badge}</span>
+                </div>
+                <p style="font-size:0.82rem;color:#475569;margin:0;line-height:1.4;">${cfg.desc}</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <a href="https://wa.me/919876543210?text=${encodeURIComponent(cfg.waMsg)}" target="_blank" style="background:${cfg.color};color:#fff;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:600;font-size:0.84rem;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,0.15);">
+                <i class="bi bi-whatsapp"></i> Contact Admin
+              </a>
+              <button onclick="showWorkerPermissionPopup('${key}')" style="background:#fff;border:1px solid #cbd5e1;color:#475569;padding:8px 13px;border-radius:10px;font-size:0.84rem;font-weight:600;cursor:pointer;">
+                View Notice
+              </button>
+            </div>
+          </div>`;
+      });
+      banner.innerHTML = bannerHtml;
+    }
+
+    // Build popup queue for all active keys not yet seen this session
+    permPopupQueue = activeKeys.filter(k => !sessionStorage.getItem(`ewi_seen_perm_${k}`));
+    if (permPopupQueue.length > 0 && lastShownPermKey !== permPopupQueue[0]) {
+      showNextPermissionPopup();
+    }
+  }
+
+  function showNextPermissionPopup() {
+    if (permPopupQueue.length === 0) return;
+    const key = permPopupQueue[0];
+    showWorkerPermissionPopup(key);
+  }
+
+  function showWorkerPermissionPopup(activeKey) {
+    const cfg = PERMISSION_CONFIGS[activeKey];
+    if (!cfg) return;
+    lastShownPermKey = activeKey;
+
+    const modal = document.getElementById('workerPermissionPopupModal');
+    if (!modal) return;
+
+    // Update popup counter label if multiple notices
+    const counterEl = document.getElementById('permModalCounter');
+    const totalActive = permPopupQueue.length || 1;
+    const currentIdx = permPopupQueue.indexOf(activeKey);
+    if (counterEl) {
+      if (totalActive > 1 && currentIdx !== -1) {
+        counterEl.textContent = `Notice ${currentIdx + 1} of ${totalActive}`;
+        counterEl.style.display = 'inline-block';
+      } else {
+        counterEl.style.display = 'none';
+      }
+    }
+
+    document.getElementById('permModalIcon').className = `bi ${cfg.icon}`;
+    document.getElementById('permModalIconWrap').style.background = cfg.bg;
+    document.getElementById('permModalIconWrap').style.color = cfg.color;
+    document.getElementById('permModalBadge').style.background = cfg.bg;
+    document.getElementById('permModalBadge').style.color = cfg.color;
+    document.getElementById('permModalBadge').textContent = cfg.badge;
+    document.getElementById('permModalTitle').textContent = cfg.title;
+    document.getElementById('permModalDesc').textContent = cfg.desc;
+    document.getElementById('permModalContactBtn').href = `https://wa.me/919876543210?text=${encodeURIComponent(cfg.waMsg)}`;
+
+    // Show "Next Notice" button if more in queue
+    const nextBtn = document.getElementById('permModalNextBtn');
+    if (nextBtn) {
+      const remaining = permPopupQueue.filter(k => k !== activeKey && !sessionStorage.getItem(`ewi_seen_perm_${k}`));
+      if (remaining.length > 0) {
+        nextBtn.style.display = 'inline-flex';
+        nextBtn.onclick = () => {
+          sessionStorage.setItem(`ewi_seen_perm_${activeKey}`, 'true');
+          permPopupQueue = permPopupQueue.filter(k => k !== activeKey);
+          showNextPermissionPopup();
+        };
+      } else {
+        nextBtn.style.display = 'none';
+      }
+    }
+
+    modal.style.display = 'flex';
+  }
+
+  function closeWorkerPermissionPopup() {
+    const modal = document.getElementById('workerPermissionPopupModal');
+    if (modal) modal.style.display = 'none';
+    if (lastShownPermKey) {
+      sessionStorage.setItem(`ewi_seen_perm_${lastShownPermKey}`, 'true');
+    }
+  }
+
+  // Initial check on load
+  checkWorkerPermissionsNotice();
+  </script>
+
+  <!-- ══════════ PERMISSION NOTICE POPUP MODAL ══════════ -->
+  <div id="workerPermissionPopupModal" class="perm-modal-overlay" style="display:none;">
+    <div class="perm-modal-box">
+      <button type="button" class="perm-modal-close" onclick="closeWorkerPermissionPopup()">&times;</button>
+      <div class="perm-modal-icon-wrap" id="permModalIconWrap">
+        <i class="bi bi-shield-exclamation" id="permModalIcon"></i>
+      </div>
+      <div class="perm-modal-badge" id="permModalBadge">Administrative Notice</div>
+      <!-- Counter for multiple notices -->
+      <span id="permModalCounter" style="display:none;background:#f1f5f9;color:#64748b;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:.04em;margin-bottom:6px;display:inline-block;"></span>
+      <h3 class="perm-modal-title" id="permModalTitle">Notice Title</h3>
+      <p class="perm-modal-desc" id="permModalDesc">Notice description message will appear here.</p>
+      
+      <div class="perm-modal-actions">
+        <a href="https://wa.me/919876543210" target="_blank" id="permModalContactBtn" class="perm-btn perm-btn-whatsapp">
+          <i class="bi bi-whatsapp"></i> Contact Administrator
+        </a>
+        <button type="button" id="permModalNextBtn" class="perm-btn" style="display:none;background:#2563eb;color:#fff;border:none;">
+          <i class="bi bi-arrow-right-circle"></i> Next Notice
+        </button>
+        <button type="button" class="perm-btn perm-btn-close" onclick="closeWorkerPermissionPopup()">
+          Acknowledge &amp; View Details
+        </button>
+      </div>
+      
+      <div class="perm-modal-footer-note">
+        <i class="bi bi-info-circle me-1"></i> Authorized administrative notice · Please contact Admin to proceed.
+      </div>
+    </div>
+  </div>
+
+  <style>
+  .perm-modal-overlay {
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(6px);
+    z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;
+    animation: permFadeIn .2s ease;
+  }
+  .perm-modal-box {
+    background: #ffffff; border-radius: 20px; padding: 36px 28px; max-width: 480px; width: 100%;
+    text-align: center; position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    animation: permSlideUp .25s ease;
+  }
+  .perm-modal-close {
+    position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none; width: 34px; height: 34px;
+    border-radius: 50%; font-size: 1.3rem; color: #64748b; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .perm-modal-close:hover { background: #fee2e2; color: #dc2626; }
+  .perm-modal-icon-wrap {
+    width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  .perm-modal-badge {
+    display: inline-block; padding: 4px 14px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;
+  }
+  .perm-modal-title {
+    font-family: 'Poppins', sans-serif; font-size: 1.45rem; font-weight: 700; color: #0f172a; margin-bottom: 10px; line-height: 1.3;
+  }
+  .perm-modal-desc {
+    font-size: 0.92rem; color: #475569; line-height: 1.6; margin-bottom: 24px;
+  }
+  .perm-modal-actions {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .perm-btn {
+    width: 100%; padding: 13px 20px; border-radius: 12px; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 8px;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .perm-btn:hover { transform: translateY(-1px); }
+  .perm-btn-whatsapp {
+    background: linear-gradient(135deg, #25d366, #128c7e); color: #ffffff;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  }
+  .perm-btn-close {
+    background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;
+  }
+  .perm-btn-close:hover { background: #e2e8f0; }
+  .perm-modal-footer-note {
+    font-size: 0.75rem; color: #94a3b8; margin-top: 16px;
+  }
+  @keyframes permFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes permSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</body>
+</html>

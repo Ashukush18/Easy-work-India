@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Easy Work India</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Exact Old Dashboard Theme -->
+    <link rel="stylesheet" href="old_admin_theme.css">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+</head>
+<body class="admin-dashboard">
+
+    <!-- Toast Notification -->
+    <div id="adminToast" class="old-toast">
+        <i class="fas fa-check-circle text-success" id="adminToastIcon"></i>
+        <span id="adminToastMsg">Notification message</span>
+    </div>
+
+    <!-- Login Overlay (Matches original auth/login.php) -->
+    <div id="adminLoginOverlay" class="admin-login-overlay" style="display:none;">
+        <div class="admin-login-box">
+            <div class="admin-login-box-header">
+                <div class="admin-login-logo-circle">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3 class="mb-1 fw-bold">Easy Work India</h3>
+                <p class="mb-0 text-white-50 small">Admin & Superadmin Portal Sign In</p>
+            </div>
+            <div class="p-4">
+                <div id="loginAlertBox" class="alert alert-danger py-2 small" style="display:none;"></div>
+
+                <div class="p-2 mb-3 rounded" style="background:#f1f5f9;border:1px dashed #cbd5e1;font-size:0.82rem;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="text-muted">Master Admin:</span> <strong>9876543210</strong> (or <strong>admin</strong>)<br>
+                            <span class="text-muted">Password:</span> <strong>123456</strong> (or <strong>Work2026</strong>)
+                        </div>
+                        <button type="button" class="btn btn-sm btn-primary py-1 px-2" onclick="fillAdminCreds()" style="font-size:0.75rem;">1-Click</button>
+                    </div>
+                </div>
+
+                <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Mobile Number / Admin ID</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                            <input type="text" class="form-control" id="loginAdminId" placeholder="admin or 9876543210" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control" id="loginAdminPassword" placeholder="Enter password" required>
+                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassVisibility('loginAdminPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mt-2">
+                        <i class="fas fa-sign-in-alt me-2"></i>Sign In to Dashboard
+                    </button>
+                    <div class="text-center mt-3">
+                        <a href="index.html" class="text-muted small text-decoration-none"><i class="fas fa-arrow-left me-1"></i>Back to Main Site</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD WRAPPER -->
+    <div id="adminApp" class="main-wrapper">
+        
+        <!-- TOP FIXED NAVBAR (Original exact structure) -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+            <div class="container-fluid">
+                <!-- Logo and Brand -->
+                <a class="navbar-brand" href="javascript:void(0)" onclick="switchTab('dashboard')">
+                    <i class="fas fa-briefcase me-2"></i>
+                    <span class="fw-bold">Easy Work India</span>
+                </a>
+                
+                <!-- Mobile Toggle Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="adminNavbarNav">
+                    <!-- Left Side: Navigation Links -->
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="nav-dashboard" href="javascript:void(0)" onclick="switchTab('dashboard')">
+                                <i class="fas fa-chart-line me-1"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-users" href="javascript:void(0)" onclick="switchTab('users')">
+                                <i class="fas fa-users me-1"></i> Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-tasks" href="javascript:void(0)" onclick="switchTab('tasks')">
+                                <i class="fas fa-tasks me-1"></i> Tasks
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-finances" href="javascript:void(0)" onclick="switchTab('finances')">
+                                <i class="fas fa-money-bill-wave me-1"></i> Finances
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="settingsDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-cog me-1"></i> Settings
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="javascript:void(0)" onclick="switchTab('settings')"><i class="fas fa-sliders-h me-2"></i>System Settings</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)" onclick="switchTab('popups')"><i class="fas fa-bell me-2"></i>Login Popups</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)" onclick="switchTab('reports')"><i class="fas fa-file-alt me-2"></i>Reports</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="clearSystemData()"><i class="fas fa-trash-alt me-2"></i>Clear Data</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <!-- Right Side: User Info & Logout -->
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item me-2">
+                            <a href="index.html" target="_blank" class="btn btn-sm btn-light text-primary fw-bold" style="border-radius:20px;font-size:0.78rem;">
+                                <i class="fas fa-external-link-alt me-1"></i>View Website
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-shield me-1"></i>
+                                Admin <span class="badge bg-light text-dark ms-1">superadmin</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="switchTab('dashboard')">
+                                        <i class="fas fa-chart-line me-2"></i> Admin Panel
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="javascript:void(0)" onclick="handleAdminLogout()">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- CONTENT WRAPPER -->
+        <div class="content-wrapper">
+
+            <!-- ================= PAGE 1: DASHBOARD ================= -->
+            <div id="page-dashboard" class="admin-page">
+                <!-- Welcome Header -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h2 class="mb-2 text-gradient">Welcome, Admin! 👑</h2>
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-chart-line me-1"></i>
+                                            Admin Dashboard | Live Database Connected
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <div class="d-grid gap-2 d-md-block">
+                                            <button class="btn btn-primary me-2" onclick="openAddUserForm()">
+                                                <i class="fas fa-user-plus me-2"></i>Add User
+                                            </button>
+                                            <button class="btn btn-success" onclick="switchTab('finances')">
+                                                <i class="fas fa-money-check-alt me-2"></i>Manage Finances
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards Row -->
+                <div class="row mb-4">
+                    <!-- Total Users -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary h-100 fade-in">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs fw-bold text-primary text-uppercase mb-1">Total Users</div>
+                                        <div class="h5 mb-0 fw-bold" id="statTotalUsers">0</div>
+                                        <div class="mt-2 small">
+                                            <div class="text-muted">Withdrawal Requests: <strong class="text-warning" id="statPendingWithdrawalsCount">0</strong></div>
+                                            <div class="text-muted">Pending Amount: <strong id="statPendingWithdrawalsAmount">₹0.00</strong></div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <button onclick="switchTab('users')" class="btn btn-sm btn-outline-primary py-1 px-2" style="font-size:0.75rem;">View All</button>
+                                            <button onclick="switchTab('finances')" class="btn btn-sm btn-outline-warning py-1 px-2" style="font-size:0.75rem;">Manage Withdrawals</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users fa-2x text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Balance -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success h-100 fade-in">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs fw-bold text-success text-uppercase mb-1">Total System Balance</div>
+                                        <div class="h5 mb-0 fw-bold" id="statSystemBalance">₹0.00</div>
+                                        <div class="mt-2">
+                                            <button onclick="switchTab('finances')" class="btn btn-sm btn-outline-success py-1 px-2" style="font-size:0.75rem;">Manage</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-wallet fa-2x text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Today's Tasks -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info h-100 fade-in">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs fw-bold text-info text-uppercase mb-1">Task Submissions</div>
+                                        <div class="h5 mb-0 fw-bold" id="statTotalTasksCount">1,200</div>
+                                        <div class="mt-2">
+                                            <div class="text-muted">Earnings Pool: <span id="statTaskEarningsPool">₹72,000.00</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-tasks fa-2x text-info"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Users -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning h-100 fade-in">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs fw-bold text-warning text-uppercase mb-1">Active Workers</div>
+                                        <div class="h5 mb-0 fw-bold" id="statActiveUsersCount">0</div>
+                                        <div class="mt-2">
+                                            <div class="text-muted" id="statActivePct">100% active</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-user-check fa-2x text-warning"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Withdrawals Card -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-header bg-warning text-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Pending Withdrawals</h5>
+                                <span class="badge bg-light text-dark" id="dashWithdrawalsBadge">0 Requests</span>
+                            </div>
+                            <div class="card-body">
+                                <div id="dashWithdrawalsAlert" class="alert alert-warning py-2 mb-3">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    You have <strong id="dashWithdrawalsPendingText">0</strong> withdrawal requests pending approval.
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Amount</th>
+                                                <th>Method</th>
+                                                <th>Requested</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dashWithdrawalsTbody">
+                                            <!-- Dynamically populated -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button onclick="switchTab('finances')" class="btn btn-primary">
+                                        <i class="fas fa-money-check-alt me-2"></i>Manage All Withdrawals
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Users & Recent Transactions (Exact Old Dashboard Layout) -->
+                <div class="row">
+                    <!-- Recent Users Column -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card h-100 fade-in">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-user-plus me-2"></i>Recent Users</h5>
+                                <button onclick="openAddUserForm()" class="btn btn-sm btn-primary">Add New</button>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush" id="dashRecentUsersList">
+                                    <!-- Populated dynamically matching exact old template -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Transactions Column -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card h-100 fade-in">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Transactions</h5>
+                                <button onclick="switchTab('finances')" class="btn btn-sm btn-primary">View All</button>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-sm align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-left:16px;">User</th>
+                                                <th>Type</th>
+                                                <th>Amount</th>
+                                                <th style="padding-right:16px;">Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dashRecentTransactionsTbody">
+                                            <!-- Populated dynamically with exact layout -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ================= PAGE 2: USERS MANAGEMENT ================= -->
+            <div id="page-users" class="admin-page" style="display:none;">
+                
+                <!-- Users Header -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h2 class="mb-2 text-gradient">User Management</h2>
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-users-cog me-1"></i>
+                                            Create, edit, and manage worker accounts, wallets, and KYC
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <button class="btn btn-outline-info me-2" onclick="copyExternalRegLink()" title="Copy external registration URL">
+                                            <i class="fas fa-link me-1"></i>Copy Reg Link
+                                        </button>
+                                        <button class="btn btn-primary" onclick="openAddUserForm()">
+                                            <i class="fas fa-user-plus me-2"></i>Add New User
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXTERNAL REGISTRATION LINK BAR -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card fade-in" style="background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.05)); border: 1px solid rgba(37,99,235,0.25);">
+                            <div class="card-body py-3">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div style="width:42px;height:42px;border-radius:10px;background:rgba(37,99,235,0.15);color:#3b82f6;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
+                                            <i class="fas fa-globe"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-light" style="font-size:0.95rem;">
+                                                External Registration Portal (Admin Gated)
+                                            </div>
+                                            <div class="text-muted small" style="font-size:0.8rem;">
+                                                Share this link with team members to register & activate workers without giving full admin panel access:
+                                            </div>
+                                            <div class="mt-1 d-inline-block px-2 py-1 rounded bg-dark border border-secondary text-info fw-bold" style="font-size:0.82rem;font-family:monospace;" id="externalRegUrlText">
+                                                https://easyworkindia.online/register.html
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-outline-primary" onclick="copyExternalRegLink()">
+                                            <i class="fas fa-copy me-1"></i>Copy Link
+                                        </button>
+                                        <a href="register.html" id="externalRegOpenBtn" target="_blank" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-arrow-up-right-from-square me-1"></i>Open Registration
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADD USER FORM SUB-VIEW (users.php?action=add) -->
+                <div id="userAddFormContainer" class="row mb-4" style="display:none;">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-user-edit me-2"></i>Add New User</h5>
+                                <button type="button" class="btn btn-sm btn-light" onclick="closeAddUserForm()"><i class="fas fa-times"></i></button>
+                            </div>
+                            <div class="card-body">
+                                <form id="formAddUser" onsubmit="saveNewUser(event)">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Full Name *</label>
+                                            <input type="text" class="form-control" id="newFullName" placeholder="e.g. Ramesh Kumar" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Mobile Number (Login ID) *</label>
+                                            <input type="tel" class="form-control" id="newPhone" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile number" required>
+                                            <div class="form-text">Client will login with this mobile number</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Username *</label>
+                                            <input type="text" class="form-control" id="newUsername" placeholder="Unique username / client ID" required>
+                                            <div class="form-text">Assigned by Admin only. User cannot edit this.</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Email *</label>
+                                            <input type="email" class="form-control" id="newEmail" placeholder="client@example.com" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Password *</label>
+                                            <input type="text" class="form-control" id="newPassword" minlength="4" placeholder="Password for client" required>
+                                            <div class="form-text">Assigned by Admin only. User cannot edit this.</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Assigned Project *</label>
+                                            <select class="form-select" id="newAssignedProject" required>
+                                                <option value="data_entry" selected>Data Entry Project (350 Pages/week · ₹60/page)</option>
+                                                <option value="form_filling">Form Filling Project (350 Forms/week · ₹50/form)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label fw-bold">Full Residential Address</label>
+                                            <input type="text" class="form-control" id="newAddress" placeholder="Flat / House No, Street, City, State, PIN">
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-3">
+                                    <h5 class="mb-3 text-primary"><i class="fas fa-id-card me-2"></i>Documents &amp; Photo Uploads</h5>
+                                    <div class="row">
+                                        <!-- Profile Photo Upload -->
+                                        <div class="col-md-6 mb-3">
+                                            <div class="p-3 border rounded bg-light">
+                                                <label class="form-label fw-bold"><i class="fas fa-portrait me-1 text-primary"></i> Worker Profile Photo *</label>
+                                                <input type="file" class="form-control" id="newPhotoFile" accept="image/*" onchange="previewUpload(this, 'previewNewPhoto')">
+                                                <div class="form-text">Official profile picture for dashboard avatar.</div>
+                                                <div id="previewNewPhoto" class="mt-2 text-center" style="display:none;">
+                                                    <img src="" alt="Profile Preview" class="rounded-circle shadow-sm" style="width:70px;height:70px;object-fit:cover;border:2px solid #2563eb;">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Digital Signature Upload -->
+                                        <div class="col-md-6 mb-3">
+                                            <div class="p-3 border rounded bg-light">
+                                                <label class="form-label fw-bold"><i class="fas fa-signature me-1 text-primary"></i> Digital Signature Document *</label>
+                                                <input type="file" class="form-control" id="newSignatureFile" accept="image/*" onchange="previewUpload(this, 'previewNewSignature')">
+                                                <div class="form-text">Signature photo or document on white paper.</div>
+                                                <div id="previewNewSignature" class="mt-2 text-center" style="display:none;">
+                                                    <img src="" alt="Signature Preview" class="rounded shadow-sm bg-white p-1" style="max-height:55px;max-width:200px;border:1px solid #cbd5e1;">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Aadhaar Card Number & Upload (Front & Back) -->
+                                        <div class="col-md-6 mb-3">
+                                            <div class="p-3 border rounded bg-light">
+                                                <label class="form-label fw-bold"><i class="fas fa-address-card me-1 text-primary"></i> Aadhaar Card Details *</label>
+                                                <input type="text" class="form-control mb-2" id="newAadhaar" placeholder="12-digit Aadhaar Number (XXXX XXXX XXXX)" maxlength="14">
+                                                <div class="row g-2">
+                                                    <div class="col-6">
+                                                        <label class="form-label small fw-bold text-muted mb-1"><i class="fas fa-file-image me-1 text-primary"></i> Front Side *</label>
+                                                        <input type="file" class="form-control form-control-sm" id="newAadhaarFrontFile" accept="image/*,.pdf" onchange="previewUpload(this, 'previewNewAadhaarFront')">
+                                                        <div id="previewNewAadhaarFront" class="mt-2 text-center" style="display:none;">
+                                                            <img src="" alt="Aadhaar Front Preview" class="rounded shadow-sm" style="max-height:65px;max-width:100%;object-fit:contain;border:1px solid #cbd5e1;">
+                                                            <span class="d-block small text-muted mt-1" style="font-size:0.68rem;">Front Side</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label class="form-label small fw-bold text-muted mb-1"><i class="fas fa-file-image me-1 text-secondary"></i> Back Side *</label>
+                                                        <input type="file" class="form-control form-control-sm" id="newAadhaarBackFile" accept="image/*,.pdf" onchange="previewUpload(this, 'previewNewAadhaarBack')">
+                                                        <div id="previewNewAadhaarBack" class="mt-2 text-center" style="display:none;">
+                                                            <img src="" alt="Aadhaar Back Preview" class="rounded shadow-sm" style="max-height:65px;max-width:100%;object-fit:contain;border:1px solid #cbd5e1;">
+                                                            <span class="d-block small text-muted mt-1" style="font-size:0.68rem;">Back Side</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- PAN Card (Optional) & Upload -->
+                                        <div class="col-md-6 mb-3">
+                                            <div class="p-3 border rounded bg-light">
+                                                <label class="form-label fw-bold"><i class="fas fa-file-invoice me-1 text-warning"></i> PAN Card (Optional)</label>
+                                                <input type="text" class="form-control mb-2 text-uppercase" id="newPan" placeholder="10-digit PAN (ABCDE1234F)" maxlength="10">
+                                                <label class="form-label small text-muted">PAN Card Photo / Document (Optional)</label>
+                                                <input type="file" class="form-control" id="newPanFile" accept="image/*,.pdf" onchange="previewUpload(this, 'previewNewPan')">
+                                                <div id="previewNewPan" class="mt-2 text-center" style="display:none;">
+                                                    <img src="" alt="PAN Preview" class="rounded shadow-sm" style="max-height:70px;max-width:180px;border:1px solid #cbd5e1;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-3">
+                                    <h5 class="mb-3 text-primary"><i class="fas fa-tasks me-2"></i>Task Permissions &amp; Limits</h5>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="card p-3 border-light shadow-sm">
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="permDataEntry" checked>
+                                                    <label class="form-check-label fw-bold" for="permDataEntry">Data Entry Tasks</label>
+                                                </div>
+                                                <label class="form-label small text-muted">Total Assignment Limit</label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="limitDataEntry" value="350" min="0" max="1000">
+                                                    <span class="input-group-text">Pages</span>
+                                                </div>
+                                                <small class="text-success mt-1 d-block"><i class="fas fa-check-circle me-1"></i>Standard 350 pages assignment</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="card p-3 border-light shadow-sm">
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="permFormFilling" checked>
+                                                    <label class="form-check-label fw-bold" for="permFormFilling">Form Filling Tasks</label>
+                                                </div>
+                                                <label class="form-label small text-muted">Total Assignment Limit</label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="limitFormFilling" value="350" min="0" max="1000">
+                                                    <span class="input-group-text">Forms</span>
+                                                </div>
+                                                <small class="text-success mt-1 d-block"><i class="fas fa-check-circle me-1"></i>Standard 350 forms assignment</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-info mt-2">
+                                        <i class="fas fa-info-circle me-2"></i>Account credentials will be activated immediately. Worker can login from any device (phone, laptop, PC).
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-primary me-2">
+                                            <i class="fas fa-save me-2"></i>Create User
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" onclick="closeAddUserForm()">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW / EDIT USER MODAL SUB-VIEW (users.php?action=view) -->
+                <div id="userViewModalContainer" class="row mb-4" style="display:none;">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-user-check me-2"></i>Worker Profile &amp; Wallet Management</h5>
+                                <button type="button" class="btn btn-sm btn-light" onclick="closeViewUser()"><i class="fas fa-times"></i></button>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <!-- User Profile Edit Card -->
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card p-3 h-100 shadow-sm">
+                                            <!-- Avatar -->
+                                            <div class="text-center mb-3">
+                                                <div id="viewUserAvatarWrap" class="mx-auto mb-2" style="position:relative;width:80px;height:80px;">
+                                                    <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center w-100 h-100 shadow-sm"
+                                                         style="font-size:32px;" id="viewUserInitial">U</div>
+                                                    <img id="viewUserPhotoImg" src="" alt="Profile" class="rounded-circle w-100 h-100 shadow-sm" style="display:none;object-fit:cover;border:2.5px solid #2563eb;">
+                                                </div>
+                                                <div class="mb-2">
+                                                    <span class="badge bg-success" id="viewUserStatusBadge">Active</span>
+                                                    <span class="badge bg-info text-white ms-1" id="viewUserProjectBadge">Data Entry</span>
+                                                </div>
+                                                <!-- hidden display spans for backward compat -->
+                                                <span id="viewUserName" style="display:none"></span>
+                                                <span id="viewUserPhone" style="display:none"></span>
+                                                <span id="viewUserId" style="display:none"></span>
+                                                <span id="viewUserEmail" style="display:none"></span>
+                                                <span id="viewUserPlainPass" style="display:none"></span>
+                                                <span id="viewUserIdProof" style="display:none"></span>
+                                                <span id="viewUserAddress" style="display:none"></span>
+                                            </div>
+
+                                            <!-- Editable Profile Form — ONLY Basic Details Shown -->
+                                            <form id="formEditUserProfile" onsubmit="saveEditedUserProfile(event)">
+                                                <h6 class="fw-bold text-primary mb-2"><i class="fas fa-user me-1"></i> Basic Details</h6>
+                                                <div class="mb-2">
+                                                    <label class="form-label small fw-bold mb-1">Full Name *</label>
+                                                    <input type="text" class="form-control form-control-sm" id="editUserName" placeholder="e.g. Ramesh Kumar" required>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <label class="form-label small fw-bold mb-1">Username / Login ID</label>
+                                                    <input type="text" class="form-control form-control-sm" id="editUserUsername" placeholder="Unique username">
+                                                </div>
+                                                <div class="mb-2">
+                                                    <label class="form-label small fw-bold mb-1">Phone Number</label>
+                                                    <input type="tel" class="form-control form-control-sm" id="editUserPhone" placeholder="10-digit mobile" maxlength="10">
+                                                </div>
+                                                <div class="mb-2">
+                                                    <label class="form-label small fw-bold mb-1">Email</label>
+                                                    <input type="email" class="form-control form-control-sm" id="editUserEmail" placeholder="client@example.com">
+                                                </div>
+                                                <div class="mb-2">
+                                                    <label class="form-label small fw-bold mb-1">Password</label>
+                                                    <input type="text" class="form-control form-control-sm font-monospace" id="editUserPassword" placeholder="Login password">
+                                                </div>
+                                                <div class="mb-2">
+                                                    <label class="form-label small fw-bold mb-1">Assigned Project</label>
+                                                    <select class="form-select form-select-sm" id="editUserProject">
+                                                        <option value="data_entry">Data Entry Project</option>
+                                                        <option value="form_filling">Form Filling Project</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <label class="form-label small fw-bold mb-1">Full Address</label>
+                                                    <input type="text" class="form-control form-control-sm" id="editUserAddress" placeholder="House No, Street, City, State, PIN">
+                                                </div>
+                                                <div class="mb-2">
+                                                    <label class="form-label small fw-bold mb-1">Aadhaar Number</label>
+                                                    <input type="text" class="form-control form-control-sm" id="editUserAadhaar" placeholder="XXXX XXXX XXXX" maxlength="14">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label small fw-bold mb-1">PAN Card Number</label>
+                                                    <input type="text" class="form-control form-control-sm text-uppercase" id="editUserPan" placeholder="ABCDE1234F" maxlength="10">
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary btn-sm w-100 fw-bold">
+                                                    <i class="fas fa-save me-1"></i> Save Basic Details
+                                                </button>
+
+                                                <!-- ── VIEW DOCUMENTS BUTTON & COLLAPSIBLE SECTION ── -->
+                                                <div class="mt-3 pt-3 border-top">
+                                                    <button type="button" class="btn btn-outline-primary btn-sm w-100 fw-bold d-flex align-items-center justify-content-between px-3 py-2" id="btnToggleUserDocs" onclick="toggleUserDocumentsView()">
+                                                        <span><i class="fas fa-folder-open me-2 text-primary"></i> View Documents</span>
+                                                        <span class="d-flex align-items-center gap-2">
+                                                            <span class="badge bg-primary" id="viewDocsCountBadge">0 Uploaded</span>
+                                                            <i class="fas fa-chevron-down" id="viewDocsChevron"></i>
+                                                        </span>
+                                                    </button>
+
+                                                    <!-- Collapsible Documents Area -->
+                                                    <div id="userDocumentsCollapse" style="display:none;" class="mt-3">
+                                                        <div class="p-2 rounded bg-light border mb-2">
+                                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                <small class="fw-bold text-muted"><i class="fas fa-images me-1 text-primary"></i> Uploaded Documents</small>
+                                                                <small class="text-primary" style="font-size:0.7rem;">Click image to enlarge</small>
+                                                            </div>
+
+                                                            <!-- Grid for Signature, Aadhaar Front/Back, PAN, Photo -->
+                                                            <div id="viewUserDocsGrid" class="d-flex flex-column gap-2">
+                                                                <!-- Rendered dynamically by old_admin_app.js -->
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Save Documents Changes Button -->
+                                                        <button type="button" class="btn btn-success btn-sm w-100 fw-bold mt-2" onclick="saveEditedUserProfile(event)">
+                                                            <i class="fas fa-check-circle me-1"></i> Save Uploaded Document Changes
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- Wallet Adjust Card -->
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card p-3 h-100 shadow-sm border-left-success">
+                                            <h5 class="fw-bold text-success mb-3"><i class="fas fa-wallet me-2"></i>Wallet Management</h5>
+                                            <div class="text-center py-2 mb-3 bg-light rounded">
+                                                <h2 class="text-success fw-bold mb-0" id="viewUserWalletDisplay">₹0.00</h2>
+                                                <small class="text-muted">Current Wallet Balance</small>
+                                            </div>
+                                            <form id="formAdjustWallet" onsubmit="handleAdjustWallet(event)">
+                                                <input type="hidden" id="adjustUserId">
+                                                <div class="mb-3">
+                                                    <label class="form-label small fw-bold">Adjustment Type</label>
+                                                    <div class="d-flex gap-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="adjustType" id="adjustAdd" value="add" checked>
+                                                            <label class="form-check-label text-success fw-bold" for="adjustAdd">
+                                                                <i class="fas fa-plus-circle me-1"></i>Add Funds
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="adjustType" id="adjustDeduct" value="deduct">
+                                                            <label class="form-check-label text-danger fw-bold" for="adjustDeduct">
+                                                                <i class="fas fa-minus-circle me-1"></i>Deduct Funds
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label small fw-bold">Amount (₹)</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" class="form-control" id="adjustAmount" min="1" step="1" placeholder="e.g. 500" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label small fw-bold">Reason / Note</label>
+                                                    <input type="text" class="form-control" id="adjustReason" placeholder="Salary credit, Bonus, etc." required>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary w-100 fw-bold">
+                                                    <i class="fas fa-check-circle me-1"></i>Update Wallet Instantly
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- Account Management Card -->
+                                    <div class="col-12 mb-4">
+                                        <div class="card p-3 shadow-sm border-0" style="background: linear-gradient(135deg,#1e293b 0%,#0f1f3d 100%); color:#fff;">
+                                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                                <h5 class="fw-bold mb-0 text-white"><i class="fas fa-user-cog me-2 text-warning"></i>Account Management</h5>
+                                                <span class="badge bg-light text-dark small px-3 py-1" id="acctStatusBadgeMain">
+                                                    <i class="fas fa-circle me-1 text-success"></i>Active
+                                                </span>
+                                            </div>
+                                            <p class="small mb-3" style="color:#94a3b8;">Control this worker's account access. Changes take effect immediately across all devices.</p>
+                                            <div class="row g-2">
+                                                <!-- Activate -->
+                                                <div class="col-md-4">
+                                                    <button class="btn btn-success w-100 py-2 fw-bold" onclick="setAccountStatus('active')" id="btnAcctActivate">
+                                                        <i class="fas fa-check-circle me-2"></i>Activate Account
+                                                    </button>
+                                                    <p class="text-center mt-1 mb-0" style="font-size:0.7rem;color:#86efac;">Worker can login and use all features</p>
+                                                </div>
+                                                <!-- Disable -->
+                                                <div class="col-md-4">
+                                                    <button class="btn btn-warning w-100 py-2 fw-bold text-dark" onclick="setAccountStatus('disabled')" id="btnAcctDisable">
+                                                        <i class="fas fa-ban me-2"></i>Disable Account
+                                                    </button>
+                                                    <p class="text-center mt-1 mb-0" style="font-size:0.7rem;color:#fde68a;">Temporarily blocks login — data is preserved</p>
+                                                </div>
+                                                <!-- Delete -->
+                                                <div class="col-md-4">
+                                                    <button class="btn btn-danger w-100 py-2 fw-bold" onclick="confirmDeleteFromView()" id="btnAcctDelete">
+                                                        <i class="fas fa-trash-alt me-2"></i>Delete Account
+                                                    </button>
+                                                    <p class="text-center mt-1 mb-0" style="font-size:0.7rem;color:#fca5a5;">Permanently removes account &amp; all data</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Task Auto Complete Toggle -->
+                                            <hr style="border-color:rgba(255,255,255,0.12);margin:18px 0 14px;">
+                                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                                                <div>
+                                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                                        <i class="fas fa-bolt text-warning fs-5"></i>
+                                                        <span class="fw-bold text-white" style="font-size:0.97rem;">Task Auto Complete</span>
+                                                        <span class="badge bg-warning text-dark" id="autoTaskBadge" style="font-size:0.65rem;">OFF</span>
+                                                    </div>
+                                                    <p class="mb-0" style="font-size:0.78rem;color:#94a3b8;">When enabled, worker's weekly task quota is marked as 100% complete automatically — they can proceed to withdrawal directly.</p>
+                                                </div>
+                                                <div class="form-check form-switch mb-0" style="transform:scale(1.4);transform-origin:right;">
+                                                    <input class="form-check-input" type="checkbox" id="toggleAutoTaskComplete" onchange="setAutoTaskComplete(this.checked)" style="cursor:pointer;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Permissions Card (5 Sequential Options with Enable Switches) -->
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card p-3 h-100 shadow-sm border-left-primary">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <h5 class="fw-bold text-primary mb-0"><i class="fas fa-user-shield me-2"></i>Permissions</h5>
+                                                <span class="badge bg-primary text-white" id="activePermCountBadge">0 Active</span>
+                                            </div>
+                                            <p class="small text-muted mb-3" style="font-size:0.78rem;">
+                                                Enabling any option below triggers a high-priority popup notification on the worker's device to contact admin.
+                                            </p>
+                                            
+                                            <div class="permissions-list">
+                                                <!-- 1. Wallet Activation Process -->
+                                                <div class="p-2 mb-2 rounded border bg-light">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <label class="form-check-label fw-bold small mb-0" for="permToggle_wallet_activation">
+                                                            <i class="fas fa-wallet text-warning me-1"></i> 1. Wallet Activation Process
+                                                        </label>
+                                                        <div class="form-check form-switch mb-0">
+                                                            <input class="form-check-input" type="checkbox" id="permToggle_wallet_activation" onchange="togglePermission('wallet_activation', this.checked)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                                        <small class="text-muted" style="font-size:0.72rem;">Alerts worker wallet activation is in process</small>
+                                                        <span class="badge bg-secondary" id="permBadge_wallet_activation" style="font-size:0.65rem;">Disabled</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- 2. KYC Verification -->
+                                                <div class="p-2 mb-2 rounded border bg-light">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <label class="form-check-label fw-bold small mb-0" for="permToggle_kyc_verification">
+                                                            <i class="fas fa-id-card text-primary me-1"></i> 2. KYC Verification
+                                                        </label>
+                                                        <div class="form-check form-switch mb-0">
+                                                            <input class="form-check-input" type="checkbox" id="permToggle_kyc_verification" onchange="togglePermission('kyc_verification', this.checked)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                                        <small class="text-muted" style="font-size:0.72rem;">Alerts worker KYC verification is pending</small>
+                                                        <span class="badge bg-secondary" id="permBadge_kyc_verification" style="font-size:0.65rem;">Disabled</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- 3. Withdrawal Processing Charges -->
+                                                <div class="p-2 mb-2 rounded border bg-light">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <label class="form-check-label fw-bold small mb-0" for="permToggle_withdrawal_charges">
+                                                            <i class="fas fa-money-check-alt text-success me-1"></i> 3. Withdrawal Processing Charges
+                                                        </label>
+                                                        <div class="form-check form-switch mb-0">
+                                                            <input class="form-check-input" type="checkbox" id="permToggle_withdrawal_charges" onchange="togglePermission('withdrawal_charges', this.checked)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                                        <small class="text-muted" style="font-size:0.72rem;">Alerts worker withdrawal fee clearance is in progress</small>
+                                                        <span class="badge bg-secondary" id="permBadge_withdrawal_charges" style="font-size:0.65rem;">Disabled</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- 4. GST Charge -->
+                                                <div class="p-2 mb-2 rounded border bg-light">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <label class="form-check-label fw-bold small mb-0" for="permToggle_gst_charge">
+                                                            <i class="fas fa-receipt text-danger me-1"></i> 4. GST Charge
+                                                        </label>
+                                                        <div class="form-check form-switch mb-0">
+                                                            <input class="form-check-input" type="checkbox" id="permToggle_gst_charge" onchange="togglePermission('gst_charge', this.checked)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                                        <small class="text-muted" style="font-size:0.72rem;">Alerts worker GST clearance is required</small>
+                                                        <span class="badge bg-secondary" id="permBadge_gst_charge" style="font-size:0.65rem;">Disabled</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- 5. NOC Charges -->
+                                                <div class="p-2 mb-2 rounded border bg-light">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <label class="form-check-label fw-bold small mb-0" for="permToggle_noc_charges">
+                                                            <i class="fas fa-file-contract text-info me-1"></i> 5. NOC Charges
+                                                        </label>
+                                                        <div class="form-check form-switch mb-0">
+                                                            <input class="form-check-input" type="checkbox" id="permToggle_noc_charges" onchange="togglePermission('noc_charges', this.checked)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                                        <small class="text-muted" style="font-size:0.72rem;">Alerts worker NOC certificate charges are pending</small>
+                                                        <span class="badge bg-secondary" id="permBadge_noc_charges" style="font-size:0.65rem;">Disabled</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-2 text-center">
+                                                <small class="text-muted fst-italic" style="font-size:0.7rem;"><i class="fas fa-sync-alt me-1"></i>Changes sync instantly to worker dashboard</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ALL USERS TABLE (Exact table from old site) -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <h5 class="mb-0">All Users (<span id="userCountBadge">0</span>)</h5>
+                                <div class="d-flex gap-2">
+                                    <input type="text" id="userSearchInput" class="form-control form-control-sm" placeholder="Search by name, phone, email..." oninput="filterUsersTable()" style="max-width:240px;">
+                                    <select id="userStatusFilter" class="form-select form-select-sm" onchange="filterUsersTable()" style="max-width:140px;">
+                                        <option value="">All Status</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="suspended">Suspended</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>User</th>
+                                                <th>Contact</th>
+                                                <th>Wallet</th>
+                                                <th>Tasks Allowed</th>
+                                                <th>Status</th>
+                                                <th>Registered</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="usersTableTbody">
+                                            <!-- Dynamically populated -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ================= PAGE 3: DAILY TASK MANAGER (Previous Exact Features in Current Theme) ================= -->
+            <div id="page-tasks" class="admin-page" style="display:none;">
+                
+                <!-- Page Title Row (Matches Screenshot) -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h2 class="mb-2 text-gradient fw-bold">Daily Task Manager</h2>
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-tasks me-1 text-primary"></i>
+                                            Upload, manage and update daily assignments for Data Entry and Form Filling workers.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <button class="btn btn-primary px-3 py-2 fw-bold shadow-sm" onclick="openAddTaskModal()">
+                                            <i class="fas fa-cloud-upload-alt me-2"></i>Upload New Task
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 Top Stats Cards (Matches Screenshot) -->
+                <div class="row mb-4">
+                    <!-- Total Daily Tasks -->
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-left-primary h-100 shadow-sm fade-in">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-primary text-white rounded-3 d-flex align-items-center justify-content-center me-3" style="width:48px;height:48px;font-size:1.3rem;">
+                                        <i class="fas fa-list-ul"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="fw-bold mb-0 text-dark" id="statTotalTasks">6</h2>
+                                        <span class="text-muted small">Total Daily Tasks</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Entry Tasks -->
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-left-success h-100 shadow-sm fade-in">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-success text-white rounded-3 d-flex align-items-center justify-content-center me-3" style="width:48px;height:48px;font-size:1.3rem;">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="fw-bold mb-0 text-dark" id="statDataEntryTasks">3</h2>
+                                        <span class="text-muted small" id="lblDataEntryRate">Data Entry (₹60/page)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Filling Tasks -->
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-left-warning h-100 shadow-sm fade-in">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-warning text-white rounded-3 d-flex align-items-center justify-content-center me-3" style="width:48px;height:48px;font-size:1.3rem;">
+                                        <i class="fas fa-tasks"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="fw-bold mb-0 text-dark" id="statFormFillingTasks">3</h2>
+                                        <span class="text-muted small" id="lblFormFillingRate">Form Filling (₹50/form)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit Rate & Payout Configuration Card (Matches Screenshot) -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card shadow-sm fade-in">
+                            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2 py-3">
+                                <div>
+                                    <h5 class="mb-1 fw-bold"><i class="fas fa-rupee-sign me-2"></i>Unit Rate &amp; Payout Configuration</h5>
+                                    <small class="text-white-50">Admin configurable payouts per unit. Changes sync directly to the live SQLite database and update worker terminals in real-time.</small>
+                                </div>
+                                <button class="btn btn-light text-primary fw-bold px-3 py-2" onclick="saveUnitRates()" id="btnSaveRates">
+                                    <i class="fas fa-check-circle me-1 text-success"></i> Save All Rates
+                                </button>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <!-- Data Entry Rate -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 border rounded-3 bg-light h-100">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="fw-bold text-success"><i class="fas fa-file-alt me-1"></i> Data Entry</span>
+                                                <span class="badge bg-secondary">Unit: Per Form / Page</span>
+                                            </div>
+                                            <label class="form-label small text-muted">Payout Rate (₹)</label>
+                                            <div class="input-group mb-2">
+                                                <span class="input-group-text fw-bold text-success">₹</span>
+                                                <input type="number" id="rateDataEntry" class="form-control fw-bold text-success" value="60" min="10" max="5000">
+                                            </div>
+                                            <div class="d-flex gap-1 flex-wrap">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="document.getElementById('rateDataEntry').value=50">₹50</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="document.getElementById('rateDataEntry').value=60">₹60</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="document.getElementById('rateDataEntry').value=70">₹70</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="document.getElementById('rateDataEntry').value=80">₹80</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Form Filling Rate -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 border rounded-3 bg-light h-100">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="fw-bold text-warning"><i class="fas fa-tasks me-1"></i> Form Filling</span>
+                                                <span class="badge bg-secondary">Unit: Per Form</span>
+                                            </div>
+                                            <label class="form-label small text-muted">Payout Rate (₹)</label>
+                                            <div class="input-group mb-2">
+                                                <span class="input-group-text fw-bold text-warning">₹</span>
+                                                <input type="number" id="rateFormFilling" class="form-control fw-bold text-warning" value="50" min="10" max="5000">
+                                            </div>
+                                            <div class="d-flex gap-1 flex-wrap">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="document.getElementById('rateFormFilling').value=40">₹40</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="document.getElementById('rateFormFilling').value=50">₹50</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="document.getElementById('rateFormFilling').value=60">₹60</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="document.getElementById('rateFormFilling').value=70">₹70</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Tabs & Tasks Table Card -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card shadow-sm fade-in">
+                            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2 py-3">
+                                <div class="d-flex gap-2 align-items-center flex-wrap">
+                                    <button class="btn btn-sm btn-light fw-bold task-filter-btn active" onclick="filterTasksTab('all', this)">All Tasks</button>
+                                    <button class="btn btn-sm btn-outline-light task-filter-btn" onclick="filterTasksTab('data_entry', this)"><i class="fas fa-file-alt me-1"></i>Data Entry</button>
+                                    <button class="btn btn-sm btn-outline-light task-filter-btn" onclick="filterTasksTab('form_filling', this)"><i class="fas fa-tasks me-1"></i>Form Filling</button>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Search tasks by ID or keyword..." id="taskSearchInput" oninput="searchTasksFromInput(this.value)" style="max-width:240px;">
+                                    <button class="btn btn-sm btn-primary" onclick="openAddTaskModal()"><i class="fas fa-plus me-1"></i>Add Task</button>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-left:16px;">Task ID</th>
+                                                <th>Task Title</th>
+                                                <th>Category</th>
+                                                <th>Pay Rate</th>
+                                                <th>Target Quota</th>
+                                                <th>Status</th>
+                                                <th style="padding-right:16px;">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tasksTable">
+                                            <!-- Dynamically populated from TASKS_DATA & SQLite -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add / Edit Task Modal -->
+                <div class="modal fade" id="taskModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title" id="taskModalTitleHeader"><i class="fas fa-tasks me-2"></i>Task Assignment</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-4">
+                                <form id="formTaskModal" onsubmit="saveTaskModalForm(event)">
+                                    <input type="hidden" id="taskModalIsEdit" value="0">
+                                    <input type="hidden" id="taskModalOldId" value="">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Task Reference ID *</label>
+                                            <input type="text" class="form-control" id="taskModalId" required placeholder="e.g. TSK-DE-04">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Task Category / Plan *</label>
+                                            <select class="form-select" id="taskModalCategory" onchange="toggleTaskFormModalFields(this.value)">
+                                                <option value="data_entry">Data Entry Project (₹60/page)</option>
+                                                <option value="form_filling">Form Filling Project (₹50/form)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Task Title *</label>
+                                        <input type="text" class="form-control" id="taskModalTitle" placeholder="e.g. Healthcare Patient Admission Register Batch 04" required>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Weekly Target Units (Quota)</label>
+                                            <input type="number" class="form-control" id="taskModalQuota" value="50" min="5" max="1000">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Task Status</label>
+                                            <select class="form-select" id="taskModalStatus">
+                                                <option value="active">Active (Published to Workers)</option>
+                                                <option value="inactive">Draft / Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Worker Instructions / Guidelines</label>
+                                        <textarea class="form-control" id="taskModalInstructions" rows="2" placeholder="e.g. Type transcript exactly as formatted with zero typos."></textarea>
+                                    </div>
+
+                                    <!-- Content Field for Data Entry -->
+                                    <div id="modalFieldDataEntry" class="mb-3 p-3 border rounded bg-light">
+                                        <label class="form-label fw-bold text-success"><i class="fas fa-file-alt me-1"></i> Data Entry Document Content / Source Text</label>
+                                        <textarea class="form-control font-monospace" id="taskModalContent" rows="7" placeholder="Type or paste the complete document text here that the worker needs to type..."></textarea>
+                                    </div>
+
+                                    <!-- Fields for Form Filling -->
+                                    <div id="modalFieldFormFilling" class="mb-3 p-3 border rounded bg-light" style="display:none;">
+                                        <h6 class="fw-bold text-warning mb-3"><i class="fas fa-tasks me-1"></i> Form Filling Master Client Data (To Fill)</h6>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-2">
+                                                <label class="form-label small fw-bold">Application No</label>
+                                                <input type="text" class="form-control form-control-sm" id="taskFfAppNo" placeholder="e.g. SOLAR-2026-9041">
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label class="form-label small fw-bold">Applicant Full Name</label>
+                                                <input type="text" class="form-control form-control-sm" id="taskFfName" placeholder="e.g. Rameshwar Sharma">
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label class="form-label small fw-bold">Contact Phone</label>
+                                                <input type="text" class="form-control form-control-sm" id="taskFfPhone" placeholder="e.g. 9822019482">
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label class="form-label small fw-bold">Scheme / Policy Plan</label>
+                                                <input type="text" class="form-control form-control-sm" id="taskFfPlan" placeholder="e.g. 3 kW Rooftop Solar">
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label class="form-label small fw-bold">City &amp; State</label>
+                                                <input type="text" class="form-control form-control-sm" id="taskFfCity" placeholder="e.g. Pune, Maharashtra">
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label class="form-label small fw-bold">Subsidy / Loan Amount</label>
+                                                <input type="text" class="form-control form-control-sm" id="taskFfAmount" placeholder="e.g. ₹50,000">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end gap-2 mt-4">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary fw-bold"><i class="fas fa-save me-1"></i>Save Task</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Preview Modal -->
+                <div class="modal fade" id="taskPreviewModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-gradient-custom text-white">
+                                <h5 class="modal-title" id="previewModalTitleHeader"><i class="fas fa-eye me-2"></i>Task Preview</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-4" id="taskPreviewModalBody">
+                                <!-- Populated dynamically -->
+                            </div>
+                            <div class="modal-footer bg-light">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="btnPreviewEditTask"><i class="fas fa-edit me-1"></i> Edit Task</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- ================= PAGE 4: FINANCES (Exact Old Dashboard Layout) ================= -->
+            <div id="page-finances" class="admin-page" style="display:none;">
+                
+                <!-- 4 Top Cards (Exact Image Layout) -->
+                <div class="row mb-4">
+                    <!-- Total Requests -->
+                    <div class="col-md-3 mb-3">
+                        <div class="card h-100 shadow-sm fade-in">
+                            <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                <div>
+                                    <div class="text-muted small">Total Requests</div>
+                                    <h3 class="mb-0 fw-bold" id="financesTotalCount">2</h3>
+                                </div>
+                                <div>
+                                    <i class="fas fa-list fa-2x text-primary"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending -->
+                    <div class="col-md-3 mb-3">
+                        <div class="card h-100 shadow-sm fade-in">
+                            <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                <div>
+                                    <div class="text-muted small">Pending</div>
+                                    <h3 class="mb-0 fw-bold text-dark" id="financesPendingAmount">₹14,000.00</h3>
+                                </div>
+                                <div class="bg-warning text-white rounded-circle d-flex align-items-center justify-content-center" style="width:36px;height:36px;">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Approved -->
+                    <div class="col-md-3 mb-3">
+                        <div class="card h-100 shadow-sm fade-in">
+                            <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                <div>
+                                    <div class="text-muted small">Approved</div>
+                                    <h3 class="mb-0 fw-bold text-dark" id="financesApprovedAmount">₹0.00</h3>
+                                </div>
+                                <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center" style="width:36px;height:36px;">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rejected -->
+                    <div class="col-md-3 mb-3">
+                        <div class="card h-100 shadow-sm fade-in">
+                            <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                <div>
+                                    <div class="text-muted small">Rejected</div>
+                                    <h3 class="mb-0 fw-bold text-dark" id="financesRejectedAmount">₹60,280.00</h3>
+                                </div>
+                                <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center" style="width:36px;height:36px;">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Withdrawal Requests Card with Datepickers and Filter (Exact Image Layout) -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2 py-3">
+                                <h5 class="mb-0 fw-bold">Withdrawal Requests</h5>
+                                
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <span class="input-group-text bg-white"><i class="fas fa-calendar-alt text-muted"></i></span>
+                                        <input type="date" id="financesDateFrom" class="form-control" onchange="renderFinancesTable()">
+                                    </div>
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <span class="input-group-text bg-white"><i class="fas fa-calendar-alt text-muted"></i></span>
+                                        <input type="date" id="financesDateTo" class="form-control" onchange="renderFinancesTable()">
+                                    </div>
+                                    <select class="form-select form-select-sm" id="withdrawalStatusFilter" onchange="renderFinancesTable()" style="width:125px;">
+                                        <option value="">All Status</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="rejected">Rejected</option>
+                                    </select>
+                                    <button class="btn btn-sm text-white" onclick="renderFinancesTable()" style="background:rgba(255,255,255,0.25);border:1px solid rgba(255,255,255,0.4);" title="Filter">
+                                        <i class="fas fa-filter"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-left:16px;">ID</th>
+                                                <th>User</th>
+                                                <th>Amount</th>
+                                                <th>Method</th>
+                                                <th>Details</th>
+                                                <th>Status</th>
+                                                <th>Requested</th>
+                                                <th style="padding-right:16px;">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="financesTableTbody">
+                                            <!-- Dynamically populated to match screenshot -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal for Withdrawal Details View (Matching viewWithdrawalDetails) -->
+                <div class="modal fade" id="withdrawalDetailsModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title"><i class="fas fa-receipt me-2"></i>Withdrawal Details</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="withdrawalDetailsModalBody">
+                                <!-- Populated dynamically -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- ================= PAGE 6: SETTINGS ================= -->
+            <div id="page-settings" class="admin-page" style="display:none;">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-body">
+                                <h2 class="mb-2 text-gradient">System Settings</h2>
+                                <p class="text-muted mb-0">Configure system parameters, payout rates, and platform defaults.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card fade-in">
+                            <div class="card-header"><h5 class="mb-0">General Settings</h5></div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Platform Site Name</label>
+                                    <input type="text" class="form-control" id="setSiteName" value="Easy Work India">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Support Email</label>
+                                    <input type="email" class="form-control" id="setSupportEmail" value="support@easyworkindia.site">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Support Phone</label>
+                                    <input type="text" class="form-control" id="setSupportPhone" value="+91 98765 43210">
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="saveSystemSettings()">Save General Settings</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="card fade-in">
+                            <div class="card-header"><h5 class="mb-0">Task Rates &amp; Quotas</h5></div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Data Entry Rate (₹ per page)</label>
+                                    <input type="number" class="form-control" id="setDataEntryRate" value="60">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Form Filling Rate (₹ per form)</label>
+                                    <input type="number" class="form-control" id="setFormFillingRate" value="50">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Weekly Quota (Units)</label>
+                                    <input type="number" class="form-control" id="setWeeklyQuota" value="350">
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="saveTaskRateSettings()">Update Rates</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Admin Credentials ── -->
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card fade-in border-warning">
+                            <div class="card-header bg-warning text-dark d-flex align-items-center gap-2">
+                                <i class="fas fa-user-shield"></i>
+                                <h5 class="mb-0">Admin Login Credentials</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-warning d-flex align-items-start gap-2 py-2 px-3" style="font-size:0.84rem;">
+                                    <i class="fas fa-exclamation-triangle mt-1"></i>
+                                    <span>Enter your <strong>current password</strong> to authorize any change. New credentials take effect immediately.</span>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Current Password <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="adminCurrentPwd" placeholder="Enter current admin password">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassVisibility('adminCurrentPwd')"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">New Admin Login ID</label>
+                                    <input type="text" class="form-control" id="adminNewId" placeholder="e.g. admin or phone number">
+                                    <small class="text-muted">Leave blank to keep current ID</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">New Password</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="adminNewPwd" placeholder="Enter new password">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassVisibility('adminNewPwd')"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                    <small class="text-muted">Leave blank to keep current password</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Confirm New Password</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="adminConfirmPwd" placeholder="Re-enter new password">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassVisibility('adminConfirmPwd')"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-warning text-dark fw-bold" onclick="saveAdminCredentials()">
+                                    <i class="fas fa-key me-2"></i>Update Admin Credentials
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── Terms & Conditions Editor ── -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card fade-in border-info">
+                            <div class="card-header bg-info text-white d-flex align-items-center gap-2">
+                                <i class="fas fa-file-contract"></i>
+                                <h5 class="mb-0">Terms &amp; Conditions</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted small mb-3">This content is displayed on the <strong>homepage</strong> at the bottom. Use the editor below to update it. Supports line breaks.</p>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Terms &amp; Conditions Title</label>
+                                    <input type="text" class="form-control" id="termsTitle" placeholder="e.g. Terms &amp; Conditions" value="Terms &amp; Conditions">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Terms &amp; Conditions Content</label>
+                                    <textarea class="form-control" id="termsContent" rows="8" placeholder="Enter your terms and conditions here...">1. Workers must complete their assigned tasks accurately and on time.
+2. Salary is credited to the wallet every Monday after task verification.
+3. Withdrawal is processed only after KYC verification and all charges are cleared.
+4. The admin reserves the right to deactivate accounts for any policy violation.
+5. All credentials are provided by the administrator and must not be shared.
+6. Easy Work India is not responsible for any personal data misuse by the worker.
+7. Disputes must be raised within 7 days of the transaction.
+8. By using this platform, you agree to all terms listed above.</textarea>
+                                </div>
+                                <button type="button" class="btn btn-info text-white fw-bold" onclick="saveTermsAndConditions()">
+                                    <i class="fas fa-save me-2"></i>Save &amp; Publish to Homepage
+                                </button>
+                                <div id="termsPreviewBox" class="mt-3 p-3 bg-light rounded border" style="display:none;max-height:200px;overflow-y:auto;font-size:0.82rem;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /page-settings -->
+
+
+            <!-- ================= PAGE 7: LOGIN POPUPS ================= -->
+            <div id="page-popups" class="admin-page" style="display:none;">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-body">
+                                <h2 class="mb-2 text-gradient">Login Popup Management</h2>
+                                <p class="text-muted mb-0">Show notice or popup message to workers upon dashboard login.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+                        <div class="card fade-in">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Global Login Popup</h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="applyGlobalPopupToAll()">Apply to All Users</button>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="popupGlobalEnabled" checked>
+                                    <label class="form-check-label fw-bold" for="popupGlobalEnabled">Enable global login popup</label>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Popup Title</label>
+                                    <input type="text" class="form-control" id="popupGlobalTitle" value="Important Notice: Complete KYC">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Popup Content / Message</label>
+                                    <textarea class="form-control" id="popupGlobalContent" rows="5">Dear Worker, please complete your weekly assignment accurately. Make sure to complete your KYC before requesting weekly withdrawal.</textarea>
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="saveGlobalPopupSettings()">
+                                    <i class="fas fa-save me-2"></i>Save Global Popup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ================= PAGE 8: REPORTS ================= -->
+            <div id="page-reports" class="admin-page" style="display:none;">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card fade-in">
+                            <div class="card-body">
+                                <h2 class="mb-2 text-gradient">System Reports &amp; Analytics</h2>
+                                <p class="text-muted mb-0">Weekly performance, payout dispatches, and task audit trail.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card p-3 text-center">
+                            <h4 class="text-primary mb-1" id="reportTotalRegistered">0</h4>
+                            <p class="text-muted mb-0">Total Workers Onboarded</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card p-3 text-center">
+                            <h4 class="text-success mb-1" id="reportTotalPayouts">₹0.00</h4>
+                            <p class="text-muted mb-0">Total Disbursed Earnings</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card p-3 text-center">
+                            <h4 class="text-warning mb-1" id="reportAvgAccuracy">98.4%</h4>
+                            <p class="text-muted mb-0">Average Worker Accuracy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- /.content-wrapper -->
+    </div> <!-- /.main-wrapper -->
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Cloud Sync Engine (Cross-device phone, laptop, PC sync) -->
+    <script src="cloud_sync.js"></script>
+
+    <!-- Admin Application JS (Complete Old Workflow Controller) -->
+    <script src="old_admin_app.js"></script>
+</body>
+</html>

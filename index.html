@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a192f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Easy Work India | Work From Home Portal</title>
+  <meta name="description" content="Easy Work India — India's verified work from home employment platform for Data Entry and Form Filling. Guaranteed weekly payouts, no time limit, zero target. Work anytime from mobile or PC.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles.css?v=20261102_v2">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar" id="announcementBar">
+    <div class="announcement-inner">
+      <span class="ann-badge"><i class="bi bi-lightning-charge-fill"></i> Daily Work</span>
+      <span class="ann-text">Flexible work from home projects — Weekly salary, no time limit, guaranteed weekly payouts.</span>
+      <a href="#projects" class="ann-link">Explore Projects <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <button class="ann-close" onclick="document.getElementById('announcementBar').remove()" aria-label="Close Announcement">&times;</button>
+  </div>
+
+  <!-- Main Site Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner section-wrap">
+      <a href="#home" class="brand" aria-label="Easy Work India Home">
+        <div class="brand-emblem">
+          <span>EW</span>
+          <span class="brand-dot-in"></span>
+        </div>
+        <div class="brand-info">
+          <span class="brand-title">Easy Work <span class="brand-highlight">India</span></span>
+        </div>
+      </a>
+
+      <!-- Desktop & Tablet Navigation -->
+      <nav class="main-nav" id="mainNav">
+        <!-- Mobile Drawer Header (shown on phones) -->
+        <div class="nav-mobile-header">
+          <div class="brand">
+            <div class="brand-emblem" style="width:36px;height:36px;font-size:0.95rem"><span>EW</span></div>
+            <span class="brand-title" style="font-size:1.15rem">Easy Work <span class="brand-highlight">India</span></span>
+          </div>
+          <button type="button" class="nav-mobile-close-btn" id="navMobileCloseBtn" aria-label="Close menu">&times;</button>
+        </div>
+
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#projects" class="nav-link">Work Projects</a>
+        <a href="#terms" class="nav-link">Terms &amp; Conditions</a>
+        <a href="#how" class="nav-link">How It Works</a>
+        <a href="#payouts" class="nav-link">Payment Proofs</a>
+        <a href="#reviews" class="nav-link">Reviews</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <div class="nav-mobile-cta">
+          <button class="btn btn-primary btn-full" id="mobileNavLoginBtn" onclick="openModal('login')">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </button>
+        </div>
+      </nav>
+
+      <!-- Desktop Header Actions -->
+      <div class="header-actions">
+        <button class="btn btn-primary" id="headerLoginBtn">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </button>
+      </div>
+
+      <!-- Mobile Right Actions -->
+      <div class="header-mobile-actions">
+        <button class="btn btn-sm btn-primary mobile-header-login-btn" id="mobileHeaderLoginBtn">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero" id="home">
+      <div class="hero-bg-shapes">
+        <div class="hero-blob blob-1"></div>
+        <div class="hero-blob blob-2"></div>
+        <div class="hero-mesh-grid"></div>
+      </div>
+
+      <div class="hero-inner section-wrap">
+        <!-- Left Hero Copy -->
+        <div class="hero-copy">
+          <h1>Earn Guaranteed Weekly Salary with <span class="gradient-text">Verified Work From Home</span></h1>
+
+          <p class="hero-lead">
+            India's most dependable workforce platform for <strong>Data Entry</strong> and <strong>Form Filling</strong>. Work at your own pace from your smartphone or PC with zero targets, no time limits, and direct weekly payments.
+          </p>
+
+          <!-- Highlight Rate Badges -->
+          <div class="hero-project-pills">
+            <div class="hero-proj-pill green">
+              <div class="hpp-icon"><i class="bi bi-file-earmark-text-fill"></i></div>
+              <div class="hpp-text">
+                <span class="hpp-label">Data Entry Project</span>
+                <span class="hpp-rate"><strong>₹60</strong> / page &bull; Earn up to <strong>₹21,000 / week</strong></span>
+              </div>
+            </div>
+            <div class="hero-proj-pill gold">
+              <div class="hpp-icon"><i class="bi bi-ui-checks"></i></div>
+              <div class="hpp-text">
+                <span class="hpp-label">Form Filling Project</span>
+                <span class="hpp-rate"><strong>₹50</strong> / form &bull; Earn up to <strong>₹19,500 / week</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-xl" id="heroLoginBtn">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </button>
+            <button class="btn btn-outline-white btn-xl" onclick="openDemoModal('data_entry')">
+              <i class="bi bi-play-circle-fill text-emerald"></i> Try 2-Page Free Demo
+            </button>
+          </div>
+
+          <!-- Verified Platform Live Metrics -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <strong class="stat-number">10,850+</strong>
+              <span class="stat-label"><i class="bi bi-people-fill text-blue"></i> Active Workers</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <strong class="stat-number">₹1.85 Cr+</strong>
+              <span class="stat-label"><i class="bi bi-wallet2 text-emerald"></i> Total Payouts</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <strong class="stat-number">100%</strong>
+              <span class="stat-label"><i class="bi bi-check-circle-fill text-gold"></i> Weekly Direct Pay</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Visual Showcase -->
+        <div class="hero-visual">
+          <!-- Worker Card 1: Data Entry -->
+          <div class="hero-card-main">
+            <div class="hcard-header">
+              <div class="hcard-avatar">AS</div>
+              <div>
+                <strong>Anjali Sharma</strong>
+                <span>Verified Data Entry Worker &bull; Pune</span>
+              </div>
+              <span class="hcard-badge"><i class="bi bi-patch-check-fill"></i> Active</span>
+            </div>
+            <div class="hcard-body">
+              <div class="earning-row">
+                <span>Weekly Settled Earnings</span>
+                <strong class="earning-val">₹21,000.00</strong>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+              <div class="mini-stats">
+                <div><i class="bi bi-file-earmark-check"></i> 350 Pages Completed</div>
+                <div><i class="bi bi-clock-history"></i> Flexible Hours</div>
+                <div><i class="bi bi-cash-stack"></i> ₹60/form</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Worker Card 2: Form Filling -->
+          <div class="hero-card-main hero-card-ff" style="margin-top: 16px;">
+            <div class="hcard-header">
+              <div class="hcard-avatar" style="background: linear-gradient(135deg, #d97706, #b45309);">RK</div>
+              <div>
+                <strong style="color:#fff;">Ravi Kumar</strong>
+                <span style="color: rgba(255,255,255,0.7);">Verified Form Filling Worker &bull; Jaipur</span>
+              </div>
+              <span class="hcard-badge" style="background: #f59e0b; color: #0f172a;"><i class="bi bi-patch-check-fill"></i> Active</span>
+            </div>
+            <div class="hcard-body">
+              <div class="earning-row">
+                <span>Weekly Settled Earnings</span>
+                <strong class="earning-val" style="color: #fbbf24;">₹19,500.00</strong>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" style="width: 95%; background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+              </div>
+              <div class="mini-stats">
+                <div><i class="bi bi-file-earmark-check"></i> 350 Forms Completed</div>
+                <div><i class="bi bi-shield-check"></i> 100% Accuracy</div>
+                <div><i class="bi bi-cash-stack"></i> ₹50/form</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Badges -->
+          <div class="floating-badge badge-1">
+            <i class="bi bi-check-circle-fill text-emerald"></i>
+            <div>
+              <strong>Payment Dispatched</strong>
+              <small>Bank Transfer &bull; Monday 09:30 AM</small>
+            </div>
+          </div>
+          <div class="floating-badge badge-2">
+            <i class="bi bi-clock-history text-blue"></i>
+            <div>
+              <strong>Flexible Timing</strong>
+              <small>Work Anytime 24/7</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TRUST & CREDIBILITY PILLARS ================= -->
+    <section class="trust-pillars-section">
+      <div class="section-wrap">
+        <div class="trust-pillars-grid">
+          <div class="trust-item">
+            <div class="trust-icon"><i class="bi bi-clock-history"></i></div>
+            <div class="trust-content">
+              <h4>No Time Limit</h4>
+              <p>Work at your own convenience anytime 24/7 with complete flexibility.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon"><i class="bi bi-bullseye"></i></div>
+            <div class="trust-content">
+              <h4>No Target Pressure</h4>
+              <p>Work without any daily target pressure. Complete forms at your own pace.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon"><i class="bi bi-wallet2"></i></div>
+            <div class="trust-content">
+              <h4>Weekly Monday Salary</h4>
+              <p>Direct bank transfer (NEFT/IMPS), UPI (GPay/PhonePe), or Paytm every week.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon"><i class="bi bi-phone-fill"></i></div>
+            <div class="trust-content">
+              <h4>Work From Smartphone</h4>
+              <p>100% responsive workspace — work seamlessly from phone, tablet, or laptop.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS SECTION ================= -->
+    <section class="projects-section" id="projects">
+      <div class="section-wrap">
+        <div class="section-heading text-center">
+          <div class="eyebrow"><i class="bi bi-briefcase-fill"></i> AVAILABLE PROJECTS</div>
+          <h2>Pick the Work That <span class="gradient-text">Suits You Best</span></h2>
+          <p>Genuine daily work assignments with direct weekly payout accounting.</p>
+        </div>
+
+        <div class="project-grid">
+          <!-- DATA ENTRY PROJECT CARD -->
+          <article class="project-card card-green">
+            <div class="project-card-top">
+              <div class="proj-icon"><i class="bi bi-file-earmark-text"></i></div>
+              <div class="proj-badge">Most Popular Choice</div>
+            </div>
+
+            <h3 id="homeProjTitle_data_entry">DATA ENTRY PROJECT</h3>
+            <div class="proj-desc-box">
+              <i class="bi bi-card-checklist"></i> <span id="homeProjDesc_data_entry">Medical records &amp; municipal ledger data entry</span>
+            </div>
+            
+            <div class="proj-headline-rate green">
+              <div class="proj-rate-top">
+                <span class="proj-rate-big" id="projBigRate_data_entry">Rs.60</span>
+                <span class="proj-rate-per">/ form</span>
+              </div>
+              <div class="proj-earnings-sub">
+                <span id="projBigDaily_data_entry">350 pages/week</span> &bull; <strong id="projBigWeekly_data_entry">Rs.21,000 weekly</strong>
+              </div>
+            </div>
+
+            <ul class="proj-features">
+              <li><i class="bi bi-check-circle-fill text-emerald"></i> Per Form Rate: <strong id="homeProjRate_data_entry">Rs.60</strong></li>
+              <li><i class="bi bi-check-circle-fill text-emerald"></i> Weekly Work Quota: <strong id="homeProjDaily_data_entry">350 Pages</strong></li>
+              <li><i class="bi bi-check-circle-fill text-emerald"></i> Weekly Earnings: <strong id="homeProjPotential_data_entry">Rs.21,000</strong></li>
+              <li><i class="bi bi-check-circle-fill text-emerald"></i> Work Hours: <span id="homeProjTiming_data_entry">No Time - No Limit</span></li>
+              <li><i class="bi bi-check-circle-fill text-emerald"></i> Payout Frequency: <span id="homeProjPayout_data_entry">Any Time Work - Weekly Salary</span></li>
+              <li><i class="bi bi-check-circle-fill text-emerald"></i> Device Supported: <span>Android, iOS, PC, Laptop</span></li>
+            </ul>
+
+            <div class="proj-card-actions">
+              <button class="proj-btn proj-btn-green" onclick="openDemoModal('data_entry')" id="buyDataEntry">
+                <i class="bi bi-play-circle-fill"></i> Free 2-Page Demo
+              </button>
+              <button class="btn btn-outline-white w-100 mt-2" onclick="openModal('login')">
+                <i class="bi bi-box-arrow-in-right"></i> Login
+              </button>
+            </div>
+          </article>
+
+          <!-- FORM FILLING PROJECT CARD -->
+          <article class="project-card card-gold featured-card">
+            <div class="featured-ribbon">Beginner Friendly</div>
+            <div class="project-card-top">
+              <div class="proj-icon"><i class="bi bi-ui-checks"></i></div>
+              <div class="proj-badge gold-badge">Easy Copy &amp; Fill</div>
+            </div>
+
+            <h3 id="homeProjTitle_form_filling">FORM FILLING PROJECT</h3>
+            <div class="proj-desc-box">
+              <i class="bi bi-card-checklist"></i> <span id="homeProjDesc_form_filling">Government solar &amp; agricultural subsidy application filling</span>
+            </div>
+            
+            <div class="proj-headline-rate gold">
+              <div class="proj-rate-top">
+                <span class="proj-rate-big" id="projBigRate_form_filling">Rs.50</span>
+                <span class="proj-rate-per">/ form</span>
+              </div>
+              <div class="proj-earnings-sub">
+                <span id="projBigDaily_form_filling">350 pages/week</span> &bull; <strong id="projBigWeekly_form_filling">Rs.19,500 weekly</strong>
+              </div>
+            </div>
+
+            <ul class="proj-features">
+              <li><i class="bi bi-check-circle-fill text-gold"></i> Per Form Rate: <strong id="homeProjRate_form_filling">Rs.50</strong></li>
+              <li><i class="bi bi-check-circle-fill text-gold"></i> Weekly Work Quota: <strong id="homeProjDaily_form_filling">350 Pages</strong></li>
+              <li><i class="bi bi-check-circle-fill text-gold"></i> Weekly Earnings: <strong id="homeProjPotential_form_filling">Rs.19,500</strong></li>
+              <li><i class="bi bi-check-circle-fill text-gold"></i> Work Hours: <span id="homeProjTiming_form_filling">No Time - No Limit</span></li>
+              <li><i class="bi bi-check-circle-fill text-gold"></i> Payout Frequency: <span id="homeProjPayout_form_filling">Any Time Work - Weekly Salary</span></li>
+              <li><i class="bi bi-check-circle-fill text-gold"></i> Device Supported: <span>Android, iOS, PC, Laptop</span></li>
+            </ul>
+
+            <div class="proj-card-actions">
+              <button class="proj-btn proj-btn-gold" onclick="openDemoModal('form_filling')" id="buyFormFilling">
+                <i class="bi bi-play-circle-fill"></i> Free 2-Page Demo
+              </button>
+              <button class="btn btn-outline-white w-100 mt-2" onclick="openModal('login')">
+                <i class="bi bi-box-arrow-in-right"></i> Login
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <p class="gst-note">
+          <i class="bi bi-shield-check text-emerald"></i> Worker accounts are activated upon verification by Administration. Guaranteed weekly direct settlement via Bank Transfer, UPI, or Paytm.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= TERMS & CONDITIONS ================= -->
+    <section class="terms-section" id="terms" style="background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;padding:64px 0 50px;">
+      <div class="section-wrap" style="max-width:960px;margin:0 auto;padding:0 20px;">
+        <div class="section-heading text-center" style="margin-bottom:32px;">
+          <div class="eyebrow"><i class="bi bi-shield-check"></i> OFFICIAL GUIDELINES &amp; POLICIES</div>
+          <h2 id="termsHeading">Terms &amp; <span class="gradient-text">Conditions</span></h2>
+          <p>Please review our official worker operating rules, weekly payout schedules, and verification terms.</p>
+        </div>
+        <div id="termsContentDisplay" style="background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:32px 36px;box-shadow:0 4px 20px rgba(0,0,0,0.05);font-size:0.93rem;color:#334155;line-height:1.85;">
+          <p style="color:#94a3b8;font-style:italic;">Loading terms and conditions...</p>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:18px;padding:12px 18px;background:#eff6ff;border-radius:10px;border:1px solid #bfdbfe;font-size:0.82rem;color:#1e40af;">
+          <span><i class="bi bi-patch-check-fill" style="color:#2563eb;"></i> Legally binding operational terms for all registered workers on Easy Work India.</span>
+          <span><i class="bi bi-clock-history"></i> Updated Live &middot; Easy Work India &copy; 2026</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS ================= -->
+    <section class="how-section" id="how">
+      <div class="section-wrap">
+        <div class="section-heading text-center">
+          <div class="eyebrow"><i class="bi bi-diagram-3-fill"></i> SIMPLE 3-STEP PROCESS</div>
+          <h2>Start Earning in <span class="gradient-text">3 Simple Steps</span></h2>
+          <p>No prior technical skills needed. Follow these steps and start working today.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-item">
+            <div class="step-num">01</div>
+            <div class="step-icon-wrap"><i class="bi bi-person-badge"></i></div>
+            <h3>Account Onboarding</h3>
+            <p>Log in with your verified worker ID and password provided by Easy Work India administration.</p>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step-item">
+            <div class="step-num">02</div>
+            <div class="step-icon-wrap"><i class="bi bi-keyboard"></i></div>
+            <h3>Complete Daily Assignments</h3>
+            <p>Access your daily task assignments in your terminal. Transcribe or fill forms anytime with zero pressure.</p>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step-item">
+            <div class="step-num">03</div>
+            <div class="step-icon-wrap"><i class="bi bi-bank"></i></div>
+            <h3>Guaranteed Monday Payouts</h3>
+            <p>Your weekly earnings are automatically deposited directly to your Bank Account or UPI every Monday.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LIVE PAYOUT TRANSPARENCY & SETTLEMENTS ================= -->
+    <section class="payouts-section" id="payouts">
+      <div class="section-wrap">
+        <div class="section-heading text-center">
+          <div class="eyebrow"><i class="bi bi-shield-check"></i> 100% TRANSPARENCY</div>
+          <h2>Live Weekly <span class="gradient-text">Payment Proofs</span></h2>
+          <p>Real-time settlement record of weekly earnings disbursed to verified workers across India.</p>
+        </div>
+
+        <div class="payouts-table-wrap">
+          <div class="payouts-table-header">
+            <div class="pth-left">
+              <span class="live-pulse"></span>
+              <strong>Live Settlement Ledger</strong>
+            </div>
+            <div class="pth-right text-muted small" id="payoutsDate">
+              Updated Live &bull; Monday Dispatches
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="payouts-table">
+              <thead>
+                <tr>
+                  <th>Worker Name</th>
+                  <th>Location</th>
+                  <th>Project Assigned</th>
+                  <th>Weekly Amount</th>
+                  <th>Disbursement Mode</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="payoutsBody">
+                <!-- Dynamically populated & randomized by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VERIFIED REVIEWS ================= -->
+    <section class="reviews-section" id="reviews">
+      <div class="section-wrap">
+        <div class="section-heading text-center">
+          <div class="eyebrow"><i class="bi bi-star-fill text-gold"></i> WORKER REVIEWS</div>
+          <h2>Here is why workers <span class="gradient-text">trust us</span></h2>
+          <p>Testimonials from verified people earning daily with Easy Work India.</p>
+        </div>
+        <div class="reviews-track" id="reviewsTrack"></div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="revPrev" aria-label="Previous Review"><i class="bi bi-chevron-left"></i></button>
+          <div class="review-dots" id="reviewDots"></div>
+          <button class="carousel-btn" id="revNext" aria-label="Next Review"><i class="bi bi-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RATE US / SUBMIT REVIEW ================= -->
+    <section class="rate-section" id="rate-us">
+      <div class="section-wrap">
+        <div class="rate-container">
+          <div class="rate-left">
+            <div class="eyebrow">YOUR FEEDBACK</div>
+            <h2>How was your <span class="gradient-text">experience?</span></h2>
+            <p>Your feedback helps us improve and serve you better.</p>
+            <div class="trust-badges">
+              <div class="tbadge"><i class="bi bi-check-circle-fill text-emerald"></i> Verified Reviews</div>
+              <div class="tbadge"><i class="bi bi-lock-fill text-blue"></i> Secure Submission</div>
+            </div>
+          </div>
+          <div class="rate-right">
+            <div class="rate-card" id="rateFormWrap">
+              <h3>Rate Us</h3>
+              <p class="rate-hint">This will help us improve further</p>
+              <div class="star-pick" id="starPick">
+                <i class="bi bi-star" data-v="1"></i>
+                <i class="bi bi-star" data-v="2"></i>
+                <i class="bi bi-star" data-v="3"></i>
+                <i class="bi bi-star" data-v="4"></i>
+                <i class="bi bi-star" data-v="5"></i>
+              </div>
+              <form id="rateForm">
+                <textarea id="rateMsg" rows="4" maxlength="200" placeholder="Share your experience..."></textarea>
+                <div class="char-left"><span id="charsLeft">200</span> characters remaining</div>
+                <input type="email" id="rateEmail" placeholder="Your Email Address" required>
+                <button type="submit" class="btn btn-primary btn-full" id="rateSubmit">Submit Review</button>
+              </form>
+            </div>
+            <div class="thank-you" id="thankYou">
+              <i class="bi bi-check-circle-fill"></i>
+              <h3>Thank you!</h3>
+              <p>Your feedback means a lot to us.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ SECTION ================= -->
+    <section class="faq-section" id="faq">
+      <div class="section-wrap">
+        <div class="section-heading text-center">
+          <div class="eyebrow"><i class="bi bi-question-circle-fill"></i> COMMON QUESTIONS</div>
+          <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
+          <p>Clear and transparent answers to all your doubts about working with Easy Work India.</p>
+        </div>
+
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h4><i class="bi bi-patch-question-fill text-blue"></i> Can I work using my smartphone?</h4>
+            <p>Yes, absolutely! Over 70% of our workers complete assignments on their Android or iPhone devices. Our worker terminal is 100% mobile optimized.</p>
+          </div>
+          <div class="faq-card">
+            <h4><i class="bi bi-patch-question-fill text-blue"></i> When and how is my salary paid?</h4>
+            <p>Salaries are disbursed weekly every Monday directly to your Bank Account via NEFT/IMPS or instantly via UPI (Google Pay, PhonePe, Paytm).</p>
+          </div>
+          <div class="faq-card">
+            <h4><i class="bi bi-patch-question-fill text-blue"></i> Is there any time limit on daily assignments?</h4>
+            <p>No. You can work at any hour of the day or night. There are no hourly timers or daily rush quotas—work completely at your own pace.</p>
+          </div>
+          <div class="faq-card">
+            <h4><i class="bi bi-patch-question-fill text-blue"></i> What happens if I make typographical errors?</h4>
+            <p>Our worker terminal features built-in spellcheck and validation guides. You are given opportunities to review before submitting tasks.</p>
+          </div>
+          <div class="faq-card">
+            <h4><i class="bi bi-patch-question-fill text-blue"></i> What is the minimum withdrawal amount?</h4>
+            <p>The minimum withdrawal threshold is ₹3,000. You can request payouts anytime once your wallet reaches this amount.</p>
+          </div>
+          <div class="faq-card">
+            <h4><i class="bi bi-patch-question-fill text-blue"></i> How do I get my worker credentials?</h4>
+            <p>Worker IDs and passwords are provided directly by Easy Work India administration upon successful enrollment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= COMPANY CONTACT & REGISTERED OFFICE ================= -->
+    <section class="contact-section" id="contact">
+      <div class="section-wrap">
+        <div class="section-heading text-center">
+          <div class="eyebrow"><i class="bi bi-geo-alt-fill"></i> REGISTERED OFFICE</div>
+          <h2>Contact Us &amp; <span class="gradient-text">Office Address</span></h2>
+          <p>Official corporate registered headquarters and worker support contact details.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="contact-icon"><i class="bi bi-building"></i></div>
+            <h3>Corporate Headquarters</h3>
+            <p><strong>Easy Work India</strong><br>Sonia Complex, Near Bank of Maharashtra,<br>Pune - Nashik Highway, Manchar,<br>Pune - 410503, Maharashtra, India</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon"><i class="bi bi-headset"></i></div>
+            <h3>Support &amp; Inquiries</h3>
+            <p><strong>Official Email:</strong> support@easyworkindia.online<br><strong>Web:</strong> www.easyworkindia.online<br>Direct WhatsApp Helpdesk Support</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon"><i class="bi bi-clock-history"></i></div>
+            <h3>Working Hours</h3>
+            <p><strong>Office Support:</strong> Mon &ndash; Sat (9:00 AM to 6:00 PM)<br><strong>Worker Terminal:</strong> Accessible 24 hours / 7 days<br>Weekly Salary Payouts: Every Monday</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ================= SITE FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="section-wrap footer-grid">
+      <div class="footer-brand-col">
+        <div class="brand">
+          <div class="brand-emblem"><span>EW</span></div>
+          <span class="brand-title">Easy Work <span class="brand-highlight">India</span></span>
+        </div>
+        <p class="mt-2 text-muted">
+          India's premier home employment platform for Data Entry and Form Filling. Empowering Indian citizens with reliable, guaranteed weekly income.
+        </p>
+        <p class="footer-address mt-2">
+          <i class="bi bi-geo-alt text-emerald"></i> Sonia Complex, Near Bank of Maharashtra, Pune - Nashik Highway, Manchar, Pune - 410503
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="#home">Home</a>
+        <a href="#projects">Work Projects</a>
+        <a href="#terms">Terms &amp; Conditions</a>
+        <a href="#how">How It Works</a>
+        <a href="#payouts">Payment Proofs</a>
+        <a href="#reviews">Worker Reviews</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Active Projects</h4>
+        <a href="#projects">Data Entry Project (₹60/page)</a>
+        <a href="#projects">Form Filling Project (₹50/form)</a>
+        <a href="javascript:void(0)" onclick="openDemoModal('data_entry')">2-Page Practice Demo</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Account</h4>
+        <button class="footer-link-btn" id="footerLogin">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </button>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Easy Work India. All rights reserved.</span>
+      <span class="built-india"><i class="bi bi-heart-fill text-danger"></i> Built with Pride for Indian Workers</span>
+    </div>
+  </footer>
+
+  <!-- Sign In Modal -->
+  <div class="modal-overlay" id="modalOverlay" hidden>
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close-btn" id="modalClose" aria-label="Close modal">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- 2-Page Practice Demo Modal -->
+  <div class="modal-overlay" id="demoModalOverlay" hidden>
+    <div class="demo-modal-box" id="demoModalBox">
+      <button class="modal-close-btn" id="demoModalClose" aria-label="Close demo modal">&times;</button>
+      <div id="demoModalContent"></div>
+    </div>
+  </div>
+
+  <div class="toast-msg" id="toast"></div>
+
+  <!-- Floating Live Payout Notification Toast -->
+  <div class="floating-payout-toast" id="floatingPayoutToast">
+    <div class="fpt-icon"><i class="bi bi-wallet2"></i></div>
+    <div class="fpt-body">
+      <div class="fpt-name" id="fptName">Priya S. (Mumbai)</div>
+      <div class="fpt-sub">
+        <span class="fpt-amount" id="fptAmount">₹21,000</span> via <span id="fptMethod">UPI</span> &bull; <span id="fptTime">Just now</span>
+      </div>
+    </div>
+    <button class="fpt-close" onclick="closeFloatingToast()" title="Close"><i class="bi bi-x"></i></button>
+  </div>
+
+  <script src="cloud_sync.js" charset="UTF-8"></script>
+  <script src="app.js?v=20261103_v3" charset="UTF-8"></script>
+
+  <script>
+  // Load Terms & Conditions dynamically (Firebase + LocalStorage + Server fallback)
+  (async function loadTerms() {
+    const box = document.getElementById('termsContentDisplay');
+    const heading = document.getElementById('termsHeading');
+
+    let settings = null;
+
+    // 1. Check Universal CloudSync (Firebase)
+    if (window.EWI_CloudSync && window.EWI_CloudSync.getSettings) {
+      try {
+        settings = await window.EWI_CloudSync.getSettings();
+      } catch(_) {}
+    }
+
+    // 2. Fallback to localStorage
+    if (!settings || !settings.terms_and_conditions) {
+      try {
+        settings = JSON.parse(localStorage.getItem('ewi_settings') || '{}');
+      } catch(_) {}
+    }
+
+    // 3. Fallback to /api/terms if available
+    if (!settings || !settings.terms_and_conditions) {
+      try {
+        const res = await fetch('/api/terms');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.terms) {
+            settings = { terms_title: 'Terms & Conditions', terms_and_conditions: data.terms };
+          }
+        }
+      } catch(_) {}
+    }
+
+    // Default baseline terms if none found
+    const defaultTerms = [
+      '1. Workers must complete their assigned data entry or form filling tasks accurately and submit them before the weekly cycle cutoff.',
+      '2. Payouts are calculated based on approved units and disbursed directly to the worker registered bank account or UPI every Monday.',
+      '3. Automated system tools, copy-paste scripts, bots, or automated macros are strictly prohibited and will result in task rejection.',
+      '4. Each worker is assigned a single verified identity dossier. Dual registrations or identity falsification will result in permanent account suspension.',
+      '5. Identity proof (Aadhaar / PAN) uploaded by workers is held in strict compliance with data privacy regulations and used solely for payout authorization.',
+      '6. Easy Work India reserves the right to review, audit, and quality-check submitted work sheets prior to financial settlement.',
+      '7. Support hours are Monday to Saturday, 9:00 AM to 6:00 PM IST. Workers may contact the administrator via official support channels for assistance.',
+      '8. By registering and logging into Easy Work India portal, workers agree to follow all operational guidelines and platform rules.'
+    ].join('\n');
+
+    const titleText = (settings && settings.terms_title) ? settings.terms_title : 'Terms & Conditions';
+    const rawTerms = (settings && settings.terms_and_conditions && settings.terms_and_conditions.trim()) 
+      ? settings.terms_and_conditions 
+      : defaultTerms;
+
+    if (heading) heading.textContent = titleText;
+    if (box) {
+      const lines = rawTerms.split('\n').filter(l => l.trim());
+      box.innerHTML = lines.map(line => {
+        const trimmed = line.trim();
+        return `<p style="margin:0 0 10px;padding-left:10px;border-left:3px solid #2563eb;color:#334155;line-height:1.75;">${trimmed}</p>`;
+      }).join('');
+    }
+  })();
+  </script>
+
+  </body>
+</html>

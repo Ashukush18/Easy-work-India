@@ -1,0 +1,896 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Settings - Easy Work India</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://dashboard.easyworkindia.site/assets/css/style.css">
+    
+    <!-- Page-specific CSS -->
+        
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://dashboard.easyworkindia.site/assets/images/favicon.ico">
+</head>
+<body class="admin-settings">
+    <!-- Loader -->
+    <div id="loader" class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+<div class="main-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <div class="container-fluid">
+        <!-- Logo and Brand -->
+        <a class="navbar-brand" href="../admin/dashboard.php">
+            <i class="fas fa-briefcase me-2"></i>
+            <span class="fw-bold">Easy Work India</span>
+        </a>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Left Side: Navigation Links -->
+            <ul class="navbar-nav me-auto">
+                                                            <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/dashboard.php">
+                                <i class="fas fa-chart-line me-1"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/users.php">
+                                <i class="fas fa-users me-1"></i> Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/tasks.php">
+                                <i class="fas fa-tasks me-1"></i> Tasks
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/finances.php">
+                                <i class="fas fa-money-bill-wave me-1"></i> Finances
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/uzpay.php">
+                                <i class="fas fa-credit-card me-1"></i> UzPay
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-cog me-1"></i> Settings
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../admin/settings.php">System Settings</a></li>
+                                <li><a class="dropdown-item" href="../admin/popups.php">Login Popups</a></li>
+                                <li><a class="dropdown-item" href="../admin/reports.php">Reports</a></li>
+                                                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="../admin/clear_data.php">Clear Data</a></li>
+                                                            </ul>
+                        </li>
+                                                </ul>
+            
+            <!-- Right Side: User Info & Logout -->
+            <ul class="navbar-nav ms-auto">
+                                                            <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-shield me-1"></i>
+                                Admin                                <span class="badge bg-light text-dark ms-1">superadmin</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="../admin/dashboard.php">
+                                        <i class="fas fa-chart-line me-2"></i> Admin Panel
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="../auth/logout.php">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                                                </ul>
+        </div>
+    </div>
+</nav>    
+    <div class="content-wrapper">
+        <!-- Page Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card fade-in">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h2 class="mb-2 text-gradient">System Settings</h2>
+                                <p class="text-muted mb-0">
+                                    <i class="fas fa-cogs me-1"></i>
+                                    Configure system parameters and preferences
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <div class="bg-gradient text-white p-3 rounded-3">
+                                    <h5 class="mb-0">18 Settings</h5>
+                                    <p class="mb-0">Last Updated: 02 Nov 2026</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-12">
+                <form method="POST">
+                    <!-- Navigation Tabs -->
+                    <ul class="nav nav-tabs mb-4" id="settingsTab" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                <button class="nav-link active" 
+                                        id="general-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#general" type="button">
+                                    General                                </button>
+                            </li>
+                                                    <li class="nav-item" role="presentation">
+                                <button class="nav-link " 
+                                        id="popup-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#popup" type="button">
+                                    Popup                                </button>
+                            </li>
+                                                    <li class="nav-item" role="presentation">
+                                <button class="nav-link " 
+                                        id="task_rewards-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#task_rewards" type="button">
+                                    Task rewards                                </button>
+                            </li>
+                                                    <li class="nav-item" role="presentation">
+                                <button class="nav-link " 
+                                        id="uzpay-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#uzpay" type="button">
+                                    Uzpay                                </button>
+                            </li>
+                                                    <li class="nav-item" role="presentation">
+                                <button class="nav-link " 
+                                        id="withdrawal-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#withdrawal" type="button">
+                                    Withdrawal                                </button>
+                            </li>
+                                            </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="settingsTabContent">
+                                                    <div class="tab-pane fade show active" 
+                                 id="general" role="tabpanel">
+                                
+                                <div class="card fade-in">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            General Settings
+                                            <small class="text-muted ms-2">(2 settings)</small>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Site Name                                                                <small class="text-muted">(text)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <input type="text" class="form-control" 
+                                                                       name="settings[site_name]" 
+                                                                       value="Task Work System">
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Terms Conditions                                                                <small class="text-muted">(textarea)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="mb-3">
+                                                                    <textarea class="form-control" name="settings[terms_conditions]" 
+                                                                              rows="5">Terms &amp; Conditions
+
+1. The candidate is required to follow all work instructions, company policies, and guidelines provided by Easy Work India throughout the work process.
+
+2. The candidate must provide accurate, complete, and truthful information. The company reserves the right to reject or terminate the application if any false, misleading, or incomplete information is found.
+
+3. The candidate is responsible for completing the assigned work within the specified deadline while maintaining the quality standards set by the company.
+
+4. Details regarding the work process, payment structure, and other applicable policies will be communicated by the company&#039;s authorized representative from time to time.
+
+5. The candidate shall maintain complete confidentiality regarding all company-related information, including work procedures, documents, login credentials, client information, and any other confidential data. Sharing such information with any third party is strictly prohibited.
+
+6. The candidate is required to complete all mandatory company procedures, verification processes, and formalities as instructed by the company.
+
+7. No Payment Release, Withdrawal, or Refund will be processed until the candidate has successfully completed the entire company process and fulfilled all required formalities. All payments and refunds, if applicable, will only be processed after successful verification and completion of the required procedures.
+
+8. If the candidate fails to complete the required process, submits incomplete documentation, or does not comply with the company&#039;s policies and instructions, the payment, withdrawal, or refund process will remain pending until all requirements have been fulfilled.
+
+9. The company reserves the right to modify, update, or amend these Terms &amp; Conditions at any time without prior notice. Such changes shall become effective immediately and will be binding on all candidates.
+
+10. This offer is subject to successful verification of the information provided by the candidate and acceptance of all applicable company policies and Terms &amp; Conditions.
+
+11. All official communication, instructions, and updates shall be considered valid only when issued by an authorized representative of Easy Work India.
+
+12. By proceeding with the registration and work process, the candidate confirms that they have read, understood, and agreed to comply with all the above Terms &amp; Conditions.
+
+Declaration
+
+I hereby declare that I have carefully read and understood all the above Terms &amp; Conditions. I voluntarily agree to comply with the policies, procedures, and guidelines of Easy Work India.
+
+Welcome to Easy Work India. We wish you every success in your Work From Home opportunity and look forward to a professional and successful association.</textarea>
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 11 Aug 2026 12:01                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <div class="tab-pane fade " 
+                                 id="popup" role="tabpanel">
+                                
+                                <div class="card fade-in">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            Popup Settings
+                                            <small class="text-muted ms-2">(3 settings)</small>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Global Popup Content                                                                <small class="text-muted">(textarea)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="mb-3">
+                                                                    <textarea class="form-control" name="settings[global_popup_content]" 
+                                                                              rows="5"></textarea>
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Global Popup Enabled                                                                <small class="text-muted">(boolean)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="form-check form-switch">
+                                                                    <input class="form-check-input" type="checkbox" 
+                                                                           name="settings[global_popup_enabled]" 
+                                                                           value="1" 
+                                                                           id="global_popup_enabled"
+                                                                           >
+                                                                    <label class="form-check-label" for="global_popup_enabled">
+                                                                        Disabled                                                                    </label>
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 03:14                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Global Popup Title                                                                <small class="text-muted">(text)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <input type="text" class="form-control" 
+                                                                       name="settings[global_popup_title]" 
+                                                                       value="Welcome">
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <div class="tab-pane fade " 
+                                 id="task_rewards" role="tabpanel">
+                                
+                                <div class="card fade-in">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            Task rewards Settings
+                                            <small class="text-muted ms-2">(3 settings)</small>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Captcha Reward                                                                <small class="text-muted">(number)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="input-group">
+                                                                    <span class="input-group-text">₹</span>
+                                                                    <input type="number" class="form-control" 
+                                                                           name="settings[captcha_reward]" 
+                                                                           value="200"
+                                                                           step="0.01">
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Data Entry Reward                                                                <small class="text-muted">(number)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="input-group">
+                                                                    <span class="input-group-text">₹</span>
+                                                                    <input type="number" class="form-control" 
+                                                                           name="settings[data_entry_reward]" 
+                                                                           value="150"
+                                                                           step="0.01">
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Form Filling Reward                                                                <small class="text-muted">(number)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="input-group">
+                                                                    <span class="input-group-text">₹</span>
+                                                                    <input type="number" class="form-control" 
+                                                                           name="settings[form_filling_reward]" 
+                                                                           value="100"
+                                                                           step="0.01">
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <div class="tab-pane fade " 
+                                 id="uzpay" role="tabpanel">
+                                
+                                <div class="card fade-in">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            Uzpay Settings
+                                            <small class="text-muted ms-2">(4 settings)</small>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Uzpay Merchant Id                                                                <small class="text-muted">(text)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <input type="text" class="form-control" 
+                                                                       name="settings[uzpay_merchant_id]" 
+                                                                       value="100130662">
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Uzpay Payin Key                                                                <small class="text-muted">(text)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <input type="text" class="form-control" 
+                                                                       name="settings[uzpay_payin_key]" 
+                                                                       value="fde36396ef07b95f6f60bdd47ba9536c">
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Uzpay Payout Key                                                                <small class="text-muted">(text)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <input type="text" class="form-control" 
+                                                                       name="settings[uzpay_payout_key]" 
+                                                                       value="IE9VBQ20MN5VCO9V53JCRU048LQ8MUNC">
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Uzpay Pay Type                                                                <small class="text-muted">(number)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="input-group">
+                                                                    <span class="input-group-text">₹</span>
+                                                                    <input type="number" class="form-control" 
+                                                                           name="settings[uzpay_pay_type]" 
+                                                                           value="104"
+                                                                           step="0.01">
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <div class="tab-pane fade " 
+                                 id="withdrawal" role="tabpanel">
+                                
+                                <div class="card fade-in">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            Withdrawal Settings
+                                            <small class="text-muted ms-2">(6 settings)</small>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Bank Enabled                                                                <small class="text-muted">(boolean)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="form-check form-switch">
+                                                                    <input class="form-check-input" type="checkbox" 
+                                                                           name="settings[bank_enabled]" 
+                                                                           value="1" 
+                                                                           id="bank_enabled"
+                                                                           checked>
+                                                                    <label class="form-check-label" for="bank_enabled">
+                                                                        Enabled                                                                    </label>
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Buy Work Package Message                                                                <small class="text-muted">(textarea)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="mb-3">
+                                                                    <textarea class="form-control" name="settings[buy_work_package_message]" 
+                                                                              rows="5">Buy Now Data Page.
+Please contact administrator to purchase your data page and activate work access.</textarea>
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 11 Aug 2026 12:01                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Kyc Pending Message                                                                <small class="text-muted">(textarea)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="mb-3">
+                                                                    <textarea class="form-control" name="settings[kyc_pending_message]" 
+                                                                              rows="5">First complete your KYC process.
+Please contact administrator.</textarea>
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 11 Aug 2026 12:01                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Min Withdrawal                                                                <small class="text-muted">(number)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="input-group">
+                                                                    <span class="input-group-text">₹</span>
+                                                                    <input type="number" class="form-control" 
+                                                                           name="settings[min_withdrawal]" 
+                                                                           value="3000"
+                                                                           step="0.01">
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Tasks Incomplete Message                                                                <small class="text-muted">(textarea)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="mb-3">
+                                                                    <textarea class="form-control" name="settings[tasks_incomplete_message]" 
+                                                                              rows="5">Please complete all of today&#039;s assigned tasks before requesting withdrawal.</textarea>
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                            <div class="col-md-6 mb-4">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Upi Enabled                                                                <small class="text-muted">(boolean)</small>
+                                                            </h6>
+                                                            
+                                                                                                                            <div class="form-check form-switch">
+                                                                    <input class="form-check-input" type="checkbox" 
+                                                                           name="settings[upi_enabled]" 
+                                                                           value="1" 
+                                                                           id="upi_enabled"
+                                                                           checked>
+                                                                    <label class="form-check-label" for="upi_enabled">
+                                                                        Enabled                                                                    </label>
+                                                                </div>
+                                                                                                                        
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    Last Updated: 10 Jun 2026 19:28                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                                            </div>
+
+                    <!-- Save Button -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <button type="submit" name="update_settings" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-save me-2"></i>Save All Settings
+                                    </button>
+                                    <div class="form-text mt-2">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Changes will take effect immediately
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Task Pool Management -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-database me-2"></i>Task Pool Management</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                                                            <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Captcha Pool</h5>
+                                            <div class="row text-center">
+                                                <div class="col-4">
+                                                    <div class="p-2">
+                                                        <h3 class="text-primary mb-0">4467</h3>
+                                                        <small class="text-muted">Total</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="p-2">
+                                                        <h3 class="text-success mb-0">0</h3>
+                                                        <small class="text-muted">Available</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="p-2">
+                                                        <h3 class="text-warning mb-0">0</h3>
+                                                        <small class="text-muted">Used Today</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mt-3">
+                                                <form method="POST" action="tasks.php?action=generate_pool&type=captcha" 
+                                                      onsubmit="return confirm('Generate new tasks for Captcha pool?')">
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="number" name="count" class="form-control" 
+                                                               placeholder="Number to generate" min="1" max="1000" value="10">
+                                                        <button type="submit" class="btn btn-primary">
+                                                            <i class="fas fa-plus"></i> Generate
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Data Entry Pool</h5>
+                                            <div class="row text-center">
+                                                <div class="col-4">
+                                                    <div class="p-2">
+                                                        <h3 class="text-primary mb-0">16582</h3>
+                                                        <small class="text-muted">Total</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="p-2">
+                                                        <h3 class="text-success mb-0">0</h3>
+                                                        <small class="text-muted">Available</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="p-2">
+                                                        <h3 class="text-warning mb-0">0</h3>
+                                                        <small class="text-muted">Used Today</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mt-3">
+                                                <form method="POST" action="tasks.php?action=generate_pool&type=data_entry" 
+                                                      onsubmit="return confirm('Generate new tasks for Data Entry pool?')">
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="number" name="count" class="form-control" 
+                                                               placeholder="Number to generate" min="1" max="1000" value="10">
+                                                        <button type="submit" class="btn btn-primary">
+                                                            <i class="fas fa-plus"></i> Generate
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Form Filling Pool</h5>
+                                            <div class="row text-center">
+                                                <div class="col-4">
+                                                    <div class="p-2">
+                                                        <h3 class="text-primary mb-0">16689</h3>
+                                                        <small class="text-muted">Total</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="p-2">
+                                                        <h3 class="text-success mb-0">0</h3>
+                                                        <small class="text-muted">Available</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="p-2">
+                                                        <h3 class="text-warning mb-0">59</h3>
+                                                        <small class="text-muted">Used Today</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mt-3">
+                                                <form method="POST" action="tasks.php?action=generate_pool&type=form_filling" 
+                                                      onsubmit="return confirm('Generate new tasks for Form Filling pool?')">
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="number" name="count" class="form-control" 
+                                                               placeholder="Number to generate" min="1" max="1000" value="10">
+                                                        <button type="submit" class="btn btn-primary">
+                                                            <i class="fas fa-plus"></i> Generate
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                    </div>
+                        
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Note:</strong> 
+                            When available tasks fall below 50, the system automatically generates new tasks. 
+                            You can manually generate additional tasks if needed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="https://dashboard.easyworkindia.site/assets/js/script.js"></script>
+    
+    <!-- Page-specific JS -->
+    
+        
+    <script>
+        // Hide loader when page is loaded
+        $(window).on('load', function() {
+            setTimeout(function() {
+                $('#loader').fadeOut('slow');
+            }, 500);
+        });
+        
+        // Show loader when navigating
+        $(document).on('click', 'a', function(e) {
+            const href = $(this).attr('href');
+            if (href && href !== '#' && !$(this).hasClass('no-loader')) {
+                $('#loader').fadeIn('fast');
+            }
+        });
+        
+        // Auto-dismiss alerts
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.alert:not(.alert-permanent)').fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove(); 
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+    // Switch toggle handler for boolean settings
+    $('.form-check-input[type="checkbox"]').on('change', function() {
+        const label = $(this).siblings('.form-check-label');
+        if ($(this).is(':checked')) {
+            label.text('Enabled');
+        } else {
+            label.text('Disabled');
+        }
+    });
+    
+    // Tab persistence
+    $('#settingsTab button').on('click', function(e) {
+        const tabId = $(this).attr('data-bs-target').replace('#', '');
+        localStorage.setItem('activeSettingsTab', tabId);
+    });
+    
+    // Restore active tab
+    const activeTab = localStorage.getItem('activeSettingsTab');
+    if (activeTab) {
+        const tabElement = document.querySelector('button[data-bs-target="#' + activeTab + '"]');
+        if (tabElement) {
+            new bootstrap.Tab(tabElement).show();
+        }
+    }
+});
+</script>

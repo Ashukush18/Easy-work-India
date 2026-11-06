@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UzPay - Easy Work India</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://dashboard.easyworkindia.site/assets/css/style.css">
+    
+    <!-- Page-specific CSS -->
+        
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://dashboard.easyworkindia.site/assets/images/favicon.ico">
+</head>
+<body class="admin-uzpay">
+    <!-- Loader -->
+    <div id="loader" class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+<div class="main-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <div class="container-fluid">
+        <!-- Logo and Brand -->
+        <a class="navbar-brand" href="../admin/dashboard.php">
+            <i class="fas fa-briefcase me-2"></i>
+            <span class="fw-bold">Easy Work India</span>
+        </a>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Left Side: Navigation Links -->
+            <ul class="navbar-nav me-auto">
+                                                            <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/dashboard.php">
+                                <i class="fas fa-chart-line me-1"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/users.php">
+                                <i class="fas fa-users me-1"></i> Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/tasks.php">
+                                <i class="fas fa-tasks me-1"></i> Tasks
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/finances.php">
+                                <i class="fas fa-money-bill-wave me-1"></i> Finances
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" 
+                               href="../admin/uzpay.php">
+                                <i class="fas fa-credit-card me-1"></i> UzPay
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-cog me-1"></i> Settings
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../admin/settings.php">System Settings</a></li>
+                                <li><a class="dropdown-item" href="../admin/popups.php">Login Popups</a></li>
+                                <li><a class="dropdown-item" href="../admin/reports.php">Reports</a></li>
+                                                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="../admin/clear_data.php">Clear Data</a></li>
+                                                            </ul>
+                        </li>
+                                                </ul>
+            
+            <!-- Right Side: User Info & Logout -->
+            <ul class="navbar-nav ms-auto">
+                                                            <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-shield me-1"></i>
+                                Admin                                <span class="badge bg-light text-dark ms-1">superadmin</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="../admin/dashboard.php">
+                                        <i class="fas fa-chart-line me-2"></i> Admin Panel
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="../auth/logout.php">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                                                </ul>
+        </div>
+    </div>
+</nav>
+    <div class="content-wrapper">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card fade-in">
+                    <div class="card-body">
+                        <h2 class="mb-2 text-gradient">UzPay Payment Gateway</h2>
+                        <p class="text-muted mb-0">Create payin for users, UTR force success, manual payouts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item"><a class="nav-link active" href="?tab=payin">Create Payin</a></li>
+            <li class="nav-item"><a class="nav-link " href="?tab=utr">UTR Force Success</a></li>
+            <li class="nav-item"><a class="nav-link " href="?tab=payout">Manual Payout</a></li>
+            <li class="nav-item"><a class="nav-link " href="?tab=orders">Orders & Balance</a></li>
+        </ul>
+
+                <div class="row">
+            <div class="col-lg-6">
+                <div class="card fade-in">
+                    <div class="card-header"><h5 class="mb-0">Generate Payin Order</h5></div>
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="mb-3">
+                                <label class="form-label">Select User</label>
+                                <select class="form-select" name="user_id" required>
+                                    <option value="">-- Choose user --</option>
+                                                                                                                <option value="2049" >
+                                            Aashish chhetry (@8794068536)                                        </option>
+                                                                            <option value="2050" >
+                                            Ambati Prashanshy (@+91 63016 46958)                                        </option>
+                                                                            <option value="2035" >
+                                            Aruna H (@9659279759)                                        </option>
+                                                                            <option value="2047" >
+                                            Ashwith (@7892953681)                                        </option>
+                                                                            <option value="2060" >
+                                            Chirathala Rajitha (@8143770203)                                        </option>
+                                                                            <option value="2063" >
+                                            Chrakshutha (@9182242997)                                        </option>
+                                                                            <option value="2053" >
+                                            Eshita Mondal (@6304722302)                                        </option>
+                                                                            <option value="2045" >
+                                            Jaiprakash (@7064760411)                                        </option>
+                                                                            <option value="2059" >
+                                            Melvin Tisso Kharchandy (@6009331253)                                        </option>
+                                                                            <option value="2044" >
+                                            Nabila (@9834575330)                                        </option>
+                                                                            <option value="2041" >
+                                            Nagma taj (@8088552432)                                        </option>
+                                                                            <option value="2036" >
+                                            nikhitachitavadgi (@8660696784)                                        </option>
+                                                                            <option value="2052" >
+                                            pravin radhu shelke (@8624975808)                                        </option>
+                                                                            <option value="2051" >
+                                            priyaloganathan (@priyaloganathan3194@gmail.com)                                        </option>
+                                                                            <option value="2043" >
+                                            Rakshitha R (@8867412404)                                        </option>
+                                                                            <option value="2061" >
+                                            Riya Vijiay Nangare (@7083419010)                                        </option>
+                                                                            <option value="2054" >
+                                            Ruchita Raju Pandit (@9175310440)                                        </option>
+                                                                            <option value="2056" >
+                                            Simran Chouhan (@7869660098)                                        </option>
+                                                                            <option value="2048" >
+                                            Sneha dixit (@8962864984)                                        </option>
+                                                                            <option value="2042" >
+                                            Sumithradevi S (@8807710301)                                        </option>
+                                                                            <option value="2013" >
+                                            Tejaswini (@7075657239)                                        </option>
+                                                                            <option value="2062" >
+                                            Tushar parashuram Badiger (@8147659175)                                        </option>
+                                                                            <option value="2058" >
+                                            Vattikuti Shesha Ratnam (@8341189744)                                        </option>
+                                                                    </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Amount (₹)</label>
+                                <input type="number" class="form-control" name="amount" min="1" step="0.01" required
+                                       value="">
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="cancel_existing" id="cancel_existing" value="1">
+                                <label class="form-check-label" for="cancel_existing">Replace existing pending payin for this user</label>
+                            </div>
+                            <button type="submit" name="generate_payin" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Generate Payin
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+                    </div>
+        
+        
+        
+            </div>
+</div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="https://dashboard.easyworkindia.site/assets/js/script.js"></script>
+    
+    <!-- Page-specific JS -->
+    
+        
+    <script>
+        // Hide loader when page is loaded
+        $(window).on('load', function() {
+            setTimeout(function() {
+                $('#loader').fadeOut('slow');
+            }, 500);
+        });
+        
+        // Show loader when navigating
+        $(document).on('click', 'a', function(e) {
+            const href = $(this).attr('href');
+            if (href && href !== '#' && !$(this).hasClass('no-loader')) {
+                $('#loader').fadeIn('fast');
+            }
+        });
+        
+        // Auto-dismiss alerts
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.alert:not(.alert-permanent)').fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove(); 
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
+<script>
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const text = this.dataset.text || this.closest('.input-group')?.querySelector('.copy-field')?.value;
+        if (text) navigator.clipboard.writeText(text);
+    });
+});
+document.querySelectorAll('.copy-all-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        navigator.clipboard.writeText(this.dataset.text);
+    });
+});
+document.querySelectorAll('input[name="payout_mode"]').forEach(r => {
+    r.addEventListener('change', function() {
+        const upi = this.value === 'upi';
+        document.querySelectorAll('.bank-fields').forEach(el => el.style.display = upi ? 'none' : 'block');
+        document.querySelectorAll('.upi-fields').forEach(el => el.style.display = upi ? 'block' : 'none');
+    });
+});
+</script>

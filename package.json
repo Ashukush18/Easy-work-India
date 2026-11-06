@@ -1,0 +1,15 @@
+{
+  "name": "easy_work_india_starter",
+  "version": "1.0.0",
+  "description": "A complete clone of the EasyWorkIndia platform with a premium redesigned UI.",
+  "main": "admin.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

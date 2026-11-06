@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register New Worker — Easy Work India</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232563eb'/><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-size='18' font-weight='bold' fill='white'>EW</text></svg>" />
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --bs-body-bg: #0f172a;
+      --bs-body-color: #e2e8f0;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --input-bg: #0f172a;
+      --input-border: #475569;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --muted: #94a3b8;
+      --label: #cbd5e1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: var(--bs-body-bg);
+      color: var(--bs-body-color);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── TOP HEADER ── */
+    .site-header {
+      background: #1e293b;
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-logo {
+      width: 38px; height: 38px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px; color: #fff;
+      flex-shrink: 0;
+    }
+    .site-title { font-size: 1.1rem; font-weight: 700; }
+    .site-title span { color: var(--accent); }
+    .header-badge {
+      margin-left: auto;
+      background: rgba(37,99,235,0.15);
+      border: 1px solid rgba(37,99,235,0.4);
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── MAIN WRAPPER ── */
+    .page-wrapper {
+      max-width: 820px;
+      margin: 36px auto 60px;
+      padding: 0 16px;
+    }
+
+    /* ── CARDS ── */
+    .ewi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 32px;
+    }
+
+    .card-title-section {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .card-title-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .icon-blue { background: rgba(37,99,235,0.15); color: #60a5fa; }
+    .icon-green { background: rgba(16,185,129,0.15); color: #34d399; }
+    .card-title-text h2 { font-size: 1.25rem; font-weight: 700; margin: 0; }
+    .card-title-text p { font-size: 0.82rem; color: var(--muted); margin: 2px 0 0; }
+
+    /* ── FORM CONTROLS ── */
+    .form-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--label);
+      margin-bottom: 6px;
+    }
+    .form-control, .form-select {
+      background: var(--input-bg) !important;
+      border: 1px solid var(--input-border) !important;
+      color: var(--bs-body-color) !important;
+      border-radius: 8px !important;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15) !important;
+      outline: none;
+    }
+    .form-control::placeholder { color: #475569; }
+    .form-select option { background: #1e293b; }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin: 24px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--card-border);
+    }
+
+    /* ── FILE UPLOAD ── */
+    .upload-wrapper {
+      border: 2px dashed var(--input-border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .upload-wrapper:hover {
+      border-color: var(--accent);
+      background: rgba(37,99,235,0.04);
+    }
+    .upload-wrapper input[type="file"] {
+      position: absolute; inset: 0;
+      opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .upload-icon { font-size: 22px; color: var(--muted); margin-bottom: 6px; }
+    .upload-label { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+    .upload-preview {
+      width: 100%; max-height: 120px;
+      object-fit: contain;
+      border-radius: 6px;
+      margin-top: 8px;
+      display: none;
+      border: 1px solid var(--card-border);
+    }
+    .upload-preview.shown { display: block; }
+
+    /* ── BUTTONS ── */
+    .btn-ewi-primary {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      border-radius: 8px;
+      padding: 11px 28px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-ewi-primary:hover { background: var(--accent-hover); transform: translateY(-1px); color: #fff; }
+    .btn-ewi-primary:disabled { background: #334155; color: #64748b; cursor: not-allowed; transform: none; }
+
+    .btn-ewi-outline {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--bs-body-color);
+      border-radius: 8px;
+      padding: 11px 28px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ewi-outline:hover { border-color: var(--accent); background: rgba(37,99,235,0.07); color: #fff; }
+
+    /* ── PLAN SELECTOR ── */
+    .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .plan-card {
+      border: 2px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .plan-card input[type="radio"] {
+      position: absolute; opacity: 0; width: 0; height: 0;
+    }
+    .plan-card:hover { border-color: var(--accent); }
+    .plan-card.selected {
+      border-color: var(--accent);
+      background: rgba(37,99,235,0.08);
+    }
+    .plan-card.selected::after {
+      content: '\f058';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute; top: 10px; right: 10px;
+      color: var(--accent);
+      font-size: 16px;
+    }
+    .plan-icon { font-size: 20px; margin-bottom: 6px; }
+    .plan-name { font-weight: 700; font-size: 0.92rem; }
+    .plan-rate { color: var(--success); font-size: 0.82rem; font-weight: 600; margin-top: 2px; }
+    .plan-desc { color: var(--muted); font-size: 0.78rem; margin-top: 4px; }
+
+    /* ── ALERTS ── */
+    .ewi-alert {
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .ewi-alert-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+    .ewi-alert-success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+    .ewi-alert-info { background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.3); color: #93c5fd; }
+
+    /* ── SUCCESS STATE ── */
+    #successPanel {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .success-circle {
+      width: 80px; height: 80px;
+      background: rgba(16,185,129,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; color: var(--success);
+      margin: 0 auto 20px;
+    }
+    .success-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
+    .success-detail { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+    .success-badge {
+      display: inline-block;
+      background: rgba(16,185,129,0.15);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #34d399;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    /* ── SPINNER ── */
+    .spinner-sm { width: 16px; height: 16px; border-width: 2px; }
+
+    /* ── PASS TOGGLE ── */
+    .pass-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+      font-size: 15px;
+      line-height: 1;
+      height: 20px;
+      width: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
+    .pass-toggle:hover { color: #fff; }
+    .has-toggle { padding-right: 40px !important; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .ewi-card { padding: 20px 16px; }
+      .plan-grid { grid-template-columns: 1fr; }
+      .page-wrapper { margin-top: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="site-header">
+  <div class="site-logo">EW</div>
+  <div>
+    <div class="site-title">Easy Work <span>India</span></div>
+    <div style="font-size:11px;color:var(--muted);">Admin Registration Portal</div>
+  </div>
+  <div class="header-badge"><i class="fa fa-shield-halved me-1"></i>Admin Access</div>
+</header>
+
+<!-- ══════════════════════════════════════
+     PHASE 1: ADMIN LOGIN GATE
+════════════════════════════════════════ -->
+<div class="page-wrapper" id="loginSection">
+  <div class="ewi-card" style="max-width:440px;margin:0 auto;">
+    <div class="card-title-section">
+      <div class="card-title-icon icon-blue">
+        <i class="fa fa-lock"></i>
+      </div>
+      <div class="card-title-text">
+        <h2>Admin Verification</h2>
+        <p>Verify your identity to register new workers</p>
+      </div>
+    </div>
+
+    <div id="loginAlert" class="ewi-alert ewi-alert-error mb-3" style="display:none;">
+      <i class="fa fa-circle-exclamation mt-1"></i>
+      <span id="loginAlertMsg">Invalid credentials. Please try again.</span>
+    </div>
+
+    <div class="ewi-alert ewi-alert-info mb-4">
+      <i class="fa fa-circle-info mt-1"></i>
+      <span>This page is for authorized admin and admin members only. Enter your admin credentials to proceed.</span>
+    </div>
+
+    <form id="loginForm" onsubmit="handleAdminLogin(event)">
+      <div class="mb-3">
+        <label class="form-label"><i class="fa fa-id-badge me-1"></i>Admin ID</label>
+        <input type="text" class="form-control" id="adminIdInput"
+          placeholder="e.g. admin or 9876543210" autocomplete="username" required />
+      </div>
+      <div class="mb-4">
+        <label class="form-label"><i class="fa fa-key me-1"></i>Admin Password</label>
+        <div style="position:relative;">
+          <input type="password" class="form-control has-toggle" id="adminPassInput"
+            placeholder="Enter admin password" autocomplete="current-password" required />
+          <button type="button" class="pass-toggle" onclick="togglePass('adminPassInput', this)">
+            <i class="fa fa-eye"></i>
+          </button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-ewi-primary w-100" id="loginBtn">
+        <i class="fa fa-arrow-right-to-bracket me-2"></i>Verify & Continue
+      </button>
+    </form>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PHASE 2: NEW WORKER REGISTRATION FORM
+════════════════════════════════════════ -->
+<div class="page-wrapper" id="registerSection" style="display:none;">
+
+  <!-- Admin info bar -->
+  <div class="ewi-alert ewi-alert-info mb-3 d-flex align-items-center">
+    <i class="fa fa-shield-halved me-2"></i>
+    <span>Logged in as Admin &nbsp;—&nbsp; <strong id="adminIdDisplay"></strong></span>
+    <button class="btn btn-sm ms-auto" style="color:var(--muted);background:transparent;border:1px solid var(--card-border);font-size:11px;" onclick="handleAdminLogout()">
+      <i class="fa fa-right-from-bracket me-1"></i>Logout
+    </button>
+  </div>
+
+  <div class="ewi-card">
+    <div class="card-title-section">
+      <div class="card-title-icon icon-green">
+        <i class="fa fa-user-plus"></i>
+      </div>
+      <div class="card-title-text">
+        <h2>Register New Worker</h2>
+        <p>Fill all details below — the account will be activated immediately on submit</p>
+      </div>
+    </div>
+
+    <!-- SUCCESS PANEL (shown after submit) -->
+    <div id="successPanel">
+      <div class="success-circle"><i class="fa fa-circle-check"></i></div>
+      <div class="success-name" id="successName">Worker Registered!</div>
+      <div class="success-detail" id="successDetail">Account created and activated successfully.</div>
+      <div class="success-badge" id="successBadge"><i class="fa fa-bolt me-1"></i>Account Active</div>
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <button class="btn btn-ewi-primary" onclick="registerAnother()">
+          <i class="fa fa-plus me-2"></i>Register Another Worker
+        </button>
+      </div>
+    </div>
+
+    <!-- REGISTRATION FORM -->
+    <form id="regForm" onsubmit="handleRegisterSubmit(event)">
+
+      <!-- ── PERSONAL INFORMATION ── -->
+      <div class="section-label"><i class="fa fa-user me-1"></i>Personal Information</div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Full Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="reg_name" placeholder="e.g. Ramesh Kumar Singh" required />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+          <input type="tel" class="form-control" id="reg_phone" placeholder="10-digit mobile number" maxlength="10" required />
+        </div>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="reg_email" placeholder="worker@example.com" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Full Address</label>
+          <input type="text" class="form-control" id="reg_address" placeholder="City, State" />
+        </div>
+      </div>
+
+      <!-- ── LOGIN CREDENTIALS ── -->
+      <div class="section-label"><i class="fa fa-fingerprint me-1"></i>Login Credentials</div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Username / Login ID <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="reg_username"
+            placeholder="e.g. WORK01 or ramesh2026" required autocomplete="off" />
+          <div class="form-text" style="color:var(--muted);font-size:0.76rem;">Worker uses this to log in</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Password <span class="text-danger">*</span></label>
+          <div style="position:relative;">
+            <input type="password" class="form-control has-toggle" id="reg_password"
+              placeholder="Set a secure password" required autocomplete="new-password" />
+            <button type="button" class="pass-toggle" onclick="togglePass('reg_password', this)">
+              <i class="fa fa-eye"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── KYC DOCUMENTS ── -->
+      <div class="section-label"><i class="fa fa-id-card me-1"></i>KYC Details</div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Aadhaar Number</label>
+          <input type="text" class="form-control" id="reg_aadhaar"
+            placeholder="12-digit Aadhaar" maxlength="12" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">PAN Card Number</label>
+          <input type="text" class="form-control" id="reg_pan"
+            placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform:uppercase;" />
+        </div>
+      </div>
+
+      <!-- ── WORK PLAN SELECTION ── -->
+      <div class="section-label"><i class="fa fa-briefcase me-1"></i>Assign Work Plan <span class="text-danger">*</span></div>
+
+      <div class="plan-grid mb-3" id="planGrid">
+        <label class="plan-card selected" onclick="selectPlan('data_entry', this)">
+          <input type="radio" name="plan" value="data_entry" checked />
+          <div class="plan-icon">&#128196;</div>
+          <div class="plan-name">Data Entry Project</div>
+          <div class="plan-rate">&#8377;60 per page</div>
+          <div class="plan-desc">Type scanned documents, 350 pages/week</div>
+        </label>
+        <label class="plan-card" onclick="selectPlan('form_filling', this)">
+          <input type="radio" name="plan" value="form_filling" />
+          <div class="plan-icon">&#128203;</div>
+          <div class="plan-name">Form Filling Project</div>
+          <div class="plan-rate">&#8377;50 per form</div>
+          <div class="plan-desc">Fill online forms, 350 forms/week</div>
+        </label>
+      </div>
+
+      <!-- ── DOCUMENT UPLOADS ── -->
+      <div class="section-label"><i class="fa fa-cloud-arrow-up me-1"></i>Document Uploads</div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">
+          <label class="form-label">Profile Photo</label>
+          <div class="upload-wrapper">
+            <input type="file" id="file_photo" accept="image/*" onchange="handleFileUpload(this,'prev_photo')" />
+            <div class="upload-icon"><i class="fa fa-camera"></i></div>
+            <div class="upload-label">Click to upload photo<br><span style="font-size:0.72rem;">JPG, PNG up to 5MB</span></div>
+            <img id="prev_photo" class="upload-preview" alt="Photo preview" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Digital Signature</label>
+          <div class="upload-wrapper">
+            <input type="file" id="file_signature" accept="image/*" onchange="handleFileUpload(this,'prev_signature')" />
+            <div class="upload-icon"><i class="fa fa-signature"></i></div>
+            <div class="upload-label">Click to upload signature<br><span style="font-size:0.72rem;">JPG, PNG up to 2MB</span></div>
+            <img id="prev_signature" class="upload-preview" alt="Signature preview" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Aadhaar — Front Side</label>
+          <div class="upload-wrapper">
+            <input type="file" id="file_aadhaar_front" accept="image/*,application/pdf" onchange="handleFileUpload(this,'prev_aadhaar_front')" />
+            <div class="upload-icon"><i class="fa fa-id-card"></i></div>
+            <div class="upload-label">Click to upload Aadhaar front<br><span style="font-size:0.72rem;">JPG, PNG, PDF up to 5MB</span></div>
+            <img id="prev_aadhaar_front" class="upload-preview" alt="Aadhaar front preview" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <label class="form-label">Aadhaar — Back Side</label>
+          <div class="upload-wrapper">
+            <input type="file" id="file_aadhaar_back" accept="image/*,application/pdf" onchange="handleFileUpload(this,'prev_aadhaar_back')" />
+            <div class="upload-icon"><i class="fa fa-id-card-clip"></i></div>
+            <div class="upload-label">Click to upload Aadhaar back<br><span style="font-size:0.72rem;">JPG, PNG, PDF up to 5MB</span></div>
+            <img id="prev_aadhaar_back" class="upload-preview" alt="Aadhaar back preview" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">PAN Card</label>
+          <div class="upload-wrapper">
+            <input type="file" id="file_pan" accept="image/*,application/pdf" onchange="handleFileUpload(this,'prev_pan')" />
+            <div class="upload-icon"><i class="fa fa-credit-card"></i></div>
+            <div class="upload-label">Click to upload PAN card<br><span style="font-size:0.72rem;">JPG, PNG, PDF up to 5MB</span></div>
+            <img id="prev_pan" class="upload-preview" alt="PAN card preview" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ERROR / SUBMIT ── -->
+      <div id="regAlert" class="ewi-alert ewi-alert-error mb-3" style="display:none;">
+        <i class="fa fa-circle-exclamation mt-1"></i>
+        <span id="regAlertMsg"></span>
+      </div>
+
+      <div class="d-flex gap-3 flex-wrap">
+        <button type="submit" class="btn btn-ewi-primary" id="submitBtn">
+          <i class="fa fa-user-check me-2"></i>Create Worker Account
+        </button>
+        <button type="reset" class="btn btn-ewi-outline" onclick="clearForm()">
+          <i class="fa fa-rotate-left me-2"></i>Clear Form
+        </button>
+      </div>
+
+    </form><!-- /regForm -->
+  </div><!-- /ewi-card -->
+</div><!-- /registerSection -->
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Cloud Sync (optional — available when served via server.js) -->
+<script>
+  // Safe loader — cloud_sync.js may not be available in standalone mode
+  (function() {
+    var s = document.createElement('script');
+    s.src = 'cloud_sync.js';
+    s.onerror = function() { /* cloud sync unavailable — local only */ };
+    document.head.appendChild(s);
+  })();
+</script>
+
+<script charset="UTF-8">
+/* ═══════════════════════════════════════════════
+   EASY WORK INDIA — EXTERNAL REGISTRATION PAGE
+   Admin-gated new worker registration
+   No dependency on old_admin_app.js or app.js
+═══════════════════════════════════════════════ */
+
+'use strict';
+
+// ── CONSTANTS ──
+const ADMIN_AUTH_KEY  = 'ewi_admin_logged_in';
+const REG_ADMIN_KEY   = 'ewi_reg_admin_id';
+
+// Valid admin credentials (matches old_admin_app.js + server defaults)
+const VALID_ADMIN_IDS   = ['admin', '9876543210'];
+const VALID_ADMIN_PASS  = ['123456', 'Work2026', 'admin123'];
+
+// File store for base64 uploads
+const uploadStore = {};
+let selectedPlan = 'data_entry';
+let currentAdminId = '';
+
+/* ───────────────────────────────
+   UTILITY
+─────────────────────────────── */
+function el(id) { return document.getElementById(id); }
+
+function showAlert(containerId, msgId, message, type) {
+  var c = el(containerId);
+  var m = el(msgId);
+  c.className = 'ewi-alert ewi-alert-' + type + ' mb-3';
+  m.textContent = message;
+  c.style.display = 'flex';
+}
+
+function hideAlert(containerId) {
+  el(containerId).style.display = 'none';
+}
+
+function togglePass(inputId, btn) {
+  var inp = el(inputId);
+  var icon = btn.querySelector('i');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    icon.className = 'fa fa-eye-slash';
+  } else {
+    inp.type = 'password';
+    icon.className = 'fa fa-eye';
+  }
+}
+
+function setLoadingBtn(btnId, loading, originalHTML) {
+  var btn = el(btnId);
+  if (loading) {
+    btn._originalHTML = btn.innerHTML;
+    btn.innerHTML = '<span class="spinner-border spinner-sm me-2" role="status"></span>Processing...';
+    btn.disabled = true;
+  } else {
+    btn.innerHTML = originalHTML || btn._originalHTML || btn.innerHTML;
+    btn.disabled = false;
+  }
+}
+
+/* ───────────────────────────────
+   PLAN SELECTOR
+─────────────────────────────── */
+function selectPlan(planKey, labelEl) {
+  selectedPlan = planKey;
+  document.querySelectorAll('.plan-card').forEach(function(c) {
+    c.classList.remove('selected');
+  });
+  labelEl.classList.add('selected');
+  labelEl.querySelector('input[type="radio"]').checked = true;
+}
+
+/* ───────────────────────────────
+   FILE UPLOAD HANDLER
+─────────────────────────────── */
+function handleFileUpload(input, previewId) {
+  var file = input.files[0];
+  if (!file) return;
+
+  function applyPreview(dataUrl, isImage, fileName, fileSize) {
+    uploadStore[input.id] = dataUrl;
+    var preview = el(previewId);
+    var wrapper = input.closest('.upload-wrapper');
+
+    if (isImage) {
+      preview.src = dataUrl;
+      preview.classList.add('shown');
+      if (wrapper) {
+        var icon = wrapper.querySelector('.upload-icon');
+        var label = wrapper.querySelector('.upload-label');
+        if (icon) icon.style.display = 'none';
+        if (label) label.style.display = 'none';
+      }
+    } else {
+      preview.style.display = 'none';
+      if (wrapper) {
+        var label = wrapper.querySelector('.upload-label');
+        if (label) label.innerHTML = '<i class="fa fa-file-pdf me-1" style="color:#ef4444"></i>' +
+          '<strong>' + (fileName || 'Document') + '</strong><br><span style="font-size:0.72rem;">' +
+          ((fileSize || 0) / 1024).toFixed(0) + ' KB</span>';
+      }
+    }
+  }
+
+  // Fast client-side image compression: converts 5MB photos into ~40KB in 20ms
+  if (file.type && file.type.startsWith('image/')) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        var w = img.width, h = img.height;
+        var maxDim = 800;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+          else { w = Math.round((w * maxDim) / h); h = maxDim; }
+        }
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        var compressed = canvas.toDataURL('image/jpeg', 0.75);
+        applyPreview(compressed, true);
+      };
+      img.onerror = function() {
+        applyPreview(e.target.result, true);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      applyPreview(e.target.result, false, file.name, file.size);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+/* ───────────────────────────────
+   PHASE 1 — ADMIN LOGIN
+─────────────────────────────── */
+async function handleAdminLogin(e) {
+  e.preventDefault();
+  hideAlert('loginAlert', 'loginAlertMsg');
+
+  var adminId   = (el('adminIdInput').value || '').trim();
+  var adminPass = (el('adminPassInput').value || '').trim();
+
+  setLoadingBtn('loginBtn', true);
+
+  // 1. Check custom credentials from localStorage / Firebase / defaults
+  var customCreds = null;
+  try {
+    customCreds = JSON.parse(localStorage.getItem('ewi_admin_credentials') || 'null');
+  } catch (_) {}
+
+  var isCustomized = !!(customCreds && customCreds.customized);
+
+  var validIds = VALID_ADMIN_IDS.slice();
+  if (customCreds && customCreds.id) validIds.push(customCreds.id.toLowerCase());
+
+  // If password has been customized, ONLY the saved custom password works (factory defaults BLOCKED)
+  // If not yet customized, also allow factory defaults
+  var validPass = [];
+  if (customCreds && customCreds.password) validPass.push(customCreds.password);
+  if (!isCustomized) {
+    validPass = validPass.concat(VALID_ADMIN_PASS);
+  }
+
+  var localOk = validIds.indexOf(adminId.toLowerCase()) !== -1 &&
+                validPass.indexOf(adminPass) !== -1;
+
+  if (!localOk) {
+    // 2. Try fetching updated admin credentials from Firebase Realtime Database
+    try {
+      var cRes = await fetch('https://easy-work-india-default-rtdb.asia-southeast1.firebasedatabase.app/ewi_admin_credentials.json');
+      if (cRes.ok) {
+        var cloudCreds = await cRes.json();
+        if (cloudCreds && cloudCreds.password) {
+          localStorage.setItem('ewi_admin_credentials', JSON.stringify(cloudCreds));
+          isCustomized = !!(cloudCreds.customized);
+          var cloudValidPass = [cloudCreds.password];
+          if (!isCustomized) cloudValidPass = cloudValidPass.concat(VALID_ADMIN_PASS);
+          var idMatch = adminId.toLowerCase() === 'admin' ||
+                        adminId === '9876543210' ||
+                        (cloudCreds.id && adminId.toLowerCase() === cloudCreds.id.toLowerCase());
+          if (idMatch && cloudValidPass.indexOf(adminPass) !== -1) {
+            localOk = true;
+          }
+        }
+      }
+    } catch (_) {}
+  }
+
+  if (!localOk) {
+    // 3. Try server endpoint for custom credentials
+    try {
+      var resp = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: adminId, password: adminPass })
+      });
+      var data = await resp.json();
+      if (data.ok && data.role === 'admin') {
+        localOk = true;
+      }
+    } catch (_) {
+      // Server not reachable — only allow hardcoded creds
+    }
+  }
+
+  setLoadingBtn('loginBtn', false, '<i class="fa fa-arrow-right-to-bracket me-2"></i>Verify & Continue');
+
+  if (localOk) {
+    // Save auth state
+    sessionStorage.setItem(ADMIN_AUTH_KEY, 'true');
+    localStorage.setItem(ADMIN_AUTH_KEY, 'true');
+    localStorage.setItem(REG_ADMIN_KEY, adminId);
+    currentAdminId = adminId;
+
+    // Switch panels
+    el('loginSection').style.display = 'none';
+    el('registerSection').style.display = 'block';
+    el('adminIdDisplay').textContent = adminId;
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    showAlert('loginAlert', 'loginAlertMsg',
+      'Invalid admin credentials. Please check your Admin ID and Password.',
+      'error');
+  }
+}
+
+/* ───────────────────────────────
+   ADMIN LOGOUT
+─────────────────────────────── */
+function handleAdminLogout() {
+  if (confirm('Log out of the registration portal?')) {
+    sessionStorage.removeItem(ADMIN_AUTH_KEY);
+    localStorage.removeItem(REG_ADMIN_KEY);
+    currentAdminId = '';
+    el('registerSection').style.display = 'none';
+    el('loginSection').style.display = 'block';
+    el('loginForm').reset();
+    clearForm();
+  }
+}
+
+/* ───────────────────────────────
+   PHASE 2 — REGISTER WORKER
+─────────────────────────────── */
+async function handleRegisterSubmit(e) {
+  e.preventDefault();
+  hideAlert('regAlert', 'regAlertMsg');
+
+  // Gather fields
+  var name     = (el('reg_name').value || '').trim();
+  var phone    = (el('reg_phone').value || '').trim();
+  var email    = (el('reg_email').value || '').trim();
+  var address  = (el('reg_address').value || '').trim();
+  var username = (el('reg_username').value || '').trim().toUpperCase();
+  var password = (el('reg_password').value || '').trim();
+  var aadhaar  = (el('reg_aadhaar').value || '').trim();
+  var pan      = (el('reg_pan').value || '').trim().toUpperCase();
+
+  // Validate required
+  if (!name)     { return showAlert('regAlert','regAlertMsg','Full Name is required.','error'); }
+  if (!phone || phone.length < 10) { return showAlert('regAlert','regAlertMsg','Valid 10-digit phone number is required.','error'); }
+  if (!username) { return showAlert('regAlert','regAlertMsg','Username / Login ID is required.','error'); }
+  if (!password || password.length < 4) { return showAlert('regAlert','regAlertMsg','Password must be at least 4 characters.','error'); }
+  if (!selectedPlan) { return showAlert('regAlert','regAlertMsg','Please select a Work Plan.','error'); }
+
+  // Map plan key to display name
+  var planNames = {
+    data_entry:   'Data Entry Project',
+    form_filling: 'Form Filling Project'
+  };
+  var projectName = planNames[selectedPlan] || 'Data Entry Project';
+
+  // Build user object (matches server.js INSERT structure)
+  var todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+  var newUser = {
+    name:          name,
+    username:      username,
+    userId:        username,
+    phone:         phone,
+    email:         email,
+    address:       address,
+    project:       projectName,
+    projectKey:    selectedPlan,
+    project_key:   selectedPlan,
+    plainPassword: password,
+    plain_password:password,
+    aadhaar:       aadhaar,
+    panCard:       pan,
+    pan_card:      pan,
+    photoUrl:      uploadStore['file_photo']        || '',
+    photo_url:     uploadStore['file_photo']        || '',
+    signatureData: uploadStore['file_signature']    || '',
+    signature_data:uploadStore['file_signature']    || '',
+    aadhaarFrontFile: uploadStore['file_aadhaar_front'] || '',
+    aadhaar_front_file: uploadStore['file_aadhaar_front'] || '',
+    aadhaarBackFile:  uploadStore['file_aadhaar_back']  || '',
+    aadhaar_back_file:  uploadStore['file_aadhaar_back']  || '',
+    aadhaarFile:   uploadStore['file_aadhaar_front'] || '',
+    aadhaar_file:  uploadStore['file_aadhaar_front'] || '',
+    panFile:       uploadStore['file_pan']           || '',
+    pan_file:      uploadStore['file_pan']           || '',
+    permissions: {
+      wallet_activation:  false,
+      kyc_verification:   false,
+      withdrawal_charges: false,
+      gst_charge:         false,
+      noc_charges:        false
+    },
+    wallet_balance: '\u20B90',
+    earnings:       '\u20B90',
+    status:         'active',
+    joined:         todayStr,
+    created_at:     new Date().toISOString()
+  };
+
+  setLoadingBtn('submitBtn', true);
+
+  var serverSaved = false;
+  var serverError = '';
+
+  // ── 1. Try POST to /api/users ──
+  try {
+    var resp = await fetch('/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newUser)
+    });
+    var result = await resp.json();
+
+    if (result.ok) {
+      serverSaved = true;
+    } else {
+      serverError = result.error || 'Server error occurred.';
+    }
+  } catch (_) {
+    serverError = 'Could not reach server. Saving locally.';
+  }
+
+  // ── 2. Fallback: Save to localStorage (for offline / static mode) ──
+  try {
+    var localUsers = [];
+    try { localUsers = JSON.parse(localStorage.getItem('ewi_workers') || '[]'); } catch(_) {}
+
+    // Check for duplicate username
+    var dup = localUsers.find(function(u) {
+      return (u.username || '').toLowerCase() === username.toLowerCase() ||
+             (u.phone === phone);
+    });
+
+    if (!dup) {
+      newUser.id = 'LOCAL_' + Date.now();
+      localUsers.push(newUser);
+      localStorage.setItem('ewi_workers', JSON.stringify(localUsers));
+
+      // Also save to ewi_users_db & ewi_all_users (admin panel formats)
+      try {
+        var uDb = JSON.parse(localStorage.getItem('ewi_users_db') || '[]');
+        if (!uDb.some(function(u) { return (u.username || '').toLowerCase() === username.toLowerCase() || u.phone === phone; })) {
+          uDb.unshift(newUser);
+          localStorage.setItem('ewi_users_db', JSON.stringify(uDb));
+        }
+      } catch (_) {}
+
+      var allUsers = [];
+      try { allUsers = JSON.parse(localStorage.getItem('ewi_all_users') || '[]'); } catch(_) {}
+      var dupAll = allUsers.find(function(u) {
+        return (u.username || '').toLowerCase() === username.toLowerCase() ||
+               (u.phone === phone);
+      });
+      if (!dupAll) {
+        allUsers.push(newUser);
+        localStorage.setItem('ewi_all_users', JSON.stringify(allUsers));
+      }
+    }
+  } catch (_) {}
+
+  // ── 3. Cloud sync in background (non-blocking for instant response) ──
+  try {
+    if (window.EWI_CloudSync && typeof window.EWI_CloudSync.saveUser === 'function') {
+      window.EWI_CloudSync.saveUser(newUser).catch(function() {});
+    }
+  } catch (_) {}
+
+  setLoadingBtn('submitBtn', false, '<i class="fa fa-user-check me-2"></i>Create Worker Account');
+
+  // ── Handle duplicate error ──
+  if (!serverSaved && serverError && serverError.toLowerCase().includes('already')) {
+    return showAlert('regAlert', 'regAlertMsg',
+      'A worker with this Username or Phone number already exists. Please use different credentials.',
+      'error');
+  }
+
+  // ── Show success ──
+  el('regForm').style.display = 'none';
+  el('successPanel').style.display = 'block';
+  el('successName').textContent = name + ' (' + username + ') Registered!';
+  el('successDetail').innerHTML =
+    'Project: <strong>' + projectName + '</strong> &nbsp;&bull;&nbsp; Phone: <strong>' + phone + '</strong>' +
+    (serverSaved ? '<br><span style="color:var(--success);font-size:0.82rem;"><i class="fa fa-database me-1"></i>Saved to server database</span>'
+                 : '<br><span style="color:#fbbf24;font-size:0.82rem;"><i class="fa fa-triangle-exclamation me-1"></i>Saved locally (server offline)</span>');
+  el('successBadge').innerHTML = '<i class="fa fa-bolt me-1"></i>Account Active \u2713';
+
+  // Scroll success into view
+  el('successPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ───────────────────────────────
+   REGISTER ANOTHER / CLEAR
+─────────────────────────────── */
+function registerAnother() {
+  el('regForm').reset();
+  clearForm();
+  el('successPanel').style.display = 'none';
+  el('regForm').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function clearForm() {
+  // Clear upload store & previews
+  ['file_photo','file_signature','file_aadhaar_front','file_aadhaar_back','file_pan'].forEach(function(id) {
+    delete uploadStore[id];
+    var inp = el(id);
+    if (inp) inp.value = '';
+  });
+  ['prev_photo','prev_signature','prev_aadhaar_front','prev_aadhaar_back','prev_pan'].forEach(function(id) {
+    var prev = el(id);
+    if (prev) { prev.src = ''; prev.classList.remove('shown'); }
+  });
+
+  // Restore upload placeholder text/icons
+  document.querySelectorAll('.upload-wrapper').forEach(function(w) {
+    var icon  = w.querySelector('.upload-icon');
+    var label = w.querySelector('.upload-label');
+    if (icon) icon.style.display = '';
+    if (label) {
+      label.style.display = '';
+      // Restore original text if replaced
+      if (!label.querySelector('i.fa-camera') && !label.querySelector('i.fa-signature')) {
+        // reset to generic
+      }
+    }
+  });
+
+  // Reset plan to data_entry
+  selectedPlan = 'data_entry';
+  document.querySelectorAll('.plan-card').forEach(function(c) { c.classList.remove('selected'); });
+  var firstPlan = document.querySelector('.plan-card');
+  if (firstPlan) {
+    firstPlan.classList.add('selected');
+    var radio = firstPlan.querySelector('input[type="radio"]');
+    if (radio) radio.checked = true;
+  }
+
+  hideAlert('regAlert', 'regAlertMsg');
+}
+
+/* ───────────────────────────────
+   RESTORE SESSION ON PAGE LOAD
+─────────────────────────────── */
+(function initPage() {
+  var alreadyLoggedIn = sessionStorage.getItem(ADMIN_AUTH_KEY) === 'true' ||
+                        localStorage.getItem(ADMIN_AUTH_KEY) === 'true';
+  currentAdminId = localStorage.getItem(REG_ADMIN_KEY) || 'admin';
+
+  if (alreadyLoggedIn) {
+    el('loginSection').style.display = 'none';
+    el('registerSection').style.display = 'block';
+    el('adminIdDisplay').textContent = currentAdminId;
+  }
+})();
+
+</script>
+</body>
+</html>
+

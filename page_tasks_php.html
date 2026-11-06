@@ -1,0 +1,629 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management - Easy Work India</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://dashboard.easyworkindia.site/assets/css/style.css">
+    
+    <!-- Page-specific CSS -->
+        
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://dashboard.easyworkindia.site/assets/images/favicon.ico">
+</head>
+<body class="admin-tasks">
+    <!-- Loader -->
+    <div id="loader" class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+<div class="main-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <div class="container-fluid">
+        <!-- Logo and Brand -->
+        <a class="navbar-brand" href="../admin/dashboard.php">
+            <i class="fas fa-briefcase me-2"></i>
+            <span class="fw-bold">Easy Work India</span>
+        </a>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Left Side: Navigation Links -->
+            <ul class="navbar-nav me-auto">
+                                                            <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/dashboard.php">
+                                <i class="fas fa-chart-line me-1"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/users.php">
+                                <i class="fas fa-users me-1"></i> Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" 
+                               href="../admin/tasks.php">
+                                <i class="fas fa-tasks me-1"></i> Tasks
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/finances.php">
+                                <i class="fas fa-money-bill-wave me-1"></i> Finances
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " 
+                               href="../admin/uzpay.php">
+                                <i class="fas fa-credit-card me-1"></i> UzPay
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-cog me-1"></i> Settings
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../admin/settings.php">System Settings</a></li>
+                                <li><a class="dropdown-item" href="../admin/popups.php">Login Popups</a></li>
+                                <li><a class="dropdown-item" href="../admin/reports.php">Reports</a></li>
+                                                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="../admin/clear_data.php">Clear Data</a></li>
+                                                            </ul>
+                        </li>
+                                                </ul>
+            
+            <!-- Right Side: User Info & Logout -->
+            <ul class="navbar-nav ms-auto">
+                                                            <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-shield me-1"></i>
+                                Admin                                <span class="badge bg-light text-dark ms-1">superadmin</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="../admin/dashboard.php">
+                                        <i class="fas fa-chart-line me-2"></i> Admin Panel
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="../auth/logout.php">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                                                </ul>
+        </div>
+    </div>
+</nav>    
+    <div class="content-wrapper">
+        <!-- Page Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card fade-in">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h2 class="mb-2 text-gradient">Task Management</h2>
+                                <p class="text-muted mb-0">
+                                    <i class="fas fa-tasks me-1"></i>
+                                    Manage task pools and monitor task completion
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                                                <div class="bg-gradient text-white p-3 rounded-3">
+                                    <h5 class="mb-0">Today's Tasks</h5>
+                                    <h3 class="mb-0">30</h3>
+                                    <small>Earnings: ₹3,000.00</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Task Pool Statistics -->
+        <div class="row mb-4">
+                                            
+                <div class="col-md-4 mb-4">
+                    <div class="card border-left-primary h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-shield-alt fa-2x text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-0">Captcha</h5>
+                                    <small class="text-muted">Task Pool</small>
+                                </div>
+                            </div>
+                            
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="p-2">
+                                        <h3 class="text-primary mb-0">4467</h3>
+                                        <small class="text-muted">Total</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="p-2">
+                                        <h3 class="text-success mb-0">0</h3>
+                                        <small class="text-muted">Available</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="p-2">
+                                        <h3 class="text-warning mb-0">0</h3>
+                                        <small class="text-muted">Used Today</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <small class="text-muted">Availability</small>
+                                        <small>0%</small>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar bg-danger" 
+                                             style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                
+                                <form method="POST" class="mt-3">
+                                    <input type="hidden" name="type" value="captcha">
+                                    <div class="input-group input-group-sm">
+                                        <input type="number" name="count" class="form-control" 
+                                               placeholder="Number to add" min="1" max="1000" value="10">
+                                        <button type="submit" name="generate_pool" class="btn btn-primary">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                            
+                <div class="col-md-4 mb-4">
+                    <div class="card border-left-success h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-keyboard fa-2x text-success"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-0">Data Entry</h5>
+                                    <small class="text-muted">Task Pool</small>
+                                </div>
+                            </div>
+                            
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="p-2">
+                                        <h3 class="text-success mb-0">16582</h3>
+                                        <small class="text-muted">Total</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="p-2">
+                                        <h3 class="text-success mb-0">0</h3>
+                                        <small class="text-muted">Available</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="p-2">
+                                        <h3 class="text-warning mb-0">0</h3>
+                                        <small class="text-muted">Used Today</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <small class="text-muted">Availability</small>
+                                        <small>0%</small>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar bg-danger" 
+                                             style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                
+                                <form method="POST" class="mt-3">
+                                    <input type="hidden" name="type" value="data_entry">
+                                    <div class="input-group input-group-sm">
+                                        <input type="number" name="count" class="form-control" 
+                                               placeholder="Number to add" min="1" max="1000" value="10">
+                                        <button type="submit" name="generate_pool" class="btn btn-success">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                            
+                <div class="col-md-4 mb-4">
+                    <div class="card border-left-warning h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-file-signature fa-2x text-warning"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-0">Form Filling</h5>
+                                    <small class="text-muted">Task Pool</small>
+                                </div>
+                            </div>
+                            
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="p-2">
+                                        <h3 class="text-warning mb-0">16689</h3>
+                                        <small class="text-muted">Total</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="p-2">
+                                        <h3 class="text-success mb-0">0</h3>
+                                        <small class="text-muted">Available</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="p-2">
+                                        <h3 class="text-warning mb-0">59</h3>
+                                        <small class="text-muted">Used Today</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <small class="text-muted">Availability</small>
+                                        <small>0%</small>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar bg-danger" 
+                                             style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                
+                                <form method="POST" class="mt-3">
+                                    <input type="hidden" name="type" value="form_filling">
+                                    <div class="input-group input-group-sm">
+                                        <input type="number" name="count" class="form-control" 
+                                               placeholder="Number to add" min="1" max="1000" value="10">
+                                        <button type="submit" name="generate_pool" class="btn btn-warning">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+
+        <!-- Today's Task Statistics -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Today's Task Statistics</h5>
+                    </div>
+                    <div class="card-body">
+                                                    <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Task Type</th>
+                                            <th>Completed Tasks</th>
+                                            <th>Total Earnings</th>
+                                            <th>Average per Task</th>
+                                            <th>Percentage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                                                                                                                <tr>
+                                                <td>
+                                                    <span class="badge 
+                                                        bg-warning">
+                                                        Form Filling                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <strong>30</strong> tasks
+                                                </td>
+                                                <td class="text-success fw-bold">
+                                                    ₹3,000.00                                                </td>
+                                                <td>
+                                                    ₹100.00                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="progress flex-grow-1 me-2" style="height: 6px;">
+                                                            <div class="progress-bar 
+                                                                bg-warning" 
+                                                                style="width: 100%">
+                                                            </div>
+                                                        </div>
+                                                        <small>100%</small>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                                
+                                        <!-- Total Row -->
+                                        <tr class="table-active">
+                                            <td><strong>Total</strong></td>
+                                            <td><strong>30 tasks</strong></td>
+                                            <td class="text-success fw-bold">
+                                                <strong>₹3,000.00</strong>
+                                            </td>
+                                            <td>
+                                                ₹100.00                                            </td>
+                                            <td>100%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                                            </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Reward Settings -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-rupee-sign me-2"></i>Task Reward Settings</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="settings.php">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Captcha Solving Reward</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">₹</span>
+                                        <input type="number" class="form-control" 
+                                               name="settings[captcha_reward]" 
+                                               value="200"
+                                               min="1" step="1" required>
+                                    </div>
+                                    <div class="form-text">Per successful task</div>
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Data Entry Reward</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">₹</span>
+                                        <input type="number" class="form-control" 
+                                               name="settings[data_entry_reward]" 
+                                               value="150"
+                                               min="1" step="1" required>
+                                    </div>
+                                    <div class="form-text">Per successful task</div>
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Form Filling Reward</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">₹</span>
+                                        <input type="number" class="form-control" 
+                                               name="settings[form_filling_reward]" 
+                                               value="100"
+                                               min="1" step="1" required>
+                                    </div>
+                                    <div class="form-text">Per successful task</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Default Daily Task Limit</label>
+                                    <input type="number" class="form-control" 
+                                           name="settings[default_daily_limit]" 
+                                           value="30"
+                                           min="1" max="1000" step="1" required>
+                                    <div class="form-text">Applied to new users</div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Minimum Withdrawal Amount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">₹</span>
+                                        <input type="number" class="form-control" 
+                                               name="settings[min_withdrawal]" 
+                                               value="3000"
+                                               min="1" step="1" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                These settings will affect all users. Changes take effect immediately.
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save Reward Settings
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Cleanup -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-broom me-2"></i>Task Pool Cleanup</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-danger">
+                                    <div class="card-body">
+                                        <h6>Remove Old Tasks</h6>
+                                        <p class="text-muted">Remove used tasks older than specified days</p>
+                                        
+                                        <form method="POST" action="?action=cleanup">
+                                            <div class="input-group mb-3">
+                                                <input type="number" class="form-control" 
+                                                       name="days_old" min="1" max="365" 
+                                                       placeholder="Days old" value="30">
+                                                <button type="submit" class="btn btn-danger" 
+                                                        onclick="return confirm('Remove old used tasks? This cannot be undone.')">
+                                                    <i class="fas fa-trash me-2"></i>Cleanup
+                                                </button>
+                                            </div>
+                                            <small class="text-muted">
+                                                Removes tasks that were completed more than X days ago
+                                            </small>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card border-warning">
+                                    <div class="card-body">
+                                        <h6>Reset All Pools</h6>
+                                        <p class="text-muted">Reset all task pools (use with caution)</p>
+                                        
+                                        <form method="POST" action="?action=reset_pools">
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" 
+                                                       name="confirm_reset" id="confirmReset">
+                                                <label class="form-check-label" for="confirmReset">
+                                                    I understand this will delete all existing tasks
+                                                </label>
+                                            </div>
+                                            
+                                            <button type="submit" class="btn btn-warning" 
+                                                    onclick="return confirm('RESET ALL TASK POOLS? This will delete ALL tasks!')"
+                                                    disabled>
+                                                <i class="fas fa-redo me-2"></i>Reset All Pools
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-warning mt-3">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Warning:</strong> 
+                            Cleanup actions cannot be undone. Make sure to backup your database before performing these operations.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="https://dashboard.easyworkindia.site/assets/js/script.js"></script>
+    
+    <!-- Page-specific JS -->
+    
+        
+    <script>
+        // Hide loader when page is loaded
+        $(window).on('load', function() {
+            setTimeout(function() {
+                $('#loader').fadeOut('slow');
+            }, 500);
+        });
+        
+        // Show loader when navigating
+        $(document).on('click', 'a', function(e) {
+            const href = $(this).attr('href');
+            if (href && href !== '#' && !$(this).hasClass('no-loader')) {
+                $('#loader').fadeIn('fast');
+            }
+        });
+        
+        // Auto-dismiss alerts
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.alert:not(.alert-permanent)').fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove(); 
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+    // Enable/disable reset button based on checkbox
+    $('#confirmReset').on('change', function() {
+        $('button[onclick*="RESET ALL TASK POOLS"]').prop('disabled', !$(this).is(':checked'));
+    });
+    
+    // Auto-refresh stats every 30 seconds
+    let refreshInterval = setInterval(refreshStats, 30000);
+    
+    function refreshStats() {
+        $.ajax({
+            url: '../api/stats.php?action=get_dashboard_stats',
+            method: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    // Update today's tasks count
+                    const totalTasks = response.data.today_tasks || 0;
+                    const totalEarnings = response.data.today_earnings || 0;
+                    
+                    $('.bg-gradient h3').text(totalTasks);
+                    $('.bg-gradient small').text('Earnings: ₹' + parseFloat(totalEarnings).toFixed(2));
+                }
+            }
+        });
+    }
+    
+    // Stop refreshing when page is hidden
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            clearInterval(refreshInterval);
+        } else {
+            refreshInterval = setInterval(refreshStats, 30000);
+            refreshStats(); // Refresh immediately
+        }
+    });
+});
+</script>
